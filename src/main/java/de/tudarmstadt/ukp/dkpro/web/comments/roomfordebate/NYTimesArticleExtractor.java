@@ -54,7 +54,7 @@ public class NYTimesArticleExtractor {
 
 		Element element = doc.select("article.rfd").iterator().next();
 
-//		System.out.println(element);
+		System.out.println(element);
 
 		String dateText = element.select("p.pubdate").text().replaceAll("Updated[\\s]+", "");
 		// time
@@ -84,6 +84,11 @@ public class NYTimesArticleExtractor {
 
 		// aurhor
 		result.setAuthor(element.select("div.nytint-mugshots > img").iterator().next().attr("alt"));
+
+		// topics
+		for (Element a : element.select("p.nytint-tags > a")) {
+			result.getTopics().add(a.attr("href"));
+		}
 
 		return result;
 	}

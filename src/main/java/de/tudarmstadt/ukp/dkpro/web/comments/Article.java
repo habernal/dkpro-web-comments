@@ -19,6 +19,8 @@
 package de.tudarmstadt.ukp.dkpro.web.comments;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * (c) 2015 Ivan Habernal
@@ -39,6 +41,8 @@ public class Article {
 
 	private String debateUrl;
 	private String debateDescription;
+
+	private Set<String> topics = new HashSet<String>();
 
 	public String getAuthor() {
 		return author;
@@ -96,6 +100,22 @@ public class Article {
 		this.debateUrl = debateUrl;
 	}
 
+	public void setDebateDescription(String debateDescription) {
+		this.debateDescription = debateDescription;
+	}
+
+	public String getDebateDescription() {
+		return debateDescription;
+	}
+
+	public Set<String> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(Set<String> topics) {
+		this.topics = topics;
+	}
+
 	@Override
 	public String toString() {
 		return "Article{" +
@@ -107,14 +127,7 @@ public class Article {
 				", debateTitle='" + debateTitle + '\'' +
 				", debateUrl='" + debateUrl + '\'' +
 				", debateDescription='" + debateDescription + '\'' +
+				", topics=" + topics +
 				'}';
-	}
-
-	public void setDebateDescription(String debateDescription) {
-		this.debateDescription = debateDescription;
-	}
-
-	public String getDebateDescription() {
-		return debateDescription;
 	}
 }
