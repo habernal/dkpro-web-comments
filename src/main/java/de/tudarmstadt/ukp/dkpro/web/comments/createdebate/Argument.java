@@ -53,6 +53,11 @@ public class Argument
      */
     private String id;
 
+    /**
+     * For storing original HTML if any re-parsing required
+     */
+    private String originalHTML;
+
     public void setAuthor(String author)
     {
         this.author = author;
@@ -115,8 +120,7 @@ public class Argument
         return this.id;
     }
 
-    @Override
-    public String toString()
+    @Override public String toString()
     {
         return "Argument{" +
                 "author='" + author + '\'' +
@@ -126,5 +130,15 @@ public class Argument
                 ", parentId='" + parentId + '\'' +
                 ", id='" + id + '\'' +
                 '}';
+    }
+
+    public String getOriginalHTML()
+    {
+        return originalHTML;
+    }
+
+    public void setOriginalHTML(String originalHTML)
+    {
+        this.originalHTML = originalHTML;
     }
 }
