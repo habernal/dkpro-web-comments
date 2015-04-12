@@ -19,10 +19,14 @@
 package de.tudarmstadt.ukp.dkpro.web.comments;
 
 import de.tudarmstadt.ukp.dkpro.web.comments.roomfordebate.NYTimesArticleExtractor;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * (c) 2015 Ivan Habernal
@@ -48,5 +52,27 @@ public class NYTimesArticleExtractorTest {
 		String html = writer.toString();
 
 		System.out.println(extractor.extractArticle(html));
+	}
+
+	@Test
+	public void testAll() throws Exception {
+
+		File folder = new File("/tmp/nytimes-exported2");
+
+		List<Article> articleList = new ArrayList<Article>();
+
+		for (File f : folder.listFiles()) {
+			NYTimesArticleExtractor extractor = new NYTimesArticleExtractor();
+
+			try {
+				Article a = extractor.extractArticle(FileUtils.readFileToString(f));
+				articleList.add(a);
+			} catch (Exception ex) {
+				System.err.println("Failed on " + f.getAbsolutePath());
+//				ex.printStackTrace();
+			}
+		}
+
+		System.out.println(articleList.size());
 	}
 }

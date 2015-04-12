@@ -54,7 +54,7 @@ public class NYTimesArticleExtractor {
 
 		Element element = doc.select("article.rfd").iterator().next();
 
-		System.out.println(element);
+//		System.out.println(element);
 
 		String dateText = element.select("p.pubdate").text().replaceAll("Updated[\\s]+", "");
 		// time
