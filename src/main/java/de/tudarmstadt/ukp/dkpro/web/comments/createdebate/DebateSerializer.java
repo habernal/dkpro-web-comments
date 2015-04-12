@@ -18,25 +18,23 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
 
-import org.junit.Test;
-
-import java.net.URL;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 /**
  * (c) 2015 Ivan Habernal
  */
-public class CreateDebateHTMLParserTest
+public class DebateSerializer
 {
-
-    @Test public void testParseDebate()
-            throws Exception
+    public static String serializeToXML(Debate debate)
     {
-        URL url = new URL(
-                "http://www.createdebate.com/debate/show/Is_it_more_important_to_reduce_abortions_or_a_law_banning_it");
-        Debate debate = CreateDebateHTMLParser.parseDebate(url.openStream());
+        XStream xstream = new XStream(new StaxDriver());
+        return xstream.toXML(debate);
+    }
 
-//        System.out.println(debate);
-
-        System.out.println(DebateSerializer.serializeToXML(debate));
+    public static Debate deserializeFromXML(String xml)
+    {
+        XStream xstream = new XStream(new StaxDriver());
+        return (Debate) xstream.fromXML(xml);
     }
 }

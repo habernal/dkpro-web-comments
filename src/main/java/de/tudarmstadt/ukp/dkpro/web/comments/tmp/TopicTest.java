@@ -16,27 +16,15 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
-
-import org.junit.Test;
-
-import java.net.URL;
+package de.tudarmstadt.ukp.dkpro.web.comments.tmp;
 
 /**
  * (c) 2015 Ivan Habernal
  */
-public class CreateDebateHTMLParserTest
+public class TopicTest
 {
-
-    @Test public void testParseDebate()
-            throws Exception
+    public static void main(String[] args)
     {
-        URL url = new URL(
-                "http://www.createdebate.com/debate/show/Is_it_more_important_to_reduce_abortions_or_a_law_banning_it");
-        Debate debate = CreateDebateHTMLParser.parseDebate(url.openStream());
 
-//        System.out.println(debate);
-
-        System.out.println(DebateSerializer.serializeToXML(debate));
     }
 }
