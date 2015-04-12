@@ -23,11 +23,34 @@ package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
  */
 public class Argument
 {
+    /**
+     * Argument author's id
+     */
     private String author;
+
+    /**
+     * Number of points this argument got from the debate portal user
+     */
     private Integer argPoints;
+
+    /**
+     * Stance taken by the author (always only two options per debate)
+     */
     private String stance;
+
+    /**
+     * Text of the full argument
+     */
     private String text;
+
+    /**
+     * parent argument (not-null if the argumetn is an answer, null otherwise)
+     */
     private String parentId;
+
+    /**
+     * Id of the element as present on the html page
+     */
     private String id;
 
     public void setAuthor(String author)
@@ -90,5 +113,18 @@ public class Argument
     public String getId()
     {
         return this.id;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Argument{" +
+                "author='" + author + '\'' +
+                ", argPoints=" + argPoints +
+                ", stance='" + stance + '\'' +
+                ", text='" + text + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", id='" + id + '\'' +
+                '}';
     }
 }

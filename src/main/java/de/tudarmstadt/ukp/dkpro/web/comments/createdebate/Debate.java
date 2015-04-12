@@ -18,6 +18,9 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * (c) 2015 Ivan Habernal
  */
@@ -26,6 +29,7 @@ public class Debate
     private String title;
     private String description;
     private String url;
+    private List<Argument> argumentList = new ArrayList<>();
 
     public String getTitle()
     {
@@ -55,5 +59,26 @@ public class Debate
     public void setUrl(String url)
     {
         this.url = url;
+    }
+
+    public List<Argument> getArgumentList()
+    {
+        return argumentList;
+    }
+
+    public void setArgumentList(List<Argument> argumentList)
+    {
+        this.argumentList = argumentList;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Debate{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                ", argumentList=" + argumentList +
+                '}';
     }
 }
