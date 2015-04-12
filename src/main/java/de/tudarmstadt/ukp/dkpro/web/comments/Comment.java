@@ -23,110 +23,129 @@ import java.util.Date;
 /**
  * (c) 2015 Ivan Habernal
  */
-public class Comment {
+public class Comment
+{
 
-	private String text;
+    private String text;
 
-	private String id;
+    private String id;
 
-	private String parentId;
+    private String parentId;
 
-	private String previousPostId;
+    private String previousPostId;
 
-	private String commenterName;
+    private String commenterName;
 
-	private boolean commenterTrusted;
+    private boolean commenterTrusted;
 
-	private String commenterLocation;
+    private String commenterLocation;
 
-	private Date timestamp;
+    private Date timestamp;
 
-	private int recommendCount;
+    private int recommendCount;
 
-	public String getText() {
-		return text;
-	}
+    public String getText()
+    {
+        return text;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    public void setText(String text)
+    {
+        this.text = text;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getId()
+    {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 
-	public String getParentId() {
-		return parentId;
-	}
+    public String getParentId()
+    {
+        return parentId;
+    }
 
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
-	}
+    public void setParentId(String parentId)
+    {
+        this.parentId = parentId;
+    }
 
-	public String getPreviousPostId() {
-		return previousPostId;
-	}
+    public String getPreviousPostId()
+    {
+        return previousPostId;
+    }
 
-	public void setPreviousPostId(String previousPostId) {
-		this.previousPostId = previousPostId;
-	}
+    public void setPreviousPostId(String previousPostId)
+    {
+        this.previousPostId = previousPostId;
+    }
 
-	public String getCommenterName() {
-		return commenterName;
-	}
+    public String getCommenterName()
+    {
+        return commenterName;
+    }
 
-	public void setCommenterName(String commenterName) {
-		this.commenterName = commenterName;
-	}
+    public void setCommenterName(String commenterName)
+    {
+        this.commenterName = commenterName;
+    }
 
-	public boolean isCommenterTrusted() {
-		return commenterTrusted;
-	}
+    public boolean isCommenterTrusted()
+    {
+        return commenterTrusted;
+    }
 
-	public void setCommenterTrusted(boolean commenterTrusted) {
-		this.commenterTrusted = commenterTrusted;
-	}
+    public void setCommenterTrusted(boolean commenterTrusted)
+    {
+        this.commenterTrusted = commenterTrusted;
+    }
 
-	public String getCommenterLocation() {
-		return commenterLocation;
-	}
+    public String getCommenterLocation()
+    {
+        return commenterLocation;
+    }
 
-	public void setCommenterLocation(String commenterLocation) {
-		this.commenterLocation = commenterLocation;
-	}
+    public void setCommenterLocation(String commenterLocation)
+    {
+        this.commenterLocation = commenterLocation;
+    }
 
-	public Date getTimestamp() {
-		return timestamp;
-	}
+    public Date getTimestamp()
+    {
+        return timestamp;
+    }
 
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
+    public void setTimestamp(Date timestamp)
+    {
+        this.timestamp = timestamp;
+    }
 
-	public int getRecommendCount() {
-		return recommendCount;
-	}
+    public int getRecommendCount()
+    {
+        return recommendCount;
+    }
 
-	public void setRecommendCount(int recommendCount) {
-		this.recommendCount = recommendCount;
-	}
+    public void setRecommendCount(int recommendCount)
+    {
+        this.recommendCount = recommendCount;
+    }
 
-	@Override
-	public String toString() {
-		return "Comment{" +
-				"text='" + text + '\'' +
-				", id='" + id + '\'' +
-				", parentId='" + parentId + '\'' +
-				", previousPostId='" + previousPostId + '\'' +
-				", commenterName='" + commenterName + '\'' +
-				", commenterTrusted=" + commenterTrusted +
-				", commenterLocation='" + commenterLocation + '\'' +
-				", timestamp=" + timestamp +
-				", recommendCount=" + recommendCount +
-				'}';
-	}
+    @Override public String toString()
+    {
+        return "Comment{" +
+                "text='" + text + '\'' +
+                ", id='" + id + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", previousPostId='" + previousPostId + '\'' +
+                ", commenterName='" + commenterName + '\'' +
+                ", commenterTrusted=" + commenterTrusted +
+                ", commenterLocation='" + commenterLocation + '\'' +
+                ", timestamp=" + timestamp +
+                ", recommendCount=" + recommendCount +
+                '}';
+    }
 }

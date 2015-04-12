@@ -31,48 +31,55 @@ import java.util.List;
 /**
  * (c) 2015 Ivan Habernal
  */
-public class NYTimesArticleExtractorTest {
+public class NYTimesArticleExtractorTest
+{
 
-	@Test
-	public void testReadHTML() throws Exception {
-		NYTimesArticleExtractor extractor = new NYTimesArticleExtractor();
+    @Test public void testReadHTML()
+            throws Exception
+    {
+        NYTimesArticleExtractor extractor = new NYTimesArticleExtractor();
 
-		String html = extractor.readHTML("http://www.nytimes.com/roomfordebate/2015/02/04/regulate-internet-providers/the-internet-is-back-to-solid-regulatory-ground");
+        String html = extractor.readHTML(
+                "http://www.nytimes.com/roomfordebate/2015/02/04/regulate-internet-providers/the-internet-is-back-to-solid-regulatory-ground");
 
-		System.out.println(html);
+        System.out.println(html);
 
-	}
+    }
 
-	@Test
-	public void textExtractArticle() throws Exception {
-		NYTimesArticleExtractor extractor = new NYTimesArticleExtractor();
+    @Test public void textExtractArticle()
+            throws Exception
+    {
+        NYTimesArticleExtractor extractor = new NYTimesArticleExtractor();
 
-		StringWriter writer = new StringWriter();
-		IOUtils.copy(this.getClass().getClassLoader().getResourceAsStream("nytimes-step1.html"), writer, "utf-8");
-		String html = writer.toString();
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(this.getClass().getClassLoader().getResourceAsStream("nytimes-step1.html"),
+                writer, "utf-8");
+        String html = writer.toString();
 
-		System.out.println(extractor.extractArticle(html));
-	}
+        System.out.println(extractor.extractArticle(html));
+    }
 
-	@Test
-	public void testAll() throws Exception {
+    @Test public void testAll()
+            throws Exception
+    {
 
-		File folder = new File("/tmp/nytimes-exported2");
+        File folder = new File("/tmp/nytimes-exported2");
 
-		List<Article> articleList = new ArrayList<Article>();
+        List<Article> articleList = new ArrayList<Article>();
 
-		for (File f : folder.listFiles()) {
-			NYTimesArticleExtractor extractor = new NYTimesArticleExtractor();
+        for (File f : folder.listFiles()) {
+            NYTimesArticleExtractor extractor = new NYTimesArticleExtractor();
 
-			try {
-				Article a = extractor.extractArticle(FileUtils.readFileToString(f));
-				articleList.add(a);
-			} catch (Exception ex) {
-				System.err.println("Failed on " + f.getAbsolutePath());
-//				ex.printStackTrace();
-			}
-		}
+            try {
+                Article a = extractor.extractArticle(FileUtils.readFileToString(f));
+                articleList.add(a);
+            }
+            catch (Exception ex) {
+                System.err.println("Failed on " + f.getAbsolutePath());
+                //				ex.printStackTrace();
+            }
+        }
 
-		System.out.println(articleList.size());
-	}
+        System.out.println(articleList.size());
+    }
 }

@@ -16,28 +16,44 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments;
-
-import de.tudarmstadt.ukp.dkpro.web.comments.roomfordebate.NYTimesCommentsScraper;
-import org.junit.Test;
-
-import java.util.List;
+package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
 
 /**
  * (c) 2015 Ivan Habernal
  */
-public class NYTimesCommentsScraperTest
+public class Debate
 {
+    private String title;
+    private String description;
+    private String url;
 
-    @Test public void testExtractComments()
-            throws Exception
+    public String getTitle()
     {
-        NYTimesCommentsScraper nyTimesCommentsScraper = new NYTimesCommentsScraper();
-        List<Comment> comments = nyTimesCommentsScraper.extractComments(
-                this.getClass().getClassLoader().getResourceAsStream("nytimes-step2.html"));
+        return title;
+    }
 
-        for (Comment comment : comments) {
-            System.out.println(comment);
-        }
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    public String getUrl()
+    {
+        return url;
+    }
+
+    public void setUrl(String url)
+    {
+        this.url = url;
     }
 }
