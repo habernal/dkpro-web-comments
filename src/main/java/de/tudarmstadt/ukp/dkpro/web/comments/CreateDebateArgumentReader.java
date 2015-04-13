@@ -33,6 +33,7 @@ import org.apache.uima.util.Progress;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,7 +49,8 @@ public class CreateDebateArgumentReader
     public static final String PARAM_SOURCE_LOCATION = "sourceLocation";
     @ConfigurationParameter(name = PARAM_SOURCE_LOCATION, mandatory = true) File sourceLocation;
 
-    private List<Argument> argumentList;
+    // list of all arguments
+    private List<Argument> argumentList = new ArrayList<>();
 
     private Iterator<Argument> argumentIterator;
 
@@ -68,9 +70,11 @@ public class CreateDebateArgumentReader
         if (files != null) {
             for (File f : files) {
                 try {
+                    // load the debate
                     Debate debate = DebateSerializer
                             .deserializeFromXML(FileUtils.readFileToString(f));
 
+                    // add all arguments
                     argumentList.addAll(debate.getArgumentList());
                 }
                 catch (IOException e) {
@@ -79,10 +83,9 @@ public class CreateDebateArgumentReader
             }
         }
 
+        // set the iterator
         argumentIterator = argumentList.iterator();
     }
-
-
 
     @Override public void getNext(JCas jCas)
             throws IOException, CollectionException

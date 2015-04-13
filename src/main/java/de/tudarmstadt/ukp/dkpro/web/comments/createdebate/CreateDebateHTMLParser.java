@@ -150,7 +150,9 @@ public class CreateDebateHTMLParser
         StringBuilder sb = new StringBuilder();
         Element argument = argBox.select("div[class=argBody]").first();
 
-        result.setOriginalHTML(argument.html());
+        String correctedHtml = Utils.normalizeWhitespaceAndRemoveUnicodeControlChars(
+                argument.html());
+        result.setOriginalHTML(correctedHtml);
 
         for (Element paragraphElement : argument.select("p")) {
             sb.append(paragraphElement.text());

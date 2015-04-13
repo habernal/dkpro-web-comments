@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
@@ -8,10 +9,23 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * Main class for extracting raw HTML debates from createdebate.com and storing them using the
+ * internal format
+ *
  * @author Ivan Habernal
+ * @see Debate
+ * @see DebateSerializer
  */
 public class CorpusPreparator
 {
+    /**
+     * Extracts all debates from raw HTML files in inFolder and stores them into outFolder
+     * as serialized {@link Debate} objects (see {@link DebateSerializer}.
+     *
+     * @param inFolder  in folder
+     * @param outFolder out folder (must exist)
+     * @throws IOException exception
+     */
     public static void extractAllDebates(File inFolder, File outFolder)
             throws IOException
     {
@@ -26,7 +40,17 @@ public class CorpusPreparator
                 Debate debate = CreateDebateHTMLParser.parseDebate(inputStream);
 
                 if (debate != null) {
-                    System.out.println(f.getName());
+                    // serialize to xml
+                    String xml = DebateSerializer.serializeToXML(debate);
+
+                    // same name with .xml
+                    File outputFile = new File(outFolder, f.getName() + ".xml");
+
+                    FileUtils.writeStringToFile(outputFile, xml, "utf-8");
+                    System.out.println("Saved to " + outputFile.getAbsolutePath());
+
+                    // ensure we can read it again
+                    DebateSerializer.deserializeFromXML(FileUtils.readFileToString(outputFile));
                 }
             }
             catch (IOException ex) {
