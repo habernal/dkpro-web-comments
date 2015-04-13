@@ -39,6 +39,8 @@ import java.util.Arrays;
 import java.util.Queue;
 
 /**
+ * Reader for arguments from serialized {@link Debate}s in XML files
+ * <p/>
  * (c) 2015 Ivan Habernal
  */
 public class CreateDebateArgumentReader
@@ -75,8 +77,6 @@ public class CreateDebateArgumentReader
     protected void loadArgumentsFromNextFile()
             throws IOException
     {
-        // there might be debates without arguments
-
         File file = files.poll();
 
         Debate debate = DebateSerializer
@@ -97,7 +97,6 @@ public class CreateDebateArgumentReader
         jCas.setDocumentText(argument.getText());
 
         DocumentMetaData metaData = DocumentMetaData.create(jCas);
-        metaData.addToIndexes();
         metaData.setDocumentId(argument.getId());
         metaData.setDocumentTitle(argument.getStance());
     }
