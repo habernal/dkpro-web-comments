@@ -20,7 +20,6 @@ package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
 
 import org.junit.Test;
 
-import java.io.File;
 import java.net.URL;
 
 /**

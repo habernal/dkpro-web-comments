@@ -1,6 +1,5 @@
 package de.tudarmstadt.ukp.dkpro.web.comments;
 
-import org.apache.uima.fit.component.NoOpAnnotator;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
@@ -20,7 +19,7 @@ public class CreateDebateArgumentReaderTest
                         CreateDebateArgumentReader.PARAM_SOURCE_LOCATION,
                         "/home/user-ukp/data2/createdebate-exported-2014"
                 ),
-                AnalysisEngineFactory.createEngineDescription(NoOpAnnotator.class)
+                AnalysisEngineFactory.createEngineDescription(CharacterFrequencyCounter.class)
         );
 
     }
