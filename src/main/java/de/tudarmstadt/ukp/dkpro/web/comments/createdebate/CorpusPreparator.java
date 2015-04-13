@@ -39,7 +39,8 @@ public class CorpusPreparator
             try {
                 Debate debate = CreateDebateHTMLParser.parseDebate(inputStream);
 
-                if (debate != null) {
+                // we ignore empty debates (without arguments)
+                if (debate != null && !debate.getArgumentList().isEmpty()) {
                     // serialize to xml
                     String xml = DebateSerializer.serializeToXML(debate);
 

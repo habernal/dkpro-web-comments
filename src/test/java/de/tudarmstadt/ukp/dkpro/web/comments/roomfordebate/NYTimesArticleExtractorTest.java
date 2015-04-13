@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments;
+package de.tudarmstadt.ukp.dkpro.web.comments.roomfordebate;
 
+import de.tudarmstadt.ukp.dkpro.web.comments.Article;
 import de.tudarmstadt.ukp.dkpro.web.comments.roomfordebate.NYTimesArticleExtractor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;

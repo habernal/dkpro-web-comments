@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.dkpro.web.comments.uima;
 
+import org.apache.uima.fit.component.CasDumpWriter;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;

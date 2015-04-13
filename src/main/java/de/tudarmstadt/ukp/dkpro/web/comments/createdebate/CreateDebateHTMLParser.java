@@ -103,19 +103,22 @@ public class CreateDebateHTMLParser
 
         for (Element argBody : debateSideBoxes) {
             Argument argumentWithParent = extractArgument(argBody);
-            Element parent = argBody.parent();
-            Element previousElement = parent.previousElementSibling();
-            String parentId = null;
-            if (previousElement != null) {
-                Element realParent = previousElement.previousElementSibling();
-                if (realParent != null) {
-                    parentId = realParent.id();
+
+            if (argumentWithParent != null) {
+                Element parent = argBody.parent();
+                Element previousElement = parent.previousElementSibling();
+                String parentId = null;
+                if (previousElement != null) {
+                    Element realParent = previousElement.previousElementSibling();
+                    if (realParent != null) {
+                        parentId = realParent.id();
+                    }
                 }
+
+                argumentWithParent.setParentId(parentId);
+
+                result.getArgumentList().add(argumentWithParent);
             }
-
-            argumentWithParent.setParentId(parentId);
-
-            result.getArgumentList().add(argumentWithParent);
         }
 
         return result;
@@ -129,7 +132,7 @@ public class CreateDebateHTMLParser
      * {@code <div class=argBox argument... } which correspond to one argument
      *
      * @param argBox element
-     * @return argument
+     * @return argument or null, if argument's text is empty
      */
     public static Argument extractArgument(Element argBox)
     {
@@ -159,7 +162,13 @@ public class CreateDebateHTMLParser
             sb.append("\n");
         }
 
-        result.setText(Utils.normalize(sb.toString()));
+        String normalize = Utils.normalize(sb.toString());
+
+        if (normalize.isEmpty()) {
+            return null;
+        }
+
+        result.setText(normalize);
 
         result.setId(argBox.id());
 

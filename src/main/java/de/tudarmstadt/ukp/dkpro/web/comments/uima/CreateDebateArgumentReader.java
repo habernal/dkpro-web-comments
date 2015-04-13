@@ -75,34 +75,31 @@ public class CreateDebateArgumentReader
     protected void loadArgumentsFromNextFile()
             throws IOException
     {
-        if (!files.isEmpty()) {
+        // there might be debates without arguments
 
-            File file = files.poll();
+        File file = files.poll();
 
-            Debate debate = DebateSerializer
-                    .deserializeFromXML(FileUtils.readFileToString(file, "utf-8"));
-            currentArguments = new ArrayDeque<>(debate.getArgumentList());
-        }
+        Debate debate = DebateSerializer
+                .deserializeFromXML(FileUtils.readFileToString(file, "utf-8"));
+        currentArguments = new ArrayDeque<>(debate.getArgumentList());
     }
 
     @Override public void getNext(JCas jCas)
             throws IOException, CollectionException
     {
-        if (currentArguments.isEmpty()) {
+        if (currentArguments.peek() == null) {
             loadArgumentsFromNextFile();
         }
 
         Argument argument = currentArguments.poll();
 
-        if (argument != null) {
-            jCas.setDocumentLanguage("en");
-            jCas.setDocumentText(argument.getText());
+        jCas.setDocumentLanguage("en");
+        jCas.setDocumentText(argument.getText());
 
-            DocumentMetaData metaData = DocumentMetaData.create(jCas);
-            metaData.addToIndexes();
-            metaData.setDocumentId(argument.getId());
-            metaData.setDocumentTitle(argument.getStance());
-        }
+        DocumentMetaData metaData = DocumentMetaData.create(jCas);
+        metaData.addToIndexes();
+        metaData.setDocumentId(argument.getId());
+        metaData.setDocumentTitle(argument.getStance());
     }
 
     @Override public boolean hasNext()
