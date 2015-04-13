@@ -4,7 +4,6 @@ import de.tudarmstadt.ukp.dkpro.web.comments.Utils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -15,8 +14,8 @@ import java.util.List;
 /**
  * Parsing  debates from {@code createdebate.com} site.
  *
- * @author Anil Narassiguin
  * @author Ivan Habernal
+ * @author Anil Narassiguin
  */
 
 public class CreateDebateHTMLParser
@@ -27,7 +26,7 @@ public class CreateDebateHTMLParser
      * debate description.
      *
      * @param inputStream input stream
-     * @return debate and arguments
+     * @return debate and arguments or null, if the debate is not parseable
      * @throws IOException
      */
     public static Debate parseDebate(InputStream inputStream)
@@ -42,16 +41,29 @@ public class CreateDebateHTMLParser
 
         // title
         Element body = doc.body();
-        String title = Utils.normalize(body.select("h1[class=debateTitle]").first().text());
+        Elements debateTitleElement = body.select("h1[class=debateTitle]");
+
+        if (debateTitleElement.first() == null) {
+            // not a debate
+            return null;
+        }
+
+        String title = Utils.normalize(debateTitleElement.first().text());
         result.setTitle(title);
 
         Element twoSidesAndScores = body
                 .select("table[style=margin:0 auto;padding:0;border:0;text-align:center;width:98%;]")
                 .first();
 
+        if (twoSidesAndScores == null) {
+            // this is not a two-side debate
+            return null;
+        }
+
         Elements twoSides = twoSidesAndScores.select("div[class=sideTitle]");
         if (twoSides.size() != 2) {
-            throw new IllegalArgumentException("Element has not two sides");
+            // this is not a two-side debate
+            return null;
         }
 
         // description
@@ -61,14 +73,19 @@ public class CreateDebateHTMLParser
         if (description != null) {
             Element descriptionText = description.select("div[class=centered debatelongDesc]")
                     .first();
-            if ("".equals(descriptionText.select("p").first().text())) {
+            if (descriptionText.select("p").isEmpty()) {
+                // just extract the text
+                debateDescriptionBuilder.append(descriptionText.text());
+            }
+            else if ("".equals(descriptionText.select("p").first().text())) {
+                // extract paragraphs
                 for (Element p : descriptionText.select("p").select("span")) {
                     debateDescriptionBuilder.append(p.ownText());
                     debateDescriptionBuilder.append("\n");
                 }
             }
-
             else {
+                // extract paragraphs
                 for (Element p : descriptionText.select("p")) {
                     debateDescriptionBuilder.append(p.text());
                     debateDescriptionBuilder.append("\n");
@@ -91,7 +108,9 @@ public class CreateDebateHTMLParser
             String parentId = null;
             if (previousElement != null) {
                 Element realParent = previousElement.previousElementSibling();
-                parentId = realParent.id();
+                if (realParent != null) {
+                    parentId = realParent.id();
+                }
             }
 
             argumentWithParent.setParentId(parentId);
@@ -124,8 +143,8 @@ public class CreateDebateHTMLParser
         result.setArgPoints(Integer.parseInt(argPoints.ownText()));
 
         // stance
-        String stance = ((TextNode) argBox.select("div.subtext").iterator().next().childNodes()
-                .get(1)).text().replaceAll("Side: ", "").trim();
+        String stance = argBox.select("div.subtext").iterator().next().text()
+                .replaceAll(".*Side: ", "").trim();
         result.setStance(stance);
 
         StringBuilder sb = new StringBuilder();

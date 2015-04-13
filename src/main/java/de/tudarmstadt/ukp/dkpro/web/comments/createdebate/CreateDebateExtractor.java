@@ -28,6 +28,7 @@ import java.util.*;
 /**
  * (c) 2015 Ivan Habernal
  */
+@Deprecated // not useful anymore
 public class CreateDebateExtractor
 {
     private static final String URLS_CREATEDEBATE_TXT = "bootstraping/URLs-createdebate.txt";

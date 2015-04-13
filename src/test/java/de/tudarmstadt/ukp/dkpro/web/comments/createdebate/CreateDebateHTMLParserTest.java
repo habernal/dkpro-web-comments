@@ -20,6 +20,7 @@ package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.net.URL;
 
 /**
@@ -38,5 +39,13 @@ public class CreateDebateHTMLParserTest
 //        System.out.println(debate);
 
         System.out.println(DebateSerializer.serializeToXML(debate));
+    }
+
+    @Test
+    public void testAllFiles()
+            throws Exception
+    {
+
+
     }
 }
