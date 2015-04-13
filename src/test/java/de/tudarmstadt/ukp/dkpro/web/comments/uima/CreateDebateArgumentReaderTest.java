@@ -1,4 +1,4 @@
-package de.tudarmstadt.ukp.dkpro.web.comments;
+package de.tudarmstadt.ukp.dkpro.web.comments.uima;
 
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
