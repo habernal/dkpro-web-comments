@@ -18,6 +18,7 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments;
 
+import de.tudarmstadt.ukp.dkpro.core.api.metadata.type.DocumentMetaData;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Argument;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.DebateSerializer;
@@ -33,9 +34,9 @@ import org.apache.uima.util.Progress;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Queue;
 
 /**
  * (c) 2015 Ivan Habernal
@@ -44,22 +45,21 @@ public class CreateDebateArgumentReader
         extends JCasCollectionReader_ImplBase
 {
     /**
-     * Folder containing serialized XML files with {@link de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate} object in each file
+     * Folder containing serialized XML files with {@link Debate} object in each file
      */
     public static final String PARAM_SOURCE_LOCATION = "sourceLocation";
     @ConfigurationParameter(name = PARAM_SOURCE_LOCATION, mandatory = true) File sourceLocation;
 
-    // list of all arguments
-    private List<Argument> argumentList = new ArrayList<>();
+    Queue<File> files = new ArrayDeque<>();
 
-    private Iterator<Argument> argumentIterator;
+    Queue<Argument> currentArguments = new ArrayDeque<>();
 
     @Override public void initialize(UimaContext context)
             throws ResourceInitializationException
     {
         super.initialize(context);
 
-        File[] files = sourceLocation.listFiles(new FilenameFilter()
+        File[] fileArray = sourceLocation.listFiles(new FilenameFilter()
         {
             @Override public boolean accept(File dir, String name)
             {
@@ -67,36 +67,48 @@ public class CreateDebateArgumentReader
             }
         });
 
-        if (files != null) {
-            for (File f : files) {
-                try {
-                    // load the debate
-                    Debate debate = DebateSerializer
-                            .deserializeFromXML(FileUtils.readFileToString(f));
-
-                    // add all arguments
-                    argumentList.addAll(debate.getArgumentList());
-                }
-                catch (IOException e) {
-                    throw new ResourceInitializationException(e);
-                }
-            }
+        if (fileArray != null) {
+            this.files.addAll(Arrays.asList(fileArray));
         }
+    }
 
-        // set the iterator
-        argumentIterator = argumentList.iterator();
+    protected void loadArgumentsFromNextFile()
+            throws IOException
+    {
+        if (!files.isEmpty()) {
+
+            File file = files.poll();
+
+            Debate debate = DebateSerializer
+                    .deserializeFromXML(FileUtils.readFileToString(file, "utf-8"));
+            currentArguments = new ArrayDeque<>(debate.getArgumentList());
+        }
     }
 
     @Override public void getNext(JCas jCas)
             throws IOException, CollectionException
     {
-        // TODO continue...
+        if (currentArguments.isEmpty()) {
+            loadArgumentsFromNextFile();
+        }
+
+        Argument argument = currentArguments.poll();
+
+        if (argument != null) {
+            jCas.setDocumentLanguage("en");
+            jCas.setDocumentText(argument.getText());
+
+            DocumentMetaData metaData = DocumentMetaData.create(jCas);
+            metaData.addToIndexes();
+            metaData.setDocumentId(argument.getId());
+            metaData.setDocumentTitle(argument.getStance());
+        }
     }
 
     @Override public boolean hasNext()
             throws IOException, CollectionException
     {
-        return argumentIterator.hasNext();
+        return !currentArguments.isEmpty() || !files.isEmpty();
     }
 
     @Override public Progress[] getProgress()
