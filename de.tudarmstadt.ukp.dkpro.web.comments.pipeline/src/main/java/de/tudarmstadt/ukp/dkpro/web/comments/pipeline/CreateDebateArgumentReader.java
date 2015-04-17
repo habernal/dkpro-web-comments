@@ -22,6 +22,7 @@ import de.tudarmstadt.ukp.dkpro.core.api.metadata.type.DocumentMetaData;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Argument;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.DebateSerializer;
+import de.tudarmstadt.ukp.dkpro.web.comments.type.DebateArgumentMetaData;
 import org.apache.commons.io.FileUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.collection.CollectionException;
@@ -56,6 +57,8 @@ public class CreateDebateArgumentReader
 
     Queue<Argument> currentArguments = new ArrayDeque<>();
 
+    Debate currentDebate = null;
+
     @Override public void initialize(UimaContext context)
             throws ResourceInitializationException
     {
@@ -82,6 +85,9 @@ public class CreateDebateArgumentReader
         Debate debate = DebateSerializer
                 .deserializeFromXML(FileUtils.readFileToString(file, "utf-8"));
         currentArguments = new ArrayDeque<>(debate.getArgumentList());
+
+        // and set current debate
+        currentDebate = debate;
     }
 
     @Override public void getNext(JCas jCas)
@@ -92,6 +98,21 @@ public class CreateDebateArgumentReader
         }
 
         Argument argument = currentArguments.poll();
+
+        // create argument meta data
+        DebateArgumentMetaData argumentMetaData = new DebateArgumentMetaData(jCas);
+        argumentMetaData.addToIndexes();
+
+        argumentMetaData.setArgPoints(argument.getArgPoints());
+        argumentMetaData.setAuthor(argument.getAuthor());
+        argumentMetaData.setId(argument.getId());
+        argumentMetaData.setParentId(argument.getParentId());
+        argumentMetaData.setStance(argument.getStance());
+
+        // and info about the parent debate
+        argumentMetaData.setDebateDescription(currentDebate.getDescription());
+        argumentMetaData.setDebateTitle(currentDebate.getTitle());
+        argumentMetaData.setDebateUrl(currentDebate.getUrl());
 
         jCas.setDocumentLanguage("en");
         jCas.setDocumentText(argument.getText());

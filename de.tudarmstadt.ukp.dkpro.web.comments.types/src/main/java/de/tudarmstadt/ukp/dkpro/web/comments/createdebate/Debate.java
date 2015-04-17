@@ -1,4 +1,3 @@
-package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
 /*
  * Copyright 2015
  * Ubiquitous Knowledge Processing (UKP) Lab
@@ -16,6 +15,8 @@ package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
 
 import java.util.ArrayList;
 import java.util.List;
