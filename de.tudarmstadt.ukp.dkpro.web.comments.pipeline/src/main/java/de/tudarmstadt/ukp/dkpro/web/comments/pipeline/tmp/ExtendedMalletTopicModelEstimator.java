@@ -1,4 +1,4 @@
-package de.tudarmstadt.ukp.dkpro.web.comments.tmp;
+package de.tudarmstadt.ukp.dkpro.web.comments.pipeline.tmp;
 
 import cc.mallet.types.TokenSequence;
 import de.tudarmstadt.ukp.dkpro.core.api.featurepath.FeaturePathException;

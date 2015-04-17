@@ -30,11 +30,15 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<dkpro.version>1.7.0</dkpro.version>
+		<uima.version>2.6.0</uima.version>
+		<uimafit.version>2.1.0</uimafit.version>
 	</properties>
 
 	<modules>
 		<module>de.tudarmstadt.ukp.dkpro.web.comments.types</module>
 		<module>de.tudarmstadt.ukp.dkpro.web.comments.extractors</module>
+		<module>de.tudarmstadt.ukp.dkpro.web.comments.pipeline</module>
 	</modules>
 
 	<dependencies>
@@ -43,33 +47,60 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>org.apache.uima</groupId>
+				<artifactId>uimaj-core</artifactId>
+				<version>${uima.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.uima</groupId>
+				<artifactId>uimafit-core</artifactId>
+				<version>${uimafit.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
 				<artifactId>de.tudarmstadt.ukp.dkpro.core.mallet-asl</artifactId>
-				<version>1.7.0</version>
+				<version>${dkpro.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
 				<artifactId>de.tudarmstadt.ukp.dkpro.core.stanfordnlp-gpl</artifactId>
-				<version>1.7.0</version>
+				<version>${dkpro.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
 				<artifactId>de.tudarmstadt.ukp.dkpro.core.arktools-gpl</artifactId>
-				<version>1.7.0</version>
+				<version>${dkpro.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
 				<artifactId>de.tudarmstadt.ukp.dkpro.core.stopwordremover-asl</artifactId>
-				<version>1.7.0</version>
+				<version>${dkpro.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>com.thoughtworks.xstream</groupId>
+				<artifactId>xstream</artifactId>
+				<version>1.4.8</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 

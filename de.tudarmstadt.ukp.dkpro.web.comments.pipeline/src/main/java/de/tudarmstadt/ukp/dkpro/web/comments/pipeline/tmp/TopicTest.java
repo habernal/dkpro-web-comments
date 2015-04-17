@@ -16,17 +16,16 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.tmp;
+package de.tudarmstadt.ukp.dkpro.web.comments.pipeline.tmp;
 
 import cc.mallet.topics.ParallelTopicModel;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
-import de.tudarmstadt.ukp.dkpro.core.mallet.topicmodel.MalletTopicModelEstimator;
 import de.tudarmstadt.ukp.dkpro.core.mallet.topicmodel.MalletTopicModelInferencer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordLemmatizer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
-import de.tudarmstadt.ukp.dkpro.web.comments.uima.CreateDebateArgumentReader;
-import de.tudarmstadt.ukp.dkpro.web.comments.uima.VocabularyCollector;
+import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.CreateDebateArgumentReader;
+import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.VocabularyCollector;
 import org.apache.uima.fit.component.CasDumpWriter;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
@@ -111,7 +110,7 @@ public class TopicTest
             throws Exception
     {
         //        collectVocabulary();
-//        trainTopicModel();
+        //        trainTopicModel();
         testEstimatorSentence();
     }
 
@@ -145,7 +144,8 @@ public class TopicTest
                         MalletTopicModelInferencer.class,
                         MalletTopicModelInferencer.PARAM_USE_LEMMA, true,
                         MalletTopicModelInferencer.PARAM_MODEL_LOCATION, MODEL_FILE,
-                        MalletTopicModelInferencer.PARAM_TYPE_NAME, Sentence.class.getCanonicalName()),
+                        MalletTopicModelInferencer.PARAM_TYPE_NAME,
+                        Sentence.class.getCanonicalName()),
 
                 AnalysisEngineFactory.createEngineDescription(
                         CasDumpWriter.class

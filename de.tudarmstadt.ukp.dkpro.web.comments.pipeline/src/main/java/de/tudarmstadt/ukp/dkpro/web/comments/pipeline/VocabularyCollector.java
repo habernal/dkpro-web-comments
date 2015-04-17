@@ -1,4 +1,4 @@
-package de.tudarmstadt.ukp.dkpro.web.comments.uima;
+package de.tudarmstadt.ukp.dkpro.web.comments.pipeline;
 
 import de.tudarmstadt.ukp.dkpro.core.api.resources.ResourceUtils;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;

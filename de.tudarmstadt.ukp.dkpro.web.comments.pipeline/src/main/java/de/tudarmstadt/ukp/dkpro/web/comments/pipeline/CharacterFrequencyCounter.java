@@ -1,4 +1,4 @@
-package de.tudarmstadt.ukp.dkpro.web.comments.uima;
+package de.tudarmstadt.ukp.dkpro.web.comments.pipeline;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
