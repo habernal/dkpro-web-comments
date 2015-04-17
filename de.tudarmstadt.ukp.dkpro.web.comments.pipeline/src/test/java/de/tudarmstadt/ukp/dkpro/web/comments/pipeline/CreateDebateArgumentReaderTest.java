@@ -21,6 +21,7 @@ package de.tudarmstadt.ukp.dkpro.web.comments.pipeline;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -28,6 +29,7 @@ import org.junit.Test;
  */
 public class CreateDebateArgumentReaderTest
 {
+    @Ignore
     @Test
     public void testReadCollection()
             throws Exception

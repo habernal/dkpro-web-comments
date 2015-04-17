@@ -22,6 +22,7 @@ import de.tudarmstadt.ukp.dkpro.web.comments.Article;
 import de.tudarmstadt.ukp.dkpro.web.comments.roomfordebate.NYTimesArticleExtractor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -60,6 +61,7 @@ public class NYTimesArticleExtractorTest
         System.out.println(extractor.extractArticle(html));
     }
 
+    @Ignore
     @Test public void testAll()
             throws Exception
     {
