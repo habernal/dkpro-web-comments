@@ -1,6 +1,8 @@
 package de.tudarmstadt.ukp.dkpro.web.comments.uima;
 
+import de.tudarmstadt.ukp.dkpro.core.api.resources.ResourceUtils;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
+import org.apache.commons.io.IOUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasConsumer_ImplBase;
@@ -13,9 +15,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.net.URL;
+import java.util.*;
 
 /**
  * @author Ivan Habernal
@@ -39,7 +40,17 @@ public class VocabularyCollector
     @ConfigurationParameter(name = PARAM_USE_LEMMA, mandatory = true, defaultValue = "false")
     boolean useLemma;
 
+    public static final String PARAM_STOPWORDS_LIST = "stopwordsList";
+    @ConfigurationParameter(name = PARAM_STOPWORDS_LIST, mandatory = false, defaultValue = "classpath:/stopwords_en.txt")
+    String stopwordsList;
+
+    public static final String PARAM_IGNORE_STOPWORDS = "ignoreStopwords";
+    @ConfigurationParameter(name = PARAM_IGNORE_STOPWORDS, mandatory = false, defaultValue = "false")
+    boolean ignoreStopwords;
+
     Map<String, Integer> vocabulary = new HashMap<>();
+
+    Set<String> stopwords = new HashSet<>();
 
     @Override
     public void initialize(UimaContext context)
@@ -50,6 +61,16 @@ public class VocabularyCollector
         if (minimalOccurrence < 0) {
             throw new ResourceInitializationException(new IllegalArgumentException(
                     "Minimal occurrence must be positive integer"));
+        }
+
+        try {
+            if (ignoreStopwords) {
+                URL url = ResourceUtils.resolveLocation(stopwordsList);
+                stopwords.addAll(IOUtils.readLines(url.openStream()));
+            }
+        }
+        catch (IOException e) {
+            throw new ResourceInitializationException(e);
         }
     }
 
@@ -62,11 +83,14 @@ public class VocabularyCollector
 
             // only words
             if (entry.matches("\\p{Alpha}+")) {
-                if (!vocabulary.containsKey(entry)) {
-                    vocabulary.put(entry, 0);
-                }
+                // and filter stopwords, if required
+                if (!ignoreStopwords || (ignoreStopwords && !stopwords.contains(entry))) {
+                    if (!vocabulary.containsKey(entry)) {
+                        vocabulary.put(entry, 0);
+                    }
 
-                vocabulary.put(entry, vocabulary.get(entry) + 1);
+                    vocabulary.put(entry, vocabulary.get(entry) + 1);
+                }
             }
         }
     }

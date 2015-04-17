@@ -19,11 +19,15 @@
 package de.tudarmstadt.ukp.dkpro.web.comments.tmp;
 
 import cc.mallet.topics.ParallelTopicModel;
+import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
+import de.tudarmstadt.ukp.dkpro.core.mallet.topicmodel.MalletTopicModelEstimator;
+import de.tudarmstadt.ukp.dkpro.core.mallet.topicmodel.MalletTopicModelInferencer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordLemmatizer;
-import de.tudarmstadt.ukp.dkpro.core.stopwordremover.StopWordRemover;
+import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
 import de.tudarmstadt.ukp.dkpro.web.comments.uima.CreateDebateArgumentReader;
 import de.tudarmstadt.ukp.dkpro.web.comments.uima.VocabularyCollector;
+import org.apache.uima.fit.component.CasDumpWriter;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
@@ -55,23 +59,23 @@ public class TopicTest
 
                 // tokenize web-texts
                 AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
-                // remove stopwords
-                AnalysisEngineFactory.createEngineDescription(StopWordRemover.class,
-                        StopWordRemover.PARAM_MODEL_LOCATION, "[en]classpath:/stopwords_en.txt"),
-
                 AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
                 AnalysisEngineFactory.createEngineDescription(VocabularyCollector.class,
                         VocabularyCollector.PARAM_MINIMAL_OCCURRENCE, 5,
+                        VocabularyCollector.PARAM_IGNORE_STOPWORDS, true,
                         VocabularyCollector.PARAM_MODEL_LOCATION, VOCABULARY_FILE)
         );
 
         /*
-        INFORMATION: Original vocabulary size: 130957
-        INFORMATION: Filtered vocabulary size: 30513
+        INFORMATION: Original vocabulary size: 130853
+        INFORMATION: Filtered vocabulary size: 30419
+        total tokens: 11,393,646
         */
     }
 
-    public static void trainTopicModel() throws Exception {
+    public static void trainTopicModel()
+            throws Exception
+    {
         int nTopics = 100;
         int nIterations = 100;
 
@@ -107,15 +111,12 @@ public class TopicTest
             throws Exception
     {
         //        collectVocabulary();
-
-        trainTopicModel();
+//        trainTopicModel();
+        testEstimatorSentence();
     }
 
-
-    /*
-    @Test
-    public void testEstimatorSentence()
-        throws Exception
+    public static void testEstimatorSentence()
+            throws Exception
     {
         int nTopics = 10;
         int nIterations = 50;
@@ -123,27 +124,40 @@ public class TopicTest
         String language = "en";
         String entity = Sentence.class.getName();
 
-        CollectionReaderDescription reader = createReaderDescription(TextReader.class,
-                TextReader.PARAM_SOURCE_LOCATION, CAS_DIR,
-                TextReader.PARAM_PATTERNS, CAS_FILE_PATTERN,
-                TextReader.PARAM_LANGUAGE, language);
-        AnalysisEngineDescription segmenter = createEngineDescription(BreakIteratorSegmenter.class);
+        SimplePipeline.runPipeline(
+                // reader
+                CollectionReaderFactory.createReaderDescription(
+                        CreateDebateArgumentReader.class,
+                        CreateDebateArgumentReader.PARAM_SOURCE_LOCATION,
+                        "/home/user-ukp/data2/createdebate-exported-2014"),
 
-        AnalysisEngineDescription estimator = createEngineDescription(
-                MalletTopicModelEstimator.class,
-                MalletTopicModelEstimator.PARAM_N_THREADS, N_THREADS,
-                MalletTopicModelEstimator.PARAM_TARGET_LOCATION, MODEL_FILE,
-                MalletTopicModelEstimator.PARAM_N_ITERATIONS, nIterations,
-                MalletTopicModelEstimator.PARAM_N_TOPICS, nTopics,
-                MalletTopicModelEstimator.PARAM_USE_LEMMA, useLemmas,
-                MalletTopicModelEstimator.PARAM_MODEL_ENTITY_TYPE, entity);
-        SimplePipeline.runPipeline(reader, segmenter, estimator);
+                // tokenize web-texts
+                AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
 
-        assertTrue(MODEL_FILE.exists());
-        ParallelTopicModel model = ParallelTopicModel.read(MODEL_FILE);
-        assertEquals(nTopics, model.getNumTopics());
+                // lemmatizer
+                AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
+
+                // sentence splitter
+                AnalysisEngineFactory.createEngineDescription(StanfordSegmenter.class,
+                        StanfordSegmenter.PARAM_WRITE_TOKEN, false),
+
+                AnalysisEngineFactory.createEngineDescription(
+                        MalletTopicModelInferencer.class,
+                        MalletTopicModelInferencer.PARAM_USE_LEMMA, true,
+                        MalletTopicModelInferencer.PARAM_MODEL_LOCATION, MODEL_FILE,
+                        MalletTopicModelInferencer.PARAM_TYPE_NAME, Sentence.class.getCanonicalName()),
+
+                AnalysisEngineFactory.createEngineDescription(
+                        CasDumpWriter.class
+                )
+        );
+
+        //        assertTrue(MODEL_FILE.exists());
+        //        ParallelTopicModel model = ParallelTopicModel.read(MODEL_FILE);
+        //        assertEquals(nTopics, model.getNumTopics());
     }
 
+    /*
     @Test
     public void testEstimatorAlphaBeta()
         throws Exception
