@@ -22,6 +22,7 @@ import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiWriter;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordLemmatizer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
+import de.tudarmstadt.ukp.dkpro.core.tokit.ParagraphSplitter;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
@@ -41,6 +42,8 @@ public class DebatesToXMIPipeline
                             CreateDebateArgumentReader.PARAM_SOURCE_LOCATION,
                             inFolder),
 
+                    // paragraphs
+                    AnalysisEngineFactory.createEngineDescription(ParagraphSplitter.class),
                     // tokenize web-texts
                     AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
                     // find sentences
