@@ -19,115 +19,134 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
-	<artifactId>de.tudarmstadt.ukp.dkpro.web.comments</artifactId>
-	<version>0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+    <groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
+    <artifactId>de.tudarmstadt.ukp.dkpro.web.comments</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-	<name>de.tudarmstadt.ukp.dkpro.web.comments</name>
+    <name>de.tudarmstadt.ukp.dkpro.web.comments</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dkpro.version>1.7.0</dkpro.version>
-		<uima.version>2.6.0</uima.version>
-		<uimafit.version>2.1.0</uimafit.version>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dkpro.version>1.7.0</dkpro.version>
+        <uima.version>2.6.0</uima.version>
+        <uimafit.version>2.1.0</uimafit.version>
+    </properties>
 
-	<modules>
-		<module>de.tudarmstadt.ukp.dkpro.web.comments.types</module>
-		<module>de.tudarmstadt.ukp.dkpro.web.comments.extractors</module>
-		<module>de.tudarmstadt.ukp.dkpro.web.comments.pipeline</module>
-	</modules>
+    <modules>
+        <module>de.tudarmstadt.ukp.dkpro.web.comments.types</module>
+        <module>de.tudarmstadt.ukp.dkpro.web.comments.extractors</module>
+        <module>de.tudarmstadt.ukp.dkpro.web.comments.pipeline</module>
+        <module>de.tudarmstadt.ukp.dkpro.web.comments.clustering</module>
+    </modules>
 
-	<dependencies>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.apache.uima</groupId>
-				<artifactId>uimaj-core</artifactId>
-				<version>${uima.version}</version>
-			</dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.uima</groupId>
+                <artifactId>uimaj-core</artifactId>
+                <version>${uima.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>org.apache.uima</groupId>
-				<artifactId>uimafit-core</artifactId>
-				<version>${uimafit.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>org.apache.uima</groupId>
+                <artifactId>uimafit-core</artifactId>
+                <version>${uimafit.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
-				<artifactId>de.tudarmstadt.ukp.dkpro.core.mallet-asl</artifactId>
-				<version>${dkpro.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+                <artifactId>de.tudarmstadt.ukp.dkpro.core.mallet-asl</artifactId>
+                <version>${dkpro.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
-				<artifactId>de.tudarmstadt.ukp.dkpro.core.stanfordnlp-gpl</artifactId>
-				<version>${dkpro.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+                <artifactId>de.tudarmstadt.ukp.dkpro.core.stanfordnlp-gpl</artifactId>
+                <version>${dkpro.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
-				<artifactId>de.tudarmstadt.ukp.dkpro.core.arktools-gpl</artifactId>
-				<version>${dkpro.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+                <artifactId>de.tudarmstadt.ukp.dkpro.core.arktools-gpl</artifactId>
+                <version>${dkpro.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
-				<artifactId>de.tudarmstadt.ukp.dkpro.core.stopwordremover-asl</artifactId>
-				<version>${dkpro.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+                <artifactId>de.tudarmstadt.ukp.dkpro.core.stopwordremover-asl</artifactId>
+                <version>${dkpro.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
-				<artifactId>de.tudarmstadt.ukp.dkpro.core.io.xmi-asl</artifactId>
-				<version>${dkpro.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+                <artifactId>de.tudarmstadt.ukp.dkpro.core.io.xmi-asl</artifactId>
+                <version>${dkpro.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
-				<artifactId>de.tudarmstadt.ukp.dkpro.core.tokit-asl</artifactId>
-				<version>${dkpro.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+                <artifactId>de.tudarmstadt.ukp.dkpro.core.tokit-asl</artifactId>
+                <version>${dkpro.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>com.thoughtworks.xstream</groupId>
-				<artifactId>xstream</artifactId>
-				<version>1.4.8</version>
-			</dependency>
+            <dependency>
+                <groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+                <artifactId>de.tudarmstadt.ukp.dkpro.core.api.segmentation-asl</artifactId>
+                <version>${dkpro.version}</version>
+            </dependency>
 
-		</dependencies>
-	</dependencyManagement>
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>1.4.8</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
+                <artifactId>de.tudarmstadt.ukp.dkpro.web.comments.pipeline</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
+                <artifactId>de.tudarmstadt.ukp.dkpro.web.comments.types</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
