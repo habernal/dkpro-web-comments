@@ -18,7 +18,7 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering;
 
-import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.CreateDebateArgumentReader;
+import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
@@ -31,40 +31,50 @@ import java.io.File;
 public class Main
 {
 
-    public static final String EMBEDDINGS_CACHE_BIN = "/tmp/embeddings-cache.bin";
+    private String word2VecFile;
 
-    public static void prepareEmbeddingCache()
+    private String sourceDataDir;
+
+    private String cacheFile;
+
+    public void prepareEmbeddingCache()
             throws Exception
     {
-        if (!(new File(EMBEDDINGS_CACHE_BIN).exists())) {
+        if (!(new File(cacheFile).exists())) {
             SimplePipeline.runPipeline(CollectionReaderFactory
-                            .createReaderDescription(CreateDebateArgumentReader.class,
-                                    CreateDebateArgumentReader.PARAM_SOURCE_LOCATION,
-                                    "/home/user-ukp/data2/createdebate-exported-2014"),
-                    AnalysisEngineFactory.createEngineDescription(EmbeddingsCachePreprocessor.class,
-                            EmbeddingsCachePreprocessor.PARAM_CACHE_FILE, EMBEDDINGS_CACHE_BIN));
+                    .createReaderDescription(XmiReader.class, XmiReader.PARAM_SOURCE_LOCATION,
+                            sourceDataDir, XmiReader.PARAM_PATTERNS,
+                            XmiReader.INCLUDE_PREFIX + "*.xmi"), AnalysisEngineFactory
+                    .createEngineDescription(EmbeddingsCachePreprocessor.class,
+                            EmbeddingsCachePreprocessor.PARAM_WORD_2_VEC_FILE, word2VecFile,
+                            EmbeddingsCachePreprocessor.PARAM_CACHE_FILE, cacheFile));
         }
     }
 
-    public static void generateClutoMatrix()
+    public void generateClutoMatrix(String outFile)
             throws Exception
     {
         SimplePipeline.runPipeline(CollectionReaderFactory
-                        .createReaderDescription(CreateDebateArgumentReader.class,
-                                CreateDebateArgumentReader.PARAM_SOURCE_LOCATION,
-                                "/home/user-ukp/data2/createdebate-exported-2014"),
-                AnalysisEngineFactory.createEngineDescription(EmbeddingsClutoDataWriter.class,
-                        EmbeddingsClutoDataWriter.PARAM_CACHE_FILE, EMBEDDINGS_CACHE_BIN,
-                        EmbeddingsClutoDataWriter.PARAM_OUTPUT_FOLDER, "/tmp/cluto.txt"));
+                .createReaderDescription(XmiReader.class, XmiReader.PARAM_SOURCE_LOCATION,
+                        sourceDataDir,  XmiReader.PARAM_PATTERNS,
+                        XmiReader.INCLUDE_PREFIX + "*.xmi"), AnalysisEngineFactory
+                .createEngineDescription(EmbeddingsClutoDataWriter.class,
+                        EmbeddingsClutoDataWriter.PARAM_CACHE_FILE, cacheFile,
+                        EmbeddingsClutoDataWriter.PARAM_OUTPUT_FOLDER, outFile));
     }
 
     public static void main(String[] args)
             throws Exception
     {
+        Main main = new Main();
+        main.word2VecFile = args[0];
+        main.sourceDataDir = args[1];
+        main.cacheFile = args[2];
+
         // prepare embedding cache
-        prepareEmbeddingCache();
+        main.prepareEmbeddingCache();
 
         // write cluto
-        generateClutoMatrix();
+        main.generateClutoMatrix(args[3]);
     }
 }

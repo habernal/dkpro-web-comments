@@ -84,8 +84,10 @@ public class CorpusPreparator
 
     public static void main(String[] args)
     {
-        File inFolder = new File("/home/user-ukp/data2/createdebate-exported-2014-raw-html");
-        File outFolder = new File("/home/user-ukp/data2/createdebate-exported-2014");
+        // args[0] = directory with exported html pages
+        File inFolder = new File(args[0]);
+        // args[1] = output directory
+        File outFolder = new File(args[1]);
         outFolder.mkdir();
 
         try {

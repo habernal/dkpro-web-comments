@@ -176,6 +176,8 @@ public class EmbeddingsClutoDataWriter
             pwTemp.println();
 
             collectionSize++;
+
+            System.out.println(collectionSize + ", " + finalVector.get(0));
         }
     }
 

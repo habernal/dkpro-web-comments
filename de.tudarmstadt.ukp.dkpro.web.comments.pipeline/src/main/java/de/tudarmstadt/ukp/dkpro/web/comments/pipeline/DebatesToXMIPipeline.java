@@ -34,8 +34,8 @@ public class DebatesToXMIPipeline
 {
     public static void main(String[] args)
     {
-        String inFolder = "/home/user-ukp/data2/createdebate-exported-2014";
-        String outFolder = "/tmp/createdebate-xmi";
+        String inFolder = args[0];
+        String outFolder = args[1];
         try {
             SimplePipeline.runPipeline(CollectionReaderFactory.createReaderDescription(
                             CreateDebateArgumentReader.class,
