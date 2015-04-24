@@ -51,9 +51,10 @@ public class DebatesToXMIPipeline
                             StanfordSegmenter.PARAM_WRITE_TOKEN, false),
                     // lemma
                     AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
-
-                    AnalysisEngineFactory.createEngineDescription(XmiWriter.class,
-                            XmiWriter.PARAM_TARGET_LOCATION, outFolder)
+                    AnalysisEngineFactory.createEngineDescription(FilteredArgumentXMIWriter.class,
+                            FilteredArgumentXMIWriter.PARAM_MINIMUM_ARG_POINTS_REQUIRED, 2,
+                            FilteredArgumentXMIWriter.PARAM_TARGET_LOCATION, outFolder
+                    )
             );
         }
         catch (Exception ex) {

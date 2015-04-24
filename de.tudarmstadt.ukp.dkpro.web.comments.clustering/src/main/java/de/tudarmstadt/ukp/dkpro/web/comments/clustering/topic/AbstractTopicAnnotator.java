@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.clustering;
+package de.tudarmstadt.ukp.dkpro.web.comments.clustering.topic;
 
 import cc.mallet.pipe.Pipe;
 import cc.mallet.pipe.TokenSequence2FeatureSequence;
@@ -42,49 +42,49 @@ import java.io.File;
 /**
  * (c) 2015 Ivan Habernal
  */
-public class SentenceTopicAnnotator
+public abstract  class AbstractTopicAnnotator
         extends JCasAnnotator_ImplBase
 {
     private static final String NONE_LABEL = "X";
 
     public final static String PARAM_MODEL_LOCATION = "modelLocation";
     @ConfigurationParameter(name = PARAM_MODEL_LOCATION, mandatory = true)
-    private File modelLocation;
+    protected File modelLocation;
 
     /**
      * The annotation type to use as tokens. Default: {@link de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token}
      */
     public final static String PARAM_TYPE_NAME = "typeName";
     @ConfigurationParameter(name = PARAM_TYPE_NAME, mandatory = true, defaultValue = "de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token")
-    private String typeName;
+    protected String typeName;
 
     /**
      * The number of iterations during inference. Default: 10.
      */
     public final static String PARAM_N_ITERATIONS = "nIterations";
     @ConfigurationParameter(name = PARAM_N_ITERATIONS, mandatory = true, defaultValue = "10")
-    private int nIterations;
+    protected int nIterations;
 
     /**
      * The number of iterations before hyperparameter optimization begins. Default: 1
      */
     public final static String PARAM_BURN_IN = "burnIn";
     @ConfigurationParameter(name = PARAM_BURN_IN, mandatory = true, defaultValue = "1")
-    private int burnIn;
+    protected int burnIn;
 
     public final static String PARAM_THINNING = "thinning";
     @ConfigurationParameter(name = PARAM_THINNING, mandatory = true, defaultValue = "5")
-    private int thinning;
+    protected int thinning;
 
     /**
      * If set, uses lemmas instead of original text as features.
      */
     public static final String PARAM_USE_LEMMA = "useLemma";
     @ConfigurationParameter(name = PARAM_USE_LEMMA, mandatory = true, defaultValue = "true")
-    private boolean useLemma;
+    protected boolean useLemma;
 
-    private TopicInferencer inferencer;
-    private Pipe malletPipe;
+    protected TopicInferencer inferencer;
+    protected Pipe malletPipe;
 
     @Override
     public void initialize(UimaContext context)
@@ -102,13 +102,22 @@ public class SentenceTopicAnnotator
         malletPipe = new TokenSequence2FeatureSequence();
     }
 
-    protected void annotateSentenceWithTopicDistribution(Sentence sentence, JCas jCas)
+    /**
+     * Collects tokens in the given range and creates a new {@link TopicDistribution} annotation
+     * with inferred topic distribution.
+     *
+     * @param jCas  jcas
+     * @param begin begin index
+     * @param end   end index
+     * @throws AnalysisEngineProcessException
+     */
+    protected void annotateWithTopicDistribution(JCas jCas, int begin, int end)
             throws AnalysisEngineProcessException
     {
-        /* convert tokens (or other annotation type) into a Mallet TokenSequence */
+         /* convert tokens (or other annotation type) into a Mallet TokenSequence */
         TokenSequence tokenStream = new TokenSequence();
 
-        for (Token token : JCasUtil.selectCovered(Token.class, sentence)) {
+        for (Token token : JCasUtil.selectCovered(jCas, Token.class, begin, end)) {
             if (useLemma) {
                 Lemma lemma = token.getLemma();
                 if (lemma == null) {
@@ -127,8 +136,8 @@ public class SentenceTopicAnnotator
 
         // infer topic distribution for the sentence
         TopicDistribution topicDistributionAnnotation = new TopicDistribution(jCas);
-        topicDistributionAnnotation.setBegin(sentence.getBegin());
-        topicDistributionAnnotation.setEnd(sentence.getEnd());
+        topicDistributionAnnotation.setBegin(begin);
+        topicDistributionAnnotation.setEnd(end);
 
         double[] topicDistribution = inferencer
                 .getSampledDistribution(malletPipe.instanceFrom(instance), nIterations, thinning,
@@ -142,12 +151,4 @@ public class SentenceTopicAnnotator
         topicDistributionAnnotation.addToIndexes();
     }
 
-    @Override
-    public void process(JCas aJCas)
-            throws AnalysisEngineProcessException
-    {
-        for (Sentence sentence : JCasUtil.select(aJCas, Sentence.class)) {
-            annotateSentenceWithTopicDistribution(sentence, aJCas);
-        }
-    }
 }

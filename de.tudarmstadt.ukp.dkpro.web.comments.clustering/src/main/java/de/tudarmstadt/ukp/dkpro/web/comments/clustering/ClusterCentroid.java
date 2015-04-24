@@ -18,17 +18,15 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering;
 
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.dl.VectorUtils;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.VectorEntry;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Map;
-import java.util.TreeMap;
+import java.io.*;
+import java.util.*;
 
 /**
  * (c) 2015 Ivan Habernal
@@ -43,15 +41,18 @@ public class ClusterCentroid
     {
         TreeMap<Integer, Vector> centroids = computeClusterCentroids(args[0], args[1]);
 
-//        System.out.println(centroids);
-        embeddingsToDistance(args[0], centroids);
-
-
+        //        System.out.println(centroids);
+        embeddingsToDistance(args[0], centroids, args[2]);
     }
 
-    public static void embeddingsToDistance(String inputVectorsPath, TreeMap<Integer, Vector> centroids)
+    public static void embeddingsToDistance(String inputVectorsPath,
+            TreeMap<Integer, Vector> centroids, String outputFile)
             throws IOException
     {
+//        List<Double> entropies = new ArrayList<>();
+
+        PrintWriter pw = new PrintWriter(new FileWriter(outputFile));
+
         // input for cluto
         File inputVectors = new File(inputVectorsPath);
 
@@ -67,31 +68,116 @@ public class ClusterCentroid
             // now parse the vector
             DenseVector vector = parseVector(vectorString);
 
+            // compute the distance to all cluster centroids
             Vector distanceToClusterCentroidsVector = transformEmbeddingVectorToDistanceToClusterCentroidsVector(
                     vector, centroids);
 
-            System.out.println(distanceToClusterCentroidsVector);
+            System.out.println(VectorUtils.largestValues(distanceToClusterCentroidsVector, 5));
+
+            // compute entropy
+//            double entropy = entropy(
+//                    cosineSimilarityToProbabilityDist(distanceToClusterCentroidsVector));
+//            System.out.println(entropy);
+
+            printVector(distanceToClusterCentroidsVector, pw);
+
+            // for all except the last entry end the line
+            if (vectorsIterator.hasNext()) {
+                pw.println();
+            }
         }
+
+        IOUtils.closeQuietly(pw);
+
+//        System.out.println(entropies);
     }
 
+    public static void printVector(Vector v, PrintWriter pw)
+    {
+        // print the vector to the output file
+        for (VectorEntry vectorEntry : v) {
+            pw.printf(Locale.ENGLISH, "%f ", vectorEntry.get());
+        }
+    }
 
     public static Vector transformEmbeddingVectorToDistanceToClusterCentroidsVector(
             Vector embeddingVector, TreeMap<Integer, Vector> centroids)
     {
         Vector result = new DenseVector(centroids.size());
 
-        double embeddingNorm = embeddingVector.norm(Vector.Norm.TwoRobust);
-
         // the centroids map is sorted and starts from 0
         for (int i = 0; i < centroids.size(); i++) {
             Vector centroid = centroids.get(i);
 
             // compute distance - cosine similarity
-            double normCentroid = centroid.norm(Vector.Norm.TwoRobust);
-
-            double distance = centroid.dot(embeddingVector) / (normCentroid * embeddingNorm);
+            double distance = cosineSimilarity(embeddingVector, centroid);
 
             result.set(i, distance);
+        }
+
+        return result;
+    }
+
+    public static double cosineSimilarity(Vector v1, Vector v2)
+    {
+        double dotProduct = 0.0;
+        double normA = 0.0;
+        double normB = 0.0;
+        for (int i = 0; i < v1.size(); i++) {
+            dotProduct += v1.get(i) * v2.get(i);
+            normA += v1.get(i) * v1.get(i);
+            normB += v2.get(i) * v2.get(i);
+        }
+
+        if (normA == 0 || normB == 0) {
+//            printVector(v1);
+//            printVector(v2);
+            return 0;
+        }
+
+        return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+    }
+
+    public static Vector cosineSimilarityToProbabilityDist(Vector v)
+    {
+        // cosine sim [-1, 1] -> add one
+        // add 1 to all entries
+        Vector vec = new DenseVector(v.size());
+        for (int i = 0; i < v.size(); i++) {
+            vec.set(i, v.get(i) + 1);
+        }
+
+        return normalize(vec);
+    }
+
+    public static final double LOG2 = Math.log(2);
+
+    public static double entropy(Vector v)
+    {
+        double result = 0.0;
+
+        for (VectorEntry entry : v) {
+            double pxi = entry.get();
+
+            if (pxi > 0) {
+                result += pxi * Math.log(pxi) / LOG2;
+            }
+        }
+
+        return -result;
+    }
+
+    public static Vector normalize(Vector v)
+    {
+        double norm = 0;
+        for (int i = 0; i < v.size(); i++) {
+            norm += v.get(i);
+        }
+
+        Vector result = new DenseVector(v.size());
+
+        for (int i = 0; i < v.size(); i++) {
+            result.set(i, v.get(i) / norm);
         }
 
         return result;
