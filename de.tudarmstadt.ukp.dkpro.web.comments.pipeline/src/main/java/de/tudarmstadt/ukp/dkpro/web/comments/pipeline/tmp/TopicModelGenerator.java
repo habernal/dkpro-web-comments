@@ -21,6 +21,7 @@ package de.tudarmstadt.ukp.dkpro.web.comments.pipeline.tmp;
 import cc.mallet.topics.ParallelTopicModel;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
+import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
 import de.tudarmstadt.ukp.dkpro.core.mallet.topicmodel.MalletTopicModelInferencer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordLemmatizer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
@@ -36,33 +37,29 @@ import java.io.File;
 /**
  * (c) 2015 Ivan Habernal
  */
-public class TopicTest
+public class TopicModelGenerator
 {
     private static final int N_THREADS = 2;
-    private static final File MODEL_FILE = new File("target/mallet/model");
-
-    public static final String VOCABULARY_FILE = "target/vocabulary.bin";
 
     /**
      * Collects and stores vocabulary
      *
+     * @param corpusPath     corpus
+     * @param vocabularyFile vocabulary
      * @throws Exception
      */
-    public static void collectVocabulary()
+    public static void collectVocabulary(String corpusPath, String vocabularyFile)
             throws Exception
     {
         SimplePipeline.runPipeline(CollectionReaderFactory.createReaderDescription(
-                        CreateDebateArgumentReader.class,
-                        CreateDebateArgumentReader.PARAM_SOURCE_LOCATION,
-                        "/home/user-ukp/data2/createdebate-exported-2014"),
+                        XmiReader.class,
+                        XmiReader.PARAM_SOURCE_LOCATION, corpusPath,
+                        XmiReader.PARAM_PATTERNS, XmiReader.INCLUDE_PREFIX + "*.xmi"),
 
-                // tokenize web-texts
-                AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
-                AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
                 AnalysisEngineFactory.createEngineDescription(VocabularyCollector.class,
                         VocabularyCollector.PARAM_MINIMAL_OCCURRENCE, 5,
                         VocabularyCollector.PARAM_IGNORE_STOPWORDS, true,
-                        VocabularyCollector.PARAM_MODEL_LOCATION, VOCABULARY_FILE)
+                        VocabularyCollector.PARAM_MODEL_LOCATION, vocabularyFile)
         );
 
         /*
@@ -72,7 +69,8 @@ public class TopicTest
         */
     }
 
-    public static void trainTopicModel()
+    public static void trainTopicModel(String corpusPath, String vocabularyFile,
+            String topicModelFile)
             throws Exception
     {
         int nTopics = 100;
@@ -81,9 +79,9 @@ public class TopicTest
         SimplePipeline.runPipeline(
                 // reader
                 CollectionReaderFactory.createReaderDescription(
-                        CreateDebateArgumentReader.class,
-                        CreateDebateArgumentReader.PARAM_SOURCE_LOCATION,
-                        "/home/user-ukp/data2/createdebate-exported-2014"),
+                        XmiReader.class,
+                        XmiReader.PARAM_SOURCE_LOCATION, corpusPath,
+                        XmiReader.PARAM_PATTERNS, XmiReader.INCLUDE_PREFIX + "*.xmi"),
 
                 // tokenize web-texts
                 AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
@@ -94,27 +92,31 @@ public class TopicTest
                 AnalysisEngineFactory.createEngineDescription(
                         ExtendedMalletTopicModelEstimator.class,
                         ExtendedMalletTopicModelEstimator.PARAM_N_THREADS, N_THREADS,
-                        ExtendedMalletTopicModelEstimator.PARAM_TARGET_LOCATION, MODEL_FILE,
+                        ExtendedMalletTopicModelEstimator.PARAM_TARGET_LOCATION, topicModelFile,
                         ExtendedMalletTopicModelEstimator.PARAM_N_ITERATIONS, nIterations,
                         ExtendedMalletTopicModelEstimator.PARAM_N_TOPICS, nTopics,
                         ExtendedMalletTopicModelEstimator.PARAM_USE_LEMMA, true,
-                        ExtendedMalletTopicModelEstimator.PARAM_VOCABULARY_FILE, VOCABULARY_FILE
+                        ExtendedMalletTopicModelEstimator.PARAM_VOCABULARY_FILE, vocabularyFile
                 )
         );
 
-        ParallelTopicModel model = ParallelTopicModel.read(MODEL_FILE);
+        ParallelTopicModel model = ParallelTopicModel.read(new File(topicModelFile));
         System.out.println(model.getNumTopics());
     }
 
     public static void main(String[] args)
             throws Exception
     {
-        //        collectVocabulary();
-        //        trainTopicModel();
-        testEstimatorSentence();
+        String corpusPath = args[0];
+        String vocabularyFile = args[1];
+        String topicModelFile = args[2];
+
+        collectVocabulary(corpusPath, vocabularyFile);
+        trainTopicModel(corpusPath, vocabularyFile, topicModelFile);
+        //        testEstimatorSentence();
     }
 
-    public static void testEstimatorSentence()
+    public static void testEstimatorSentence(String corpusPath, String modelFile)
             throws Exception
     {
         int nTopics = 10;
@@ -128,7 +130,7 @@ public class TopicTest
                 CollectionReaderFactory.createReaderDescription(
                         CreateDebateArgumentReader.class,
                         CreateDebateArgumentReader.PARAM_SOURCE_LOCATION,
-                        "/home/user-ukp/data2/createdebate-exported-2014"),
+                        corpusPath),
 
                 // tokenize web-texts
                 AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
@@ -143,7 +145,7 @@ public class TopicTest
                 AnalysisEngineFactory.createEngineDescription(
                         MalletTopicModelInferencer.class,
                         MalletTopicModelInferencer.PARAM_USE_LEMMA, true,
-                        MalletTopicModelInferencer.PARAM_MODEL_LOCATION, MODEL_FILE,
+                        MalletTopicModelInferencer.PARAM_MODEL_LOCATION, modelFile,
                         MalletTopicModelInferencer.PARAM_TYPE_NAME,
                         Sentence.class.getCanonicalName()),
 

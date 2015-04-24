@@ -25,7 +25,6 @@ import cc.mallet.topics.TopicInferencer;
 import cc.mallet.types.Instance;
 import cc.mallet.types.TokenSequence;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Lemma;
-import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
 import de.tudarmstadt.ukp.dkpro.core.mallet.type.TopicDistribution;
 import org.apache.uima.UimaContext;
@@ -42,7 +41,7 @@ import java.io.File;
 /**
  * (c) 2015 Ivan Habernal
  */
-public abstract  class AbstractTopicAnnotator
+public abstract class AbstractTopicAnnotator
         extends JCasAnnotator_ImplBase
 {
     private static final String NONE_LABEL = "X";
@@ -50,13 +49,6 @@ public abstract  class AbstractTopicAnnotator
     public final static String PARAM_MODEL_LOCATION = "modelLocation";
     @ConfigurationParameter(name = PARAM_MODEL_LOCATION, mandatory = true)
     protected File modelLocation;
-
-    /**
-     * The annotation type to use as tokens. Default: {@link de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token}
-     */
-    public final static String PARAM_TYPE_NAME = "typeName";
-    @ConfigurationParameter(name = PARAM_TYPE_NAME, mandatory = true, defaultValue = "de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token")
-    protected String typeName;
 
     /**
      * The number of iterations during inference. Default: 10.

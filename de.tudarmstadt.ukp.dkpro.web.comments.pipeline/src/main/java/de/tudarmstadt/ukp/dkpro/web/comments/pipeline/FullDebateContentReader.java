@@ -91,7 +91,7 @@ public class FullDebateContentReader
 
         String debateText = sb.toString().trim();
 
-        DocumentMetaData metaData = DocumentMetaData.get(jCas);
+        DocumentMetaData metaData = DocumentMetaData.create(jCas);
         metaData.setDocumentTitle(debate.getTitle());
         metaData.setDocumentId(debate.getUrl());
 
