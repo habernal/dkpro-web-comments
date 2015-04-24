@@ -50,11 +50,6 @@
 			<artifactId>de.tudarmstadt.ukp.dkpro.web.comments.pipeline</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-
 	</dependencies>
 
 </project>
