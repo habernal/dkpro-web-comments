@@ -19,9 +19,9 @@
 
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
 	<name>WebArgumentMetadata</name>
-	<description>Type system for sentiment annotations from Stanford core</description>
+	<description>Type system for debate arguments</description>
 	<version>1.0</version>
-	<vendor>(c) 2014 UKP</vendor>
+	<vendor>(c) 2015 UKP</vendor>
 	<types>
 		<typeDescription>
 			<name>de.tudarmstadt.ukp.dkpro.web.comments.type.DebateArgumentMetaData</name>

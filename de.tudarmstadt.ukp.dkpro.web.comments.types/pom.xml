@@ -55,8 +55,8 @@
 				<version>2.4.2</version>
 				<configuration>
 					<typeSystemIncludes>
-						<include>src/main/resources/desc/types/WebArgumentTypeSystem.xml
-						</include>
+						<include>src/main/resources/desc/types/WebArgumentTypeSystem.xml</include>
+						<include>src/main/resources/desc/types/EmbeddingsAnnotation.xml</include>
 					</typeSystemIncludes>
 				</configuration>
 				<executions>

@@ -41,10 +41,17 @@ public class ClusterCentroid
     {
         TreeMap<Integer, Vector> centroids = computeClusterCentroids(args[0], args[1]);
 
+        // and serialize
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                new FileOutputStream(args[2]));
+        objectOutputStream.writeObject(centroids);
+        IOUtils.closeQuietly(objectOutputStream);
+
         //        System.out.println(centroids);
-        embeddingsToDistance(args[0], centroids, args[2]);
+//        embeddingsToDistance(args[0], centroids, args[2]);
     }
 
+    @Deprecated // should be run for each sentence run-time (too big file)
     public static void embeddingsToDistance(String inputVectorsPath,
             TreeMap<Integer, Vector> centroids, String outputFile)
             throws IOException
@@ -72,7 +79,7 @@ public class ClusterCentroid
             Vector distanceToClusterCentroidsVector = transformEmbeddingVectorToDistanceToClusterCentroidsVector(
                     vector, centroids);
 
-            System.out.println(VectorUtils.largestValues(distanceToClusterCentroidsVector, 5));
+//            System.out.println(VectorUtils.largestValues(distanceToClusterCentroidsVector, 5));
 
             // compute entropy
 //            double entropy = entropy(

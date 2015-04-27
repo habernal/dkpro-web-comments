@@ -22,30 +22,33 @@ import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.dl.Embedding;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.dl.Word2VecReader;
+import de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
-import org.apache.uima.fit.component.JCasConsumer_ImplBase;
+import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
 import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
+import org.apache.uima.jcas.cas.DoubleArray;
 import org.apache.uima.resource.ResourceInitializationException;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * For each {@link de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence} in the input JCas,
- * it computes the accumulated embeddings vector (loaded from cache) and prints it to the output
- * file; the output file is in the Cluto format (heading, vectors)
- *
  * @author Ivan Habernal
  */
-public class EmbeddingsClutoDataWriter
-        extends JCasConsumer_ImplBase
+public class EmbeddingsSentenceAnnotator
+        extends JCasAnnotator_ImplBase
 {
     public static final String PARAM_WORD_2_VEC_FILE = "word2VecFile";
 
@@ -57,19 +60,12 @@ public class EmbeddingsClutoDataWriter
     @ConfigurationParameter(name = PARAM_CACHE_FILE, mandatory = false)
     private File cacheFile;
 
-    public static final String PARAM_OUTPUT_FOLDER = "outputFile";
-    @ConfigurationParameter(name = PARAM_OUTPUT_FOLDER, mandatory = true)
-    private File outputFile;
-
     private Word2VecReader reader;
 
     Map<String, Vector> cache = new HashMap<>();
 
     // fixme make dynamical
     public static final int VECTOR_SIZE = 300;
-    private PrintWriter pwTemp;
-    private File tmpFile;
-    private int collectionSize = 0;
 
     @Override
     public void initialize(UimaContext context)
@@ -82,10 +78,6 @@ public class EmbeddingsClutoDataWriter
             if (cacheFile != null) {
                 loadCache();
             }
-
-            // temporary file and writer
-            tmpFile = File.createTempFile("tmp_cluto", ".dat");
-            pwTemp = new PrintWriter(tmpFile);
         }
         catch (IOException e) {
             throw new ResourceInitializationException(e);
@@ -159,7 +151,7 @@ public class EmbeddingsClutoDataWriter
                 }
             }
 
-            Vector finalVector = new DenseVector(VECTOR_SIZE);
+            DenseVector finalVector = new DenseVector(VECTOR_SIZE);
             for (String token : tokens) {
                 Embedding embedding = getEmbeddings(token);
 
@@ -168,48 +160,15 @@ public class EmbeddingsClutoDataWriter
                 }
             }
 
-            // print final vector values
-            for (int k = 0; k < finalVector.size(); k++) {
-                double value = finalVector.get(k);
-                pwTemp.printf(Locale.ENGLISH, "%f ", value);
-            }
-            pwTemp.println();
+            // make new annotation
+            Embeddings embeddings = new Embeddings(aJCas, sentence.getBegin(), sentence.getEnd());
 
-            collectionSize++;
+            // copy double values
+            DoubleArray doubleArray = new DoubleArray(aJCas, VECTOR_SIZE);
+            doubleArray.copyFromArray(finalVector.getData(), 0, 0, VECTOR_SIZE);
+            embeddings.setVector(doubleArray);
 
-            System.out.println(collectionSize + ", " + finalVector.get(0));
-        }
-    }
-
-
-
-    @Override
-    public void collectionProcessComplete()
-            throws AnalysisEngineProcessException
-    {
-        super.collectionProcessComplete();
-
-        // now produce output file
-        // close temp file
-        pwTemp.flush();
-        pwTemp.close();
-
-        try {
-            PrintWriter pw = new PrintWriter(outputFile);
-
-            pw.printf(Locale.ENGLISH, "%d %d%n", collectionSize, VECTOR_SIZE);
-
-            // copy the rest
-            IOUtils.copy(new FileInputStream(tmpFile), pw);
-
-            pw.flush();
-            pw.close();
-
-            // delete tmp file
-            FileUtils.deleteQuietly(tmpFile);
-        }
-        catch (IOException e) {
-            throw new AnalysisEngineProcessException(e);
+            embeddings.addToIndexes();
         }
     }
 }
