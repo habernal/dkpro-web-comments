@@ -55,11 +55,16 @@ public class Main
             throws Exception
     {
         SimplePipeline.runPipeline(CollectionReaderFactory
-                .createReaderDescription(XmiReader.class, XmiReader.PARAM_SOURCE_LOCATION,
-                        sourceDataDir,  XmiReader.PARAM_PATTERNS,
-                        XmiReader.INCLUDE_PREFIX + "*.xmi"), AnalysisEngineFactory
-                .createEngineDescription(EmbeddingsClutoDataWriter.class,
-                        EmbeddingsClutoDataWriter.PARAM_CACHE_FILE, cacheFile,
+                        .createReaderDescription(XmiReader.class, XmiReader.PARAM_SOURCE_LOCATION,
+                                sourceDataDir, XmiReader.PARAM_PATTERNS,
+                                XmiReader.INCLUDE_PREFIX + "*.xmi"),
+                AnalysisEngineFactory.createEngineDescription(
+                        EmbeddingsSentenceAnnotator.class,
+                        EmbeddingsSentenceAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
+                        EmbeddingsSentenceAnnotator.PARAM_CACHE_FILE, cacheFile
+                ),
+                AnalysisEngineFactory.createEngineDescription(
+                        EmbeddingsClutoDataWriter.class,
                         EmbeddingsClutoDataWriter.PARAM_OUTPUT_FOLDER, outFile));
     }
 

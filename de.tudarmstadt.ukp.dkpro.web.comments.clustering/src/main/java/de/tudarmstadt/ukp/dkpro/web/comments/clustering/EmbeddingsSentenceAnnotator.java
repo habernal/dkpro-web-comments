@@ -45,6 +45,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * For each {@link de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence} in the input JCas,
+ * it computes the accumulated embeddings vector (loaded from cache) and creates a new annotation
+ * of type {@link Embeddings} spanning the sentence.
+ *
  * @author Ivan Habernal
  */
 public class EmbeddingsSentenceAnnotator
