@@ -19,6 +19,12 @@
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.entropy;
 
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.ClusteringUtils;
+import de.tudarmstadt.ukp.dkpro.web.comments.type.DebateArgumentMetaData;
+import de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings;
+import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
 import org.apache.commons.io.LineIterator;
 import org.apache.uima.UimaContext;
@@ -29,10 +35,7 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -49,6 +52,10 @@ public class GenerateClusterTopicMatrix
     public static final String PARAM_CENTROIDS_FILE = "centroidsFile";
     @ConfigurationParameter(name = PARAM_CENTROIDS_FILE, mandatory = true)
     File centroidsFile;
+
+    public static final String PARAM_OUTPUT_FILE = "outputFile";
+    @ConfigurationParameter(name = PARAM_OUTPUT_FILE, mandatory = false)
+    File outputFile;
 
     /**
      * Output mapping (debate -> topic distribution) from {@link de.tudarmstadt.ukp.dkpro.web.comments.clustering.topic.DebateTopicExtractor}
@@ -70,6 +77,11 @@ public class GenerateClusterTopicMatrix
 
     private LineIterator lineIterator;
 
+    /**
+     * A real-number matrix (clusters x topics) counts or probabilities
+     */
+    protected Matrix clusterTopicMatrix;
+
     @Override
     @SuppressWarnings("unchecked")
     public void initialize(UimaContext context)
@@ -85,6 +97,9 @@ public class GenerateClusterTopicMatrix
             // load centroids
             centroids = (TreeMap<Integer, Vector>) new ObjectInputStream(
                     new FileInputStream(centroidsFile)).readObject();
+
+            // initialize matrix
+            clusterTopicMatrix = new DenseMatrix(centroids.size(), debateTopicMap.size());
         }
         catch (IOException | ClassNotFoundException e) {
             throw new ResourceInitializationException(e);
@@ -95,9 +110,75 @@ public class GenerateClusterTopicMatrix
     public void process(JCas aJCas)
             throws AnalysisEngineProcessException
     {
+        // get debate topic distribution
+        DebateArgumentMetaData debate = JCasUtil.selectSingle(aJCas, DebateArgumentMetaData.class);
+        String debateUrl = debate.getDebateUrl();
+
+        // get it from the cache
+        List<Double> topicDistribution = debateTopicMap.get(debateUrl);
+
+        if (topicDistribution == null) {
+            throw new IllegalStateException(
+                    "Cannot find topic distribution for debate " + debateUrl + " in cache file "
+                            + debateTopicMapFile);
+        }
+
+        Vector topicDistributionVector = de.tudarmstadt.ukp.dkpro.web.comments.clustering.dl.VectorUtils
+                .listToVector(topicDistribution);
+
         // iterate over sentences
         for (Sentence sentence : JCasUtil.select(aJCas, Sentence.class)) {
             // and load the appropriate distance to centroids
+            List<Embeddings> embeddingsList = JCasUtil.selectCovered(Embeddings.class, sentence);
+
+            if (embeddingsList.size() != 1) {
+                throw new AnalysisEngineProcessException(new IllegalStateException(
+                        "Expected 1 embedding annotations for sentence, but " +
+                                embeddingsList.size() + " found."));
+            }
+
+            Embeddings embeddings = embeddingsList.iterator().next();
+            DenseVector embeddingsVector = new DenseVector(embeddings.getVector().toArray());
+
+            Vector distanceToClusterCentroidsVector = ClusteringUtils
+                    .transformEmbeddingVectorToDistanceToClusterCentroidsVector(
+                            embeddingsVector, centroids);
+
+            updateClusterTopicMatrix(distanceToClusterCentroidsVector, topicDistributionVector);
+        }
+    }
+
+    /**
+     * Updates the co-ocurrence matrix of clusters and topics
+     *
+     * @param distanceToClusterCentroidsVector distance to cluster centroids of the particular
+     *                                         sentence
+     * @param topicDistributionVector          topic distribution for the document
+     */
+    protected void updateClusterTopicMatrix(Vector distanceToClusterCentroidsVector,
+            Vector topicDistributionVector)
+    {
+
+    }
+
+    @Override
+    public void collectionProcessComplete()
+            throws AnalysisEngineProcessException
+    {
+        super.collectionProcessComplete();
+
+        try {
+            if (outputFile != null) {
+                new ObjectOutputStream(new FileOutputStream(outputFile)).writeObject(
+                        clusterTopicMatrix);
+            }
+            else {
+                // print the matrix
+                System.out.println(clusterTopicMatrix);
+            }
+        }
+        catch (IOException e) {
+            throw new AnalysisEngineProcessException(e);
         }
     }
 }

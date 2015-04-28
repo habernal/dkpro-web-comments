@@ -16,42 +16,26 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.clustering;
+package de.tudarmstadt.ukp.dkpro.web.comments.clustering.entropy;
 
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.EmbeddingsSentenceAnnotator;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
 
-import java.io.File;
-
 /**
- * (c) 2015 Ivan Habernal
+ * @author Ivan Habernal
  */
-public class Main
+public class EntropyMain
 {
-
     private String word2VecFile;
 
     private String sourceDataDir;
 
     private String cacheFile;
 
-    public void prepareEmbeddingCache()
-            throws Exception
-    {
-        if (!(new File(cacheFile).exists())) {
-            SimplePipeline.runPipeline(CollectionReaderFactory
-                    .createReaderDescription(XmiReader.class, XmiReader.PARAM_SOURCE_LOCATION,
-                            sourceDataDir, XmiReader.PARAM_PATTERNS,
-                            XmiReader.INCLUDE_PREFIX + "*.xmi"), AnalysisEngineFactory
-                    .createEngineDescription(EmbeddingsCachePreprocessor.class,
-                            EmbeddingsCachePreprocessor.PARAM_WORD_2_VEC_FILE, word2VecFile,
-                            EmbeddingsCachePreprocessor.PARAM_CACHE_FILE, cacheFile));
-        }
-    }
-
-    public void generateClutoMatrix(String outFile)
+    public void generateClusterTopicMatrix(String outFile)
             throws Exception
     {
         SimplePipeline.runPipeline(CollectionReaderFactory
@@ -64,22 +48,20 @@ public class Main
                         EmbeddingsSentenceAnnotator.PARAM_CACHE_FILE, cacheFile
                 ),
                 AnalysisEngineFactory.createEngineDescription(
-                        EmbeddingsClutoDataWriter.class,
-                        EmbeddingsClutoDataWriter.PARAM_OUTPUT_FOLDER, outFile));
+                        GenerateClusterTopicMatrix.class,
+                        GenerateClusterTopicMatrix.PARAM_OUTPUT_FILE, outFile));
     }
 
     public static void main(String[] args)
             throws Exception
     {
-        Main main = new Main();
+        EntropyMain main = new EntropyMain();
         main.word2VecFile = args[0];
         main.sourceDataDir = args[1];
         main.cacheFile = args[2];
 
         // prepare embedding cache
-        main.prepareEmbeddingCache();
-
         // write cluto
-        main.generateClutoMatrix(args[3]);
+        main.generateClusterTopicMatrix(args[3]);
     }
 }

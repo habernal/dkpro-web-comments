@@ -18,12 +18,14 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.dl;
 
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.ClusteringUtils;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.Vector.Norm;
 import no.uib.cipr.matrix.VectorEntry;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -90,5 +92,77 @@ public class VectorUtils
     public static Vector unit(Vector vector)
     {
         return vector.scale(1 / vector.norm(Norm.Two));
+    }
+
+    public static double cosineSimilarity(Vector v1, Vector v2)
+    {
+        double dotProduct = 0.0;
+        double normA = 0.0;
+        double normB = 0.0;
+        for (int i = 0; i < v1.size(); i++) {
+            dotProduct += v1.get(i) * v2.get(i);
+            normA += v1.get(i) * v1.get(i);
+            normB += v2.get(i) * v2.get(i);
+        }
+
+        if (normA == 0 || normB == 0) {
+            return 0;
+        }
+
+        return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+    }
+
+    public static Vector cosineSimilarityToProbabilityDist(Vector v)
+    {
+        // cosine sim [-1, 1] -> add one
+        // add 1 to all entries
+        Vector vec = new DenseVector(v.size());
+        for (int i = 0; i < v.size(); i++) {
+            vec.set(i, v.get(i) + 1);
+        }
+
+        return normalize(vec);
+    }
+
+    public static double entropy(Vector v)
+    {
+        double result = 0.0;
+
+        for (VectorEntry entry : v) {
+            double pxi = entry.get();
+
+            if (pxi > 0) {
+                result += pxi * Math.log(pxi) / ClusteringUtils.LOG2;
+            }
+        }
+
+        return -result;
+    }
+
+    public static Vector normalize(Vector v)
+    {
+        double norm = 0;
+        for (int i = 0; i < v.size(); i++) {
+            norm += v.get(i);
+        }
+
+        Vector result = new DenseVector(v.size());
+
+        for (int i = 0; i < v.size(); i++) {
+            result.set(i, v.get(i) / norm);
+        }
+
+        return result;
+    }
+
+    public static Vector listToVector(List<Double> list)
+    {
+        double[] array = new double[list.size()];
+
+        for (int i = 0; i < list.size(); i++) {
+            array[i] = list.get(i);
+        }
+
+        return new DenseVector(array);
     }
 }
