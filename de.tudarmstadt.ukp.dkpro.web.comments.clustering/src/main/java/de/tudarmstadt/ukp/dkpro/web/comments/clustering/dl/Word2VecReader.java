@@ -18,6 +18,7 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.dl;
 
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.VectorUtils;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.Vector.Norm;

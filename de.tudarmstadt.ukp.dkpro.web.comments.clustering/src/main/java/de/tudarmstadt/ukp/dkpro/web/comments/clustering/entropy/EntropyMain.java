@@ -20,6 +20,7 @@ package de.tudarmstadt.ukp.dkpro.web.comments.clustering.entropy;
 
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.EmbeddingsSentenceAnnotator;
+import org.apache.uima.fit.component.CasDumpWriter;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
@@ -35,6 +36,10 @@ public class EntropyMain
 
     private String cacheFile;
 
+    private String centroidsFile;
+
+    private String debateTopicFile;
+
     public void generateClusterTopicMatrix(String outFile)
             throws Exception
     {
@@ -43,12 +48,20 @@ public class EntropyMain
                                 sourceDataDir, XmiReader.PARAM_PATTERNS,
                                 XmiReader.INCLUDE_PREFIX + "*.xmi"),
                 AnalysisEngineFactory.createEngineDescription(
+                        CasDumpWriter.class
+                ),
+                AnalysisEngineFactory.createEngineDescription(
                         EmbeddingsSentenceAnnotator.class,
                         EmbeddingsSentenceAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
                         EmbeddingsSentenceAnnotator.PARAM_CACHE_FILE, cacheFile
                 ),
                 AnalysisEngineFactory.createEngineDescription(
+                        CasDumpWriter.class
+                ),
+                AnalysisEngineFactory.createEngineDescription(
                         GenerateClusterTopicMatrix.class,
+                        GenerateClusterTopicMatrix.PARAM_CENTROIDS_FILE, centroidsFile,
+                        GenerateClusterTopicMatrix.PARAM_DEBATE_TOPIC_MAP_FILE, debateTopicFile,
                         GenerateClusterTopicMatrix.PARAM_OUTPUT_FILE, outFile));
     }
 
@@ -59,9 +72,12 @@ public class EntropyMain
         main.word2VecFile = args[0];
         main.sourceDataDir = args[1];
         main.cacheFile = args[2];
+        main.centroidsFile = args[3];
+        main.debateTopicFile = args[4];
 
         // prepare embedding cache
         // write cluto
-        main.generateClusterTopicMatrix(args[3]);
+        main.generateClusterTopicMatrix(null);
+//        main.generateClusterTopicMatrix(args[3]);
     }
 }

@@ -20,13 +20,14 @@ package de.tudarmstadt.ukp.dkpro.web.comments.clustering.entropy;
 
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.ClusteringUtils;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.VectorUtils;
 import de.tudarmstadt.ukp.dkpro.web.comments.type.DebateArgumentMetaData;
 import de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings;
 import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
-import org.apache.commons.io.LineIterator;
+import org.apache.commons.lang.StringUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasConsumer_ImplBase;
@@ -64,18 +65,9 @@ public class GenerateClusterTopicMatrix
     @ConfigurationParameter(name = PARAM_DEBATE_TOPIC_MAP_FILE, mandatory = true)
     File debateTopicMapFile;
 
-    /**
-     * Where the final matrix model is stored
-     */
-    public static final String PARAM_OUTPUT_MODEL_FILE = "outputModelFile";
-    @ConfigurationParameter(name = PARAM_OUTPUT_MODEL_FILE, mandatory = true)
-    File outputModelFile;
-
     Map<String, List<Double>> debateTopicMap;
 
     TreeMap<Integer, Vector> centroids;
-
-    private LineIterator lineIterator;
 
     /**
      * A real-number matrix (clusters x topics) counts or probabilities
@@ -123,7 +115,7 @@ public class GenerateClusterTopicMatrix
                             + debateTopicMapFile);
         }
 
-        Vector topicDistributionVector = de.tudarmstadt.ukp.dkpro.web.comments.clustering.dl.VectorUtils
+        Vector topicDistributionVector = VectorUtils
                 .listToVector(topicDistribution);
 
         // iterate over sentences
@@ -134,7 +126,9 @@ public class GenerateClusterTopicMatrix
             if (embeddingsList.size() != 1) {
                 throw new AnalysisEngineProcessException(new IllegalStateException(
                         "Expected 1 embedding annotations for sentence, but " +
-                                embeddingsList.size() + " found."));
+                                embeddingsList.size() + " found." +
+                                "Sentence: " + sentence.getBegin() + sentence.getEnd() + ", "
+                                + StringUtils.join(embeddingsList.iterator(), "\n")));
             }
 
             Embeddings embeddings = embeddingsList.iterator().next();
@@ -149,7 +143,7 @@ public class GenerateClusterTopicMatrix
     }
 
     /**
-     * Updates the co-ocurrence matrix of clusters and topics
+     * Updates the co-occurrence matrix of clusters and topics
      *
      * @param distanceToClusterCentroidsVector distance to cluster centroids of the particular
      *                                         sentence
@@ -158,7 +152,13 @@ public class GenerateClusterTopicMatrix
     protected void updateClusterTopicMatrix(Vector distanceToClusterCentroidsVector,
             Vector topicDistributionVector)
     {
+        int cluster = VectorUtils.largestValues(distanceToClusterCentroidsVector, 1).entrySet()
+                .iterator().next().getValue();
+        int topic = VectorUtils.largestValues(topicDistributionVector, 1).entrySet().iterator()
+                .next().getValue();
 
+        // just increase co-occurrence
+        clusterTopicMatrix.add(cluster, topic, 1.0);
     }
 
     @Override

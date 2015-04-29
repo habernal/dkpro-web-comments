@@ -50,7 +50,7 @@ public class ClusteringUtils
             Vector centroid = centroids.get(i);
 
             // compute distance - cosine similarity
-            double distance = de.tudarmstadt.ukp.dkpro.web.comments.clustering.dl.VectorUtils
+            double distance = VectorUtils
                     .cosineSimilarity(embeddingVector, centroid);
 
             result.set(i, distance);

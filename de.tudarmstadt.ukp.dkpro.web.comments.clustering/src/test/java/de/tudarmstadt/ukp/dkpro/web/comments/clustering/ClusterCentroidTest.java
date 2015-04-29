@@ -45,7 +45,7 @@ public class ClusterCentroidTest
         Vector v = new DenseVector(new double[] { 1, 1, 1, 1, 1, 5 });
         assertNotEquals(1.0, v.norm(Vector.Norm.One), 0.0001);
 
-        Vector normalize = ClusterCentroid.normalize(v);
+        Vector normalize = VectorUtils.normalize(v);
 
         // sums up to 1.0
         assertEquals(1.0, normalize.norm(Vector.Norm.One), 0.0001);

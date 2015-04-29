@@ -45,12 +45,14 @@ public class DebatesToXMIPipeline
                     // paragraphs
                     AnalysisEngineFactory.createEngineDescription(ParagraphSplitter.class),
                     // tokenize web-texts
-                    AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
+                    AnalysisEngineFactory.createEngineDescription(ArktweetTokenizerFixed.class),
                     // find sentences
                     AnalysisEngineFactory.createEngineDescription(StanfordSegmenter.class,
                             StanfordSegmenter.PARAM_WRITE_TOKEN, false),
                     // lemma
                     AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
+                    // sanity check
+                    AnalysisEngineFactory.createEngineDescription(SentenceOverlapSanityCheck.class),
                     AnalysisEngineFactory.createEngineDescription(FilteredArgumentXMIWriter.class,
                             FilteredArgumentXMIWriter.PARAM_MINIMUM_ARG_POINTS_REQUIRED, 2,
                             FilteredArgumentXMIWriter.PARAM_TARGET_LOCATION, outFolder
