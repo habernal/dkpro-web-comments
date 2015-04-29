@@ -29,6 +29,7 @@ import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -40,6 +41,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 
 import java.io.*;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -93,7 +95,8 @@ public class ClusterTopicMatrixGenerator
                     new FileInputStream(centroidsFile)).readObject();
 
             // initialize matrix
-            clusterTopicMatrix = new DenseMatrix(centroids.size(), debateTopicMap.size());
+            int numTopics = debateTopicMap.entrySet().iterator().next().getValue().size();
+            clusterTopicMatrix = new DenseMatrix(centroids.size(), numTopics);
         }
         catch (IOException | ClassNotFoundException e) {
             throw new ResourceInitializationException(e);
@@ -171,8 +174,14 @@ public class ClusterTopicMatrixGenerator
 
         try {
             if (outputFile != null) {
-                new ObjectOutputStream(new FileOutputStream(outputFile)).writeObject(
-                        clusterTopicMatrix);
+                PrintWriter pw = new PrintWriter(new FileOutputStream(outputFile));
+                for (int i = 0; i < clusterTopicMatrix.numRows(); i++) {
+                    for (int j = 0; j < clusterTopicMatrix.numColumns(); j++) {
+                        pw.printf(Locale.ENGLISH, "%.5f\t", clusterTopicMatrix.get(i, j));
+                    }
+                    pw.println();
+                }
+                IOUtils.closeQuietly(pw);
             }
             else {
                 // print the matrix

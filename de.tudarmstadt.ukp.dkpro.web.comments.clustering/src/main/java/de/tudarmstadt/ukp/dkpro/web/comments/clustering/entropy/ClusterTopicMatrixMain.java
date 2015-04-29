@@ -48,15 +48,9 @@ public class ClusterTopicMatrixMain
                                 sourceDataDir, XmiReader.PARAM_PATTERNS,
                                 XmiReader.INCLUDE_PREFIX + "*.xmi"),
                 AnalysisEngineFactory.createEngineDescription(
-                        CasDumpWriter.class
-                ),
-                AnalysisEngineFactory.createEngineDescription(
                         EmbeddingsSentenceAnnotator.class,
                         EmbeddingsSentenceAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
                         EmbeddingsSentenceAnnotator.PARAM_CACHE_FILE, cacheFile
-                ),
-                AnalysisEngineFactory.createEngineDescription(
-                        CasDumpWriter.class
                 ),
                 AnalysisEngineFactory.createEngineDescription(
                         ClusterTopicMatrixGenerator.class,
@@ -77,7 +71,7 @@ public class ClusterTopicMatrixMain
 
         // prepare embedding cache
         // write cluto
-        main.generateClusterTopicMatrix(null);
+        main.generateClusterTopicMatrix(args[5]);
 //        main.generateClusterTopicMatrix(args[3]);
     }
 }
