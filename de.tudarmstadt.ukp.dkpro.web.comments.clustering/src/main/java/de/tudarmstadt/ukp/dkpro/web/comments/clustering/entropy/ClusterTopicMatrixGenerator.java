@@ -19,8 +19,10 @@
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.entropy;
 
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.ClusterCentroidsMain;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.ClusteringUtils;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.VectorUtils;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.topic.DebateTopicExtractorMain;
 import de.tudarmstadt.ukp.dkpro.web.comments.type.DebateArgumentMetaData;
 import de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings;
 import no.uib.cipr.matrix.DenseMatrix;
@@ -44,11 +46,11 @@ import java.util.TreeMap;
 /**
  * @author Ivan Habernal
  */
-public class GenerateClusterTopicMatrix
+public class ClusterTopicMatrixGenerator
         extends JCasConsumer_ImplBase
 {
     /**
-     * Output from {@link de.tudarmstadt.ukp.dkpro.web.comments.clustering.ClusterCentroid}
+     * Output from {@link ClusterCentroidsMain}
      */
     public static final String PARAM_CENTROIDS_FILE = "centroidsFile";
     @ConfigurationParameter(name = PARAM_CENTROIDS_FILE, mandatory = true)
@@ -59,7 +61,7 @@ public class GenerateClusterTopicMatrix
     File outputFile;
 
     /**
-     * Output mapping (debate -> topic distribution) from {@link de.tudarmstadt.ukp.dkpro.web.comments.clustering.topic.DebateTopicExtractor}
+     * Output mapping (debate -> topic distribution) from {@link DebateTopicExtractorMain}
      */
     public static final String PARAM_DEBATE_TOPIC_MAP_FILE = "debateTopicMapFile";
     @ConfigurationParameter(name = PARAM_DEBATE_TOPIC_MAP_FILE, mandatory = true)

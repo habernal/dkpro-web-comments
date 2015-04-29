@@ -19,10 +19,10 @@
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.topic;
 
 import de.tudarmstadt.ukp.dkpro.core.api.metadata.type.DocumentMetaData;
-import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
 import de.tudarmstadt.ukp.dkpro.core.mallet.type.TopicDistribution;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordLemmatizer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
+import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.ArktweetTokenizerFixed;
 import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.FullDebateContentReader;
 import org.apache.commons.io.IOUtils;
 import org.apache.uima.UIMAException;
@@ -48,7 +48,7 @@ import java.util.*;
  *
  * @author Ivan Habernal
  */
-public class DebateTopicExtractor
+public class DebateTopicExtractorMain
         extends JCasConsumer_ImplBase
 {
     /**
@@ -121,7 +121,7 @@ public class DebateTopicExtractor
                         corpusPath),
 
                 // tokenize web-texts
-                AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
+                AnalysisEngineFactory.createEngineDescription(ArktweetTokenizerFixed.class),
 
                 // lemmatizer
                 AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
@@ -136,8 +136,8 @@ public class DebateTopicExtractor
                         DocumentTopicAnnotator.PARAM_MODEL_LOCATION, topicModelLocation
                 ),
                 AnalysisEngineFactory.createEngineDescription(
-                        DebateTopicExtractor.class,
-                        DebateTopicExtractor.PARAM_OUTPUT_FILE, outputFile
+                        DebateTopicExtractorMain.class,
+                        DebateTopicExtractorMain.PARAM_OUTPUT_FILE, outputFile
                 )
         );
     }

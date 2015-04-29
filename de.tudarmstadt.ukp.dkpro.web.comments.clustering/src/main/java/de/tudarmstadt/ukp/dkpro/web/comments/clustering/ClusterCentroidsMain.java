@@ -30,10 +30,10 @@ import java.util.*;
 /**
  * (c) 2015 Ivan Habernal
  */
-public class ClusterCentroid
+public class ClusterCentroidsMain
 {
 
-    public static final int EMBEDDINGS_VECTOR_SIZE = 300;
+//    public static final int EMBEDDINGS_VECTOR_SIZE = 300;
 
     public static void main(String[] args)
             throws Exception

@@ -28,15 +28,8 @@ import static org.junit.Assert.assertNotEquals;
 /**
  * @author Ivan Habernal
  */
-public class ClusterCentroidTest
+public class VectorUtilsTest
 {
-
-    @Test
-    public void testCosineSimilarity()
-            throws Exception
-    {
-
-    }
 
     @Test
     public void testNormalize()

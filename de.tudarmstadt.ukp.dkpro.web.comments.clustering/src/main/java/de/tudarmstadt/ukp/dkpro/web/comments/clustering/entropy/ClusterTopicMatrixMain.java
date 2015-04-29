@@ -28,7 +28,7 @@ import org.apache.uima.fit.pipeline.SimplePipeline;
 /**
  * @author Ivan Habernal
  */
-public class EntropyMain
+public class ClusterTopicMatrixMain
 {
     private String word2VecFile;
 
@@ -59,16 +59,16 @@ public class EntropyMain
                         CasDumpWriter.class
                 ),
                 AnalysisEngineFactory.createEngineDescription(
-                        GenerateClusterTopicMatrix.class,
-                        GenerateClusterTopicMatrix.PARAM_CENTROIDS_FILE, centroidsFile,
-                        GenerateClusterTopicMatrix.PARAM_DEBATE_TOPIC_MAP_FILE, debateTopicFile,
-                        GenerateClusterTopicMatrix.PARAM_OUTPUT_FILE, outFile));
+                        ClusterTopicMatrixGenerator.class,
+                        ClusterTopicMatrixGenerator.PARAM_CENTROIDS_FILE, centroidsFile,
+                        ClusterTopicMatrixGenerator.PARAM_DEBATE_TOPIC_MAP_FILE, debateTopicFile,
+                        ClusterTopicMatrixGenerator.PARAM_OUTPUT_FILE, outFile));
     }
 
     public static void main(String[] args)
             throws Exception
     {
-        EntropyMain main = new EntropyMain();
+        ClusterTopicMatrixMain main = new ClusterTopicMatrixMain();
         main.word2VecFile = args[0];
         main.sourceDataDir = args[1];
         main.cacheFile = args[2];
