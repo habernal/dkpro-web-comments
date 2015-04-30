@@ -20,6 +20,11 @@ package de.tudarmstadt.ukp.dkpro.web.comments.pipeline.tmp;
 
 import cc.mallet.topics.ParallelTopicModel;
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
+import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordLemmatizer;
+import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
+import de.tudarmstadt.ukp.dkpro.core.tokit.ParagraphSplitter;
+import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.ArktweetTokenizerFixed;
+import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.FullDebateContentReader;
 import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.VocabularyCollector;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
@@ -62,11 +67,45 @@ public class TopicModelGenerator
         */
     }
 
-    public static void trainTopicModel(String corpusPath, String vocabularyFile,
+    public static void trainTopicModelOnDebates(String corpusPath, String vocabularyFile,
             String topicModelFile)
             throws Exception
     {
         int nTopics = 100;
+        int nIterations = 100;
+
+        SimplePipeline.runPipeline(
+                // reader
+                CollectionReaderFactory.createReaderDescription(
+                        FullDebateContentReader.class,
+                        FullDebateContentReader.PARAM_SOURCE_LOCATION, corpusPath),
+                // tokenize web-texts
+                AnalysisEngineFactory.createEngineDescription(ArktweetTokenizerFixed.class),
+                // find sentences
+                AnalysisEngineFactory.createEngineDescription(StanfordSegmenter.class,
+                        StanfordSegmenter.PARAM_WRITE_TOKEN, false),
+                // lemma
+                AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
+                AnalysisEngineFactory.createEngineDescription(
+                        ExtendedMalletTopicModelEstimator.class,
+                        ExtendedMalletTopicModelEstimator.PARAM_N_THREADS, N_THREADS,
+                        ExtendedMalletTopicModelEstimator.PARAM_TARGET_LOCATION, topicModelFile,
+                        ExtendedMalletTopicModelEstimator.PARAM_N_ITERATIONS, nIterations,
+                        ExtendedMalletTopicModelEstimator.PARAM_N_TOPICS, nTopics,
+                        ExtendedMalletTopicModelEstimator.PARAM_USE_LEMMA, true,
+                        ExtendedMalletTopicModelEstimator.PARAM_VOCABULARY_FILE, vocabularyFile
+                )
+        );
+
+        ParallelTopicModel model = ParallelTopicModel.read(new File(topicModelFile));
+        System.out.println(model.getNumTopics());
+    }
+
+    public static void trainTopicModelOnArguments(String corpusPath, String vocabularyFile,
+            String topicModelFile)
+            throws Exception
+    {
+        int nTopics = 50;
         int nIterations = 100;
 
         SimplePipeline.runPipeline(
@@ -98,8 +137,8 @@ public class TopicModelGenerator
         String vocabularyFile = args[1];
         String topicModelFile = args[2];
 
-//        collectVocabulary(corpusPath, vocabularyFile);
-        trainTopicModel(corpusPath, vocabularyFile, topicModelFile);
-        //        testEstimatorSentence();
+        //        collectVocabulary(corpusPath, vocabularyFile);
+//        trainTopicModelOnArguments(corpusPath, vocabularyFile, topicModelFile);
+        trainTopicModelOnDebates(corpusPath, vocabularyFile, topicModelFile);
     }
 }

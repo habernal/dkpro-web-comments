@@ -20,7 +20,6 @@ package de.tudarmstadt.ukp.dkpro.web.comments.clustering.entropy;
 
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.EmbeddingsSentenceAnnotator;
-import org.apache.uima.fit.component.CasDumpWriter;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
@@ -53,7 +52,13 @@ public class ClusterTopicMatrixMain
                         EmbeddingsSentenceAnnotator.PARAM_CACHE_FILE, cacheFile
                 ),
                 AnalysisEngineFactory.createEngineDescription(
-                        ClusterTopicMatrixGenerator.class,
+                        ClusterSentencesCollector.class,
+                        ClusterSentencesCollector.PARAM_CENTROIDS_FILE, centroidsFile,
+                        ClusterSentencesCollector.PARAM_OUTPUT_DIR, "/tmp/out"
+                ),
+                AnalysisEngineFactory.createEngineDescription(
+                        //                        ClusterTopicMatrixGenerator.class,
+                        TopNEntriesMatrixGenerator.class,
                         ClusterTopicMatrixGenerator.PARAM_CENTROIDS_FILE, centroidsFile,
                         ClusterTopicMatrixGenerator.PARAM_DEBATE_TOPIC_MAP_FILE, debateTopicFile,
                         ClusterTopicMatrixGenerator.PARAM_OUTPUT_FILE, outFile));
@@ -72,6 +77,6 @@ public class ClusterTopicMatrixMain
         // prepare embedding cache
         // write cluto
         main.generateClusterTopicMatrix(args[5]);
-//        main.generateClusterTopicMatrix(args[3]);
+        //        main.generateClusterTopicMatrix(args[3]);
     }
 }

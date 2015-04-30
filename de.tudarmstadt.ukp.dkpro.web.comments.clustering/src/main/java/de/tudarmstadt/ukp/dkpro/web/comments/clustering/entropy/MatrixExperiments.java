@@ -18,6 +18,9 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.entropy;
 
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.VectorUtils;
+import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.Vector;
 import org.apache.commons.io.IOUtils;
 
 import java.awt.*;
@@ -52,6 +55,12 @@ public class MatrixExperiments
 
                 matrix[i][j] = value;
             }
+
+            // entropy of the cluster
+            Vector v = new DenseVector(matrix[i]);
+            System.out.print(VectorUtils.entropy(v));
+//            System.out.print(VectorUtils.entropy(VectorUtils.normalize(v)));
+            System.out.print(" ");
         }
 
         HeatChart map = new HeatChart(matrix);
@@ -62,7 +71,7 @@ public class MatrixExperiments
         map.setYAxisLabel("Y Axis");
 
         // Step 3: Output the chart to a file.
-        map.saveToFile(new File("/tmp/java-heat-chart.png"));
+        map.saveToFile(new File("/tmp/java-heat-chart2.png"));
 
     }
 
