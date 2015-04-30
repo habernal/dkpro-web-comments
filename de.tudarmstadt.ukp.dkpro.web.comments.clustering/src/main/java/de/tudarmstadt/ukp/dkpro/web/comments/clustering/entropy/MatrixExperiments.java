@@ -58,8 +58,8 @@ public class MatrixExperiments
 
             // entropy of the cluster
             Vector v = new DenseVector(matrix[i]);
-            System.out.print(VectorUtils.entropy(v));
-//            System.out.print(VectorUtils.entropy(VectorUtils.normalize(v)));
+//            System.out.print(VectorUtils.entropy(v));
+            System.out.print(VectorUtils.entropy(VectorUtils.normalize(v)));
             System.out.print(" ");
         }
 
@@ -71,7 +71,7 @@ public class MatrixExperiments
         map.setYAxisLabel("Y Axis");
 
         // Step 3: Output the chart to a file.
-        map.saveToFile(new File("/tmp/java-heat-chart2.png"));
+        map.saveToFile(new File("/tmp/java-heat-chart.png"));
 
     }
 
