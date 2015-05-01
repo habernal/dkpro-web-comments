@@ -41,6 +41,9 @@ public class DebateParserTest
 
         Debate debate = DebateParser.parseDebate(stream);
 
+        assertNotNull(debate);
+        assertNotNull(debate.getTitle());
+
         assertTrue(debate.getArgumentList().size() > 0);
 
         for (Argument argument : debate.getArgumentList()) {
@@ -50,5 +53,18 @@ public class DebateParserTest
                 assertNotEquals(argument.getId(), argument.getParentId());
             }
         }
+    }
+
+    @Test
+    public final void testEmptyDebate()
+            throws Exception
+    {
+        InputStream stream = getClass().getClassLoader()
+                .getResourceAsStream("7732___Will-the-average-American-be-unable-to-f.html");
+
+        Debate debate = DebateParser.parseDebate(stream);
+
+        assertNotNull(debate);
+        assertNotNull(debate.getTitle());
     }
 }

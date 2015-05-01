@@ -58,13 +58,21 @@ public class DebateParser
     {
         Debate result = new Debate();
 
-        Document doc = Jsoup.parse(inputStream, "UTF-8", "http://www.createdebate.com/");
+        Document doc = Jsoup.parse(inputStream, "UTF-8", "http://www.convinceme.net/");
 
         // debate title
-        Element h1 = doc.select("div.debate_header > h1").iterator().next();
+        Elements header = doc.select("div.debate_header > h1, h2");
+
+        Element h1 = header.iterator().next();
 
         // we need to remove sub-title (is weirdly generated as new line)
-        h1.select("font").iterator().next().remove();
+        Elements font = h1.select("font");
+
+        if (font.isEmpty()) {
+            // probably not a debate page
+            return null;
+        }
+        font.iterator().next().remove();
 
         // debate title text
         String title = Utils.normalize(h1.text());
@@ -163,12 +171,15 @@ public class DebateParser
         String parentId = null;
         Elements rebuttalTo = argumentBody.select("div.rebuttal_to");
         if (rebuttalTo.size() > 0) {
-            String onclick = rebuttalTo.select("a").iterator().next().attr("onclick");
+            Elements a = rebuttalTo.select("a");
+            if (!a.isEmpty()) {
+                String onclick = a.iterator().next().attr("onclick");
 
-            Pattern p = Pattern.compile("\\d+");
-            Matcher m = p.matcher(onclick);
-            if (m.find()) {
-                parentId = m.group();
+                Pattern p = Pattern.compile("\\d+");
+                Matcher m = p.matcher(onclick);
+                if (m.find()) {
+                    parentId = m.group();
+                }
             }
         }
 
