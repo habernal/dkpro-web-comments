@@ -37,6 +37,8 @@ public class ClutoMain
 
     private String cacheFile;
 
+    private String clutoMatrixFile;
+
     public void prepareEmbeddingCache()
             throws Exception
     {
@@ -51,7 +53,7 @@ public class ClutoMain
         }
     }
 
-    public void generateClutoMatrix(String outFile)
+    public void generateClutoMatrix()
             throws Exception
     {
         SimplePipeline.runPipeline(CollectionReaderFactory
@@ -65,7 +67,7 @@ public class ClutoMain
                 ),
                 AnalysisEngineFactory.createEngineDescription(
                         EmbeddingsClutoDataWriter.class,
-                        EmbeddingsClutoDataWriter.PARAM_OUTPUT_FOLDER, outFile));
+                        EmbeddingsClutoDataWriter.PARAM_OUTPUT_FOLDER, clutoMatrixFile));
     }
 
     public static void main(String[] args)
@@ -75,11 +77,12 @@ public class ClutoMain
         main.word2VecFile = args[0];
         main.sourceDataDir = args[1];
         main.cacheFile = args[2];
+        main.clutoMatrixFile = args[3];
 
         // prepare embedding cache
         main.prepareEmbeddingCache();
 
         // write cluto
-        main.generateClutoMatrix(args[3]);
+        main.generateClutoMatrix();
     }
 }

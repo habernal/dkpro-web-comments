@@ -93,9 +93,7 @@ public class CorpusPreparator
             // args[1] = output directory
             File outFolder = new File(args[1]);
 
-            if (!outFolder.mkdir()) {
-                throw new RuntimeException("Output dir not created");
-            }
+            outFolder.mkdir();
 
             // args[2] = parser implementation
             DebateParser parser = (DebateParser) Class.forName(args[2]).newInstance();

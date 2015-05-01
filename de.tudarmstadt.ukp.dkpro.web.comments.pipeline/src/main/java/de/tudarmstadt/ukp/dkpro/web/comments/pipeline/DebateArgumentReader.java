@@ -44,7 +44,7 @@ import java.util.Queue;
  * <p/>
  * (c) 2015 Ivan Habernal
  */
-public class CreateDebateArgumentReader
+public class DebateArgumentReader
         extends JCasCollectionReader_ImplBase
 {
     /**

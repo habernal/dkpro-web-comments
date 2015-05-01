@@ -160,6 +160,11 @@ public class ConvinceMeNetParser
 
         String text = argumentText.toString().replaceAll("\\n+", "\n").trim();
 
+        // ignore empty arguments
+        if (text.isEmpty()) {
+            return null;
+        }
+
         // id
         String id = argumentElement.attr("id").split("_")[1];
 
