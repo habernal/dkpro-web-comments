@@ -71,7 +71,7 @@ public class Utils
     }
 
     /**
-     * Normalizes the given string - unifying whitespaces, quotatations, and dashes
+     * Normalizes the given string - unifying whitespaces, quotations, and dashes
      *
      * @param text text
      * @return normalized text
