@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.convincemenet;
+package de.tudarmstadt.ukp.dkpro.web.comments.debates.impl;
 
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Argument;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;

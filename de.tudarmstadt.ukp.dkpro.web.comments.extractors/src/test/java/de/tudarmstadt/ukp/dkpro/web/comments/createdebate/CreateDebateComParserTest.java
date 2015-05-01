@@ -18,6 +18,7 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
 
+import de.tudarmstadt.ukp.dkpro.web.comments.debates.impl.CreateDebateComParser;
 import org.junit.Test;
 
 import java.net.URL;
@@ -25,7 +26,7 @@ import java.net.URL;
 /**
  * (c) 2015 Ivan Habernal
  */
-public class CreateDebateHTMLParserTest
+public class CreateDebateComParserTest
 {
 
     @Test

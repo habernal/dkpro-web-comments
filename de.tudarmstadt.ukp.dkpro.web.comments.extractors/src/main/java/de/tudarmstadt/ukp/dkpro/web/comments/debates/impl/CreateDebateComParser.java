@@ -16,9 +16,11 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
+package de.tudarmstadt.ukp.dkpro.web.comments.debates.impl;
 
 import de.tudarmstadt.ukp.dkpro.web.comments.Utils;
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Argument;
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
 import de.tudarmstadt.ukp.dkpro.web.comments.debates.DebateParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

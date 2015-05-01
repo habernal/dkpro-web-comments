@@ -18,7 +18,7 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.debates;
 
-import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.CreateDebateComParser;
+import de.tudarmstadt.ukp.dkpro.web.comments.debates.impl.CreateDebateComParser;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.DebateSerializer;
 import org.apache.commons.io.FileUtils;
