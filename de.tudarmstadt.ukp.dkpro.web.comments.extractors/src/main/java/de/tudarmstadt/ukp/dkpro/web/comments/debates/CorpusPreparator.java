@@ -16,8 +16,11 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
+package de.tudarmstadt.ukp.dkpro.web.comments.debates;
 
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.CreateDebateHTMLParser;
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.DebateSerializer;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -27,7 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Main class for extracting raw HTML debates from createdebate.com and storing them using the
+ * Main class for extracting raw HTML debates from debates and storing them using the
  * internal format
  *
  * @author Ivan Habernal
