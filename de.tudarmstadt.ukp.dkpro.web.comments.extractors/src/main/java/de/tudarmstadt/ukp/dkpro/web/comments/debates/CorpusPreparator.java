@@ -18,7 +18,6 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.debates;
 
-import de.tudarmstadt.ukp.dkpro.web.comments.debates.impl.CreateDebateComParser;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.DebateSerializer;
 import org.apache.commons.io.FileUtils;
@@ -43,11 +42,12 @@ public class CorpusPreparator
      * Extracts all debates from raw HTML files in inFolder and stores them into outFolder
      * as serialized {@link Debate} objects (see {@link DebateSerializer}.
      *
-     * @param inFolder  in folder
-     * @param outFolder out folder (must exist)
+     * @param inFolder     in folder
+     * @param outFolder    out folder (must exist)
+     * @param debateParser debate parser implementation
      * @throws IOException exception
      */
-    public static void extractAllDebates(File inFolder, File outFolder)
+    public static void extractAllDebates(File inFolder, File outFolder, DebateParser debateParser)
             throws IOException
     {
         File[] files = inFolder.listFiles();
@@ -58,7 +58,7 @@ public class CorpusPreparator
         for (File f : files) {
             InputStream inputStream = new FileInputStream(f);
             try {
-                Debate debate = new CreateDebateComParser().parseDebate(inputStream);
+                Debate debate = debateParser.parseDebate(inputStream);
 
                 // we ignore empty debates (without arguments)
                 if (debate != null && !debate.getArgumentList().isEmpty()) {
@@ -87,16 +87,22 @@ public class CorpusPreparator
 
     public static void main(String[] args)
     {
-        // args[0] = directory with exported html pages
-        File inFolder = new File(args[0]);
-        // args[1] = output directory
-        File outFolder = new File(args[1]);
-        outFolder.mkdir();
-
         try {
-            extractAllDebates(inFolder, outFolder);
+            // args[0] = directory with exported html pages
+            File inFolder = new File(args[0]);
+            // args[1] = output directory
+            File outFolder = new File(args[1]);
+
+            if (!outFolder.mkdir()) {
+                throw new RuntimeException("Output dir not created");
+            }
+
+            // args[2] = parser implementation
+            DebateParser parser = (DebateParser) Class.forName(args[2]).newInstance();
+
+            extractAllDebates(inFolder, outFolder, parser);
         }
-        catch (IOException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
