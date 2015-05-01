@@ -16,9 +16,10 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
+package de.tudarmstadt.ukp.dkpro.web.comments.debates.impl;
 
-import de.tudarmstadt.ukp.dkpro.web.comments.debates.impl.CreateDebateComParser;
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.DebateSerializer;
 import org.junit.Test;
 
 import java.net.URL;
