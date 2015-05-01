@@ -39,7 +39,7 @@ public class DebateParserTest
         InputStream stream = getClass().getClassLoader()
                 .getResourceAsStream("7595___Is-religion-child-abuse.html.txt");
 
-        Debate debate = DebateParser.parseDebate(stream);
+        Debate debate = new ConvinceMeNetParser().parseDebate(stream);
 
         assertNotNull(debate);
         assertNotNull(debate.getTitle());
@@ -62,7 +62,7 @@ public class DebateParserTest
         InputStream stream = getClass().getClassLoader()
                 .getResourceAsStream("7732___Will-the-average-American-be-unable-to-f.html.txt");
 
-        Debate debate = DebateParser.parseDebate(stream);
+        Debate debate = new ConvinceMeNetParser().parseDebate(stream);
 
         assertNotNull(debate);
         assertNotNull(debate.getTitle());

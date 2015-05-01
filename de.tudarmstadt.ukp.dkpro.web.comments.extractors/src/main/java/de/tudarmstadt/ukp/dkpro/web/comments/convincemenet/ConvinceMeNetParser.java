@@ -21,6 +21,7 @@ package de.tudarmstadt.ukp.dkpro.web.comments.convincemenet;
 import de.tudarmstadt.ukp.dkpro.web.comments.Utils;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Argument;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
+import de.tudarmstadt.ukp.dkpro.web.comments.debates.DebateParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -43,17 +44,12 @@ import java.util.regex.Pattern;
  * <p/>
  * (c) 2015 Ivan Habernal
  */
-public class DebateParser
+public class ConvinceMeNetParser
+        implements DebateParser
 {
 
-    /**
-     * Parses the debate
-     *
-     * @param inputStream input stream
-     * @return debate with arguments
-     * @throws IOException
-     */
-    public static Debate parseDebate(InputStream inputStream)
+    @Override
+    public Debate parseDebate(InputStream inputStream)
             throws IOException
     {
         Debate result = new Debate();

@@ -18,7 +18,7 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.debates;
 
-import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.CreateDebateHTMLParser;
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.CreateDebateComParser;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
 import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.DebateSerializer;
 import org.apache.commons.io.FileUtils;
@@ -58,7 +58,7 @@ public class CorpusPreparator
         for (File f : files) {
             InputStream inputStream = new FileInputStream(f);
             try {
-                Debate debate = CreateDebateHTMLParser.parseDebate(inputStream);
+                Debate debate = new CreateDebateComParser().parseDebate(inputStream);
 
                 // we ignore empty debates (without arguments)
                 if (debate != null && !debate.getArgumentList().isEmpty()) {

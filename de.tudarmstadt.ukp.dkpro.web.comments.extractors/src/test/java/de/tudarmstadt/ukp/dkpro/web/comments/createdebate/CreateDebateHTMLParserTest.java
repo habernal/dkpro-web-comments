@@ -28,14 +28,15 @@ import java.net.URL;
 public class CreateDebateHTMLParserTest
 {
 
-    @Test public void testParseDebate()
+    @Test
+    public void testParseDebate()
             throws Exception
     {
         URL url = new URL(
                 "http://www.createdebate.com/debate/show/Is_it_more_important_to_reduce_abortions_or_a_law_banning_it");
-        Debate debate = CreateDebateHTMLParser.parseDebate(url.openStream());
+        Debate debate = new CreateDebateComParser().parseDebate(url.openStream());
 
-//        System.out.println(debate);
+        //        System.out.println(debate);
 
         System.out.println(DebateSerializer.serializeToXML(debate));
     }
@@ -44,7 +45,6 @@ public class CreateDebateHTMLParserTest
     public void testAllFiles()
             throws Exception
     {
-
 
     }
 }

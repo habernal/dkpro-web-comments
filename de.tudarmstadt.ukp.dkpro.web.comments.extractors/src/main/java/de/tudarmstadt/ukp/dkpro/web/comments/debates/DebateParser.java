@@ -35,7 +35,7 @@ public interface DebateParser
      *
      * @param inputStream input stream
      * @return debate with arguments or {@code null} if the input stream contains no debate (e.g.,
-     * another type of html site, etc.)
+     * another type of html site, etc.) or the debate is not parseable
      * @throws IOException
      */
     Debate parseDebate(InputStream inputStream)
