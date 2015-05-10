@@ -22,7 +22,6 @@ import cc.mallet.topics.ParallelTopicModel;
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordLemmatizer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
-import de.tudarmstadt.ukp.dkpro.core.tokit.ParagraphSplitter;
 import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.ArktweetTokenizerFixed;
 import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.FullDebateContentReader;
 import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.VocabularyCollector;
@@ -49,11 +48,19 @@ public class TopicModelGenerator
     public static void collectVocabulary(String corpusPath, String vocabularyFile)
             throws Exception
     {
-        SimplePipeline.runPipeline(CollectionReaderFactory.createReaderDescription(
-                        XmiReader.class,
-                        XmiReader.PARAM_SOURCE_LOCATION, corpusPath,
-                        XmiReader.PARAM_PATTERNS, XmiReader.INCLUDE_PREFIX + "*.xmi"),
-
+        SimplePipeline.runPipeline(
+                // reader
+                CollectionReaderFactory.createReaderDescription(
+                        FullDebateContentReader.class,
+                        FullDebateContentReader.PARAM_SOURCE_LOCATION, corpusPath),
+                // tokenize web-texts
+                AnalysisEngineFactory.createEngineDescription(ArktweetTokenizerFixed.class),
+                // find sentences
+                AnalysisEngineFactory.createEngineDescription(StanfordSegmenter.class,
+                        StanfordSegmenter.PARAM_WRITE_TOKEN, false),
+                // lemma
+                AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
+                // collect vocabulary
                 AnalysisEngineFactory.createEngineDescription(VocabularyCollector.class,
                         VocabularyCollector.PARAM_MINIMAL_OCCURRENCE, 5,
                         VocabularyCollector.PARAM_IGNORE_STOPWORDS, true,
@@ -61,9 +68,9 @@ public class TopicModelGenerator
         );
 
         /*
-        INFORMATION: Original vocabulary size: 130853
-        INFORMATION: Filtered vocabulary size: 30419
-        total tokens: 11,393,646
+        INFORMATION: Original vocabulary size: 136060
+        INFORMATION: Filtered vocabulary size: 32008
+        total tokens: 11,973,368
         */
     }
 
@@ -137,8 +144,7 @@ public class TopicModelGenerator
         String vocabularyFile = args[1];
         String topicModelFile = args[2];
 
-        //        collectVocabulary(corpusPath, vocabularyFile);
-//        trainTopicModelOnArguments(corpusPath, vocabularyFile, topicModelFile);
+        collectVocabulary(corpusPath, vocabularyFile);
         trainTopicModelOnDebates(corpusPath, vocabularyFile, topicModelFile);
     }
 }
