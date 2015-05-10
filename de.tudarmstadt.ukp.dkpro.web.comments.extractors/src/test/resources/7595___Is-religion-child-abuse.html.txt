@@ -1,0 +1,1938 @@
+<!--
+  ~ Copyright 2015
+  ~ Ubiquitous Knowledge Processing (UKP) Lab
+  ~ Technische Universität Darmstadt
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"
+      xmlns:og="http://opengraphprotocol.org/schema/">
+<head prefix="og: http://ogp.me/ns# convinceme: http://ogp.me/ns/apps/convinceme#">
+
+    <base href="http://www.convinceme.net/">
+    <title>Is religion child abuse? : ConvinceMe Debate</title>
+    <meta name="description" content="Is religion child abuse?">
+    <meta name="keywords"
+          content="convince, convinceme, debate, argue, online debate, politics, election, conservative, liberal, republican, democrat, morality, ethics, philosophy, war, lincoln douglas debate, religion, ron paul, barack obama, mitt romney, ninjas, pirates">
+
+    <meta itemprop="name" content="Is religion child abuse?">
+    <meta itemprop="description"
+          content="Too many people are wrong on the internet. ConvinceMe is where you prove it.">
+
+    <meta property="og:type" content="convinceme:debate"/>
+    <meta property="og:title" content="Is religion child abuse?"/>
+    <meta property="og:image" content="http://www.convinceme.net/img/open_butt.jpg"/>
+    <meta property="og:description"
+          content="Too many people are wrong on the internet. ConvinceMe is where you prove it. Debate Online."/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:url"
+          content="http://www.convinceme.net/debates/7595/Is-religion-child-abuse.html"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+    <script type="text/javascript" src="./js/jquery-min.js"></script>
+    <script type="text/javascript" src="./js/jquery.form.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./css/fb.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/facebox.css"/>
+    <link href='https://chrome.google.com/webstore/detail/ikidcmlkbokcobokadnmlkidjbfbfckd'
+          rel='chrome-webstore-item'/>
+    <link href='https://chrome.google.com/webstore/detail/blcpjkdpicjeckfhlefppajdaedobhoh'
+          rel='chrome-webstore-item'/>
+
+    <!--[if lt IE 7]>
+    <script defer type="text/javascript" src="./js/pngfix.js"></script>
+    <![endif]-->
+
+    <!-- start Mixpanel -->
+    <script type="text/javascript">(function (d, c) {
+        var a, b, g, e;
+        a = d.createElement("script");
+        a.type = "text/javascript";
+        a.async = !0;
+        a.src = ("https:" === d.location.protocol ? "https:" : "http:") + '//api.mixpanel.com/site_media/js/api/mixpanel.2.js';
+        b = d.getElementsByTagName("script")[0];
+        b.parentNode.insertBefore(a, b);
+        c._i = [];
+        c.init = function (a, d, f) {
+            var b = c;
+            "undefined" !== typeof f ? b = c[f] = [] : f = "mixpanel";
+            g = "disable track track_pageview track_links track_forms register register_once unregister identify name_tag set_config".split(" ");
+            for (e = 0; e < g.length; e++)(function (a) {
+                b[a] = function () {
+                    b.push([a].concat(Array.prototype.slice.call(arguments, 0)))
+                }
+            })(g[e]);
+            c._i.push([a, d, f])
+        };
+        window.mixpanel = c
+    })(document, []);
+    mixpanel.init("917cc25d85982998b20d6f8d1729f55c");</script>
+    <!-- end Mixpanel -->
+</head>
+
+<body style='min-height:900px;'>
+
+
+<div id="fb-root"></div>
+<script>
+    (function () {
+        var e = document.createElement('script');
+        e.async = true;
+        e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+        document.getElementById('fb-root').appendChild(e);
+    }());
+</script>
+<script type="text/javascript">
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '389866767691768',
+            status: true,
+            cookie: true,
+            oauth: true,
+            xfbml: true,
+            channelUrl: 'http://www.polinut.com/channel.html'
+        });
+        FB.Canvas.setAutoGrow(100);
+    };
+
+    // Do things that will sometimes call sizeChangeCallback()
+    function sizeChangeCallback() {
+        FB.Canvas.setSize();
+    }
+</script>
+<div class='header'>
+    <div class='header_logo'>
+        <a href='http://www.convinceme.net/' target='_top'><img src='./img/logo.png'/></a>
+    </div>
+
+    <div class='header_search'>
+        <form id='sform' action='http://www.convinceme.net/search' method='get' target='_top'>
+            <input type='text' name='sbox'
+                   style='margin-left:20px;margin-top:5px;background:#b5b5b5;width:130px;border:0px;'/>
+        </form>
+    </div>
+
+    <div class='header_invite'>
+        <a href='http://www.convinceme.net/invite' target='_top'><img src='./img/invite.png'/></a>
+    </div>
+
+    <div onclick="load_page('profile'); return false;" class='header_profile'
+         onmouseover="$(this).addClass('header_over');"
+         onmouseout="$(this).removeClass('header_over');">
+        <img src='./img/friends.png' style='width:35px;float:left;padding-right:10px;'/>
+
+        <div style='float:left;padding-top:10px;font-size:11px;'>Login/Sign Up</div>
+    </div>
+
+    <div class='header_links'>
+        <div onclick="load_page('debates'); return false;"
+             style='float:left;padding:5px;width:60px;padding-top:13px;height:30px;text-align:center;cursor:pointer;'
+             onmouseover="$(this).addClass('header_over');"
+             onmouseout="$(this).removeClass('header_over');">Debates
+        </div>
+        <div onclick="load_page('battles'); return false;"
+             style='float:left;padding:5px;width:60px;padding-top:13px;height:30px;text-align:center;cursor:pointer;'
+             onmouseover="$(this).addClass('header_over');"
+             onmouseout="$(this).removeClass('header_over');">Battles
+        </div>
+        <div onclick="load_page('king_of_the_hill'); return false;"
+             style='float:left;padding:5px;width:60px;padding-top:13px;height:30px;text-align:center;cursor:pointer;'
+             onmouseover="$(this).addClass('header_over');"
+             onmouseout="$(this).removeClass('header_over');">K.O.T.H.
+        </div>
+    </div>
+
+</div>
+<div class='clear'></div>
+<br/><br/><br/><br/>
+
+<div id='install_chrome_app' style='float:right;padding:10px;display:none;'></div>
+<div id='center_content'>
+    <div class='social_share'>
+        <div class='social_share_request'><a href='#'
+                                             onclick="fb_request('debate', 7595, 0); return false;"><img
+                src='./img/tell_friends.png'/></a></div>
+        <div class='social_share_twitter'><a href="https://twitter.com/share"
+                                             class="twitter-share-button" data-lang="en"
+                                             data-hashtags="convinceme"
+                                             data-url="http://www.convinceme.net/debates/7595/Is-religion-child-abuse.html">Tweet</a>
+        </div>
+        <div class='social_share_gplus'>
+            <g:plusone></g:plusone>
+        </div>
+        <div class='social_share_reddit'><a href="http://www.reddit.com/submit"
+                                            onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false">
+            <img src="http://www.reddit.com/static/spreddit7.gif" alt="submit to reddit"
+                 border="0"/> </a></div>
+        <div class='social_share_fblike'>
+            <fb:like href="http://www.convinceme.net/debates/7595/Is-religion-child-abuse.html"
+                     send="true" data-colorscheme="dark" layout="button_count" width="120"
+                     show_faces="false"></fb:like>
+        </div>
+    </div>
+    <div class='clear'></div>
+
+    <div class='debate_header'>
+        <h1>Is religion child abuse?<br/><font style='font-size:16px;'>Religion</font></h1>
+
+    </div>
+    <div class='clear'></div>
+
+    <div class='debate_header_bottom'>
+        <div class='debate_header_pic'>
+            <img src='http://convinceme.net/userimg/14108.jpg' style='width:40px;'/></div>
+        <div class='debate_header_creator'>
+            <a style='font-size:12px;'
+               href='http://www.convinceme.net/profile/14108/raiders2012.html' target='_top'>raiders2012</a><br/>
+            Oct 31, 2011
+        </div>
+        <div class='debate_header_votebox'>
+            14 <font style='font-size:11px;'>votes</font>
+        </div>
+        <div class='debate_header_debaterbox'>
+            6 <font style='font-size:11px;'>debaters</font>
+        </div>
+        <div class='debate_header_debaters' style='width:306px;'>
+
+            <div style='float:left;padding-right:1px;'>
+                <a href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                   target='_top'><img src='http://convinceme.net/userimg/14108.jpg'
+                                      style='width:50px;height:50px;'/></a>
+
+                <div class='inner_pic_counter'>4</div>
+            </div>
+            <div style='float:left;padding-right:1px;'>
+                <a href='http://www.convinceme.net/profile/2005/jonjax71.html' target='_top'><img
+                        src='http://convinceme.net/userimg/2005.jpg'
+                        style='width:50px;height:50px;'/></a>
+
+                <div class='inner_pic_counter'>1</div>
+            </div>
+            <div style='float:left;padding-right:1px;'>
+                <a href='http://www.convinceme.net/profile/6693/denverdannydee.html'
+                   target='_top'><img src='http://convinceme.net/userimg/6693.jpg'
+                                      style='width:50px;height:50px;'/></a>
+            </div>
+            <div style='float:left;padding-right:1px;'>
+                <a href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                   target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                      style='width:50px;height:50px;'/></a>
+            </div>
+            <div style='float:left;padding-right:1px;'>
+                <a href='http://www.convinceme.net/profile/14109/stephpaulred.html'
+                   target='_top'><img src='http://graph.facebook.com/100000542608496/picture'
+                                      style='width:50px;height:50px;'/></a>
+            </div>
+            <div style='float:left;padding-right:1px;'>
+                <a href='http://www.convinceme.net/profile/14200/vioax.html' target='_top'><img
+                        src='./img/friends.png' style='width:50px;height:50px;'/></a>
+            </div>
+        </div>
+    </div>
+    <div class='clear'></div>
+    <br/><br/>
+
+
+    <div class='left_side'>
+        <a href="#" onclick="start_arg(7595, 1, 18243, 0, 50, 0); return false;"
+           style='font-size:18px;'>+ Add Argument</a><br/><br/>
+
+        <div class='debate_side_top'>
+            <div class='debate_side_top_votes' id='side_18243'>
+                8
+            </div>
+            <div class='debate_side_top_name'>
+                Yes<br/><br/>
+            </div>
+            <div class='debate_side_top_button'>
+                <a href='#' onclick='addvote(7595, 18243); return false'><img src='./img/vote.png'/></a>
+            </div>
+        </div>
+        <div class='clear'></div>
+        <br/>
+
+        <div class='arguments'>
+            <div style='float:left;' id='aid_78864'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'><img src='http://convinceme.net/userimg/14108.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'>raiders2012</a><br/><font size='1'>Oct 31, 2011</font>
+                        </div>
+                    </div>
+                    <div id='sway_78864' stlye='float:left; width:50px;'>2 convinced
+                        <a href='#' onclick='sway(7595,78864,14108, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 78864, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    I'm a new member so I need to get some points going and I wanted to start a
+                    debate that is a controversial. Religion is such a taboo subject when it comes
+                    to negativity that you almost feel bad suggesting such comments. I do however
+                    think that when a child comes into the world, it can be raised and taught
+                    anything based on what the parents think is correct. When religious parents
+                    raise children to suppress open-mindedness thinking and teach that god is real
+                    and you must go to church and you must pray every night, so and so on, that
+                    child as it matures into an adult may struggle to deal with what they have been
+                    taught, as opposed to what they logically think based on the real world in which
+                    they live.
+                    <br>I see people today that are grown men and women who live solely in the
+                    spiritual world, and they cannot take the view that god may not be real as their
+                    entire life as a christian has been spent worshipping Jesus and god. Mentally I
+                    think it is bad to teach creativity, gods, noahs ark, jonah living in a big fish
+                    etc to young impressionable children and I'd support any move to remove
+                    religious teachings from schools.
+                    <br><br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78869'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/2005/jonjax71.html'
+                                target='_top'><img src='http://convinceme.net/userimg/2005.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/2005/jonjax71.html'
+                                target='_top'>jonjax71</a><br/><font size='1'>Oct 31, 2011</font>
+                        </div>
+                    </div>
+                    <div id='sway_78869' stlye='float:left; width:50px;'>1 convinced
+                        <a href='#' onclick='sway(7595,78869,2005, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 78869, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    I never thought about religion as child abuse, this is a very provocative
+                    perspective. I could see it as a minor form of mental child abuse, yet, it's no
+                    different than other mythology that is tandard procedure for most parents. For
+                    instance, easter where a rabiit layts eggs, a tooth fairy will give you a prize
+                    for a fallen tooth, santa claus, halloween, "columbus" day, etc etc. My wife's
+                    parents were protestant however since high school, she became a non follower of
+                    any religion and adopted high moral attitudes based on common sense, self
+                    improvement etc, being Jahmaican she also adopted some of the positive traits of
+                    Rastafarism. My parents were Southern Baptists but were not very strong with
+                    their convictions, by the time I was 12 or 13, I knew I didn't concur with
+                    christianity of any type so when I was 16, I became a member of the N O I,
+                    Nation of Islam, like Macolm X, it didn't take long for me to realize there's
+                    was something not right about it so at 19 I became a Universal Muslim, While in
+                    college I became a deist and after meeting my wife adopted her outlook of
+                    theology.
+                    <br>
+                    <br>We raised our son and daughter without any mythology or religion, instilling
+                    in them from adolescene to respect others who with different viewpoints and
+                    never to criticize them for believing in myths or being religious. Both of our
+                    chiuldren never got in trouble, they have high moral views, are honest, ethical,
+                    succesful, have both married and are raising their children like we raised them.
+                    So religioon, god, faith and or mythology does not make the child, it is the
+                    upbringing. i've seen more children from religious homes-in particular xtians
+                    homes and P T-preacher's kids have more issues than among any of our
+                    acquaintences who are atheists, deists or any other non religious forms<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78898'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'><img src='http://convinceme.net/userimg/14108.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'>raiders2012</a><br/><font size='1'>Nov 01, 2011</font>
+                        </div>
+                    </div>
+                    <div id='sway_78898' stlye='float:left; width:50px;'>1 convinced
+                        <a href='#' onclick='sway(7595,78898,14108, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 78898, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://graph.facebook.com/100000542608496/picture'
+                            style='width:25px;'/> stephpaulred <a href='#'
+                                                                  onclick='get_rebuttal(78865, &quot;rebutt_78898&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78898'></div>
+                    </div>
+                    <br> Thanks for the rebuttal, too bad your arguement is typical of a deluded
+                    christian. Your correct on one point though, my parents didnt teach me religion
+                    and that is a wonderful thing. You see, I cannot understand why christians need
+                    'God' to teach them morals. Don't you think that we as humans couldnt sit down
+                    and say 'You know what? Maybe we shouldn't kill each other or steal each others
+                    stuff.' You shouldn't need a God to determine the difference between right and
+                    wrong, in fact I would say that God is immoral. The amount of killing he orders
+                    in the old testament is cruel beyond belief. It is not moral for an innocent man
+                    (Jesus) to be executed for the sins of others. The mere fact that you can cast
+                    your sins or wrong doings onto someone else and let them pay the price is not
+                    moral. YOU are responsible for your sins, jesus or anybody else cannot take away
+                    your accountability. Nor should they offer to. Children need to understand
+                    responsibilty and accountability. Do not teach them you can pray and be saved.
+                    Do not teach them that if they do not believe in Jesus they will go and burn in
+                    hell for all eternity. This is an awful thought. If mature adults want to search
+                    out Jesus for thier own consolation, thats fine. But leave the children out of
+                    it. You don't do them any favours by teaching them that god created the earth
+                    six thousand years ago, when the Earth has existed for millions of
+                    years.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78916'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'><img src='http://convinceme.net/userimg/14108.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'>raiders2012</a><br/><font size='1'>Nov 02, 2011</font>
+                        </div>
+                    </div>
+                    <div id='sway_78916' stlye='float:left; width:50px;'>1 convinced
+                        <a href='#' onclick='sway(7595,78916,14108, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 78916, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/13975.jpeg' style='width:25px;'/>
+                        individualeleven <a href='#'
+                                            onclick='get_rebuttal(78899, &quot;rebutt_78916&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78916'></div>
+                    </div>
+                    <br> Thanks for your comments. The definition of Delusion is - 'A fixed false
+                    belief that is resistant to reason or confrontation with actual fact' and yes I
+                    would say that does apply to the Christian Faith. The last rebuttal I had was
+                    from someone that was making no sense and was purely spouting god speak from the
+                    hip and rambling about discipline. This kind of delusional speak is common
+                    amongst the religious, and it is unfortunately passed down to their children, to
+                    the undefended mind of the young. Discipline can be taught without God. Fact. If
+                    I look at your particular arguement you seem to be suggesting that just because
+                    you have been raised by Christian parents and have no issues, that should then
+                    cancel out all the unfortunate children who are now adults seeking 'exit
+                    counselling' as they come to terms with the fact that they cannot believe what
+                    has been fed to them by their parents all their life and maybe it is - just.
+                    not. real.
+                    <br>'What do I suggest we teach our kids?' Well, What I don't think we should be
+                    teaching is the bible as truth, when there is not a shred of evidence to suggest
+                    any of it is real. 90% of scientists today agree we have followed evolution by
+                    natural selection. Personally, I lean towards this. However, I think that the
+                    burdon of proof here lies with you. You are arguing that its ok to teach
+                    bronze-age myths to children as real, give them false hope, that there is indeed
+                    an afterlife. Would you care to explain to me how it is you know this to be
+                    real? Because if you cant prove to me that god exists and you go to heaven or
+                    hell when you die, then it shouldn't be taught to children. Don't tell them the
+                    ridiculous story about adam and eve and the talking snake. Or the virgin birth,
+                    noahs ark, immaculate conception, or the burning bush.
+                    <br>By the way, its not a sacrifice if you are executed and killed as Jesus, and
+                    then 3 days later risen from the dead to be God. Please don't tell me that is
+                    moral or loving to execute someone with a blood sacrifice to forgive the world
+                    from sin. Only a sadistic character would order such a thing (and this relates
+                    to my point about the old testament) because if god is real why did he not just
+                    say 'Ok I forgive you all'. Why torture and crucify yourself to achieve this?
+                    Thats not moral no matter which way you try to defend it. Considering also that
+                    he planned and wanted this to happen, that makes it even more odd. You see, if
+                    you are going to try and defend your statement you really need to stop sitting
+                    on the fence and choose a side. You either believe in god or you dont. If you
+                    do, then you need to explain to me how its not child abuse to feed children
+                    wicked stories about hell, devils, demons, death, torture, fire. You seem to
+                    like the position of saying IF god is real. Well so far there is no evidence of
+                    that, so perhaps you should have a think about that considering it seems that
+                    your parents raised you as a christian to believe in Jesus, and by the nature of
+                    your arguement you dont seem to follow that with much conviction.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78905'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/2005/jonjax71.html'
+                                target='_top'><img src='http://convinceme.net/userimg/2005.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/2005/jonjax71.html'
+                                target='_top'>jonjax71</a><br/><font size='1'>Nov 01, 2011</font>
+                        </div>
+                    </div>
+                    <div id='sway_78905' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78905,2005, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 78905, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/13975.jpeg' style='width:25px;'/>
+                        individualeleven <a href='#'
+                                            onclick='get_rebuttal(78900, &quot;rebutt_78905&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78905'></div>
+                    </div>
+                    <br> Coming up in my teens, me and the boys as well as thoughout the community
+                    and schools always knew that preacher's daughters and catholic school girls were
+                    the easiet to get into their panties. In fact when going on the road men would
+                    often go to the nearest baptist church to hit up on the women.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78923'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/2005/jonjax71.html'
+                                target='_top'><img src='http://convinceme.net/userimg/2005.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/2005/jonjax71.html'
+                                target='_top'>jonjax71</a><br/><font size='1'>Nov 02, 2011</font>
+                        </div>
+                    </div>
+                    <div id='sway_78923' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78923,2005, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 78923, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/13975.jpeg' style='width:25px;'/>
+                        individualeleven <a href='#'
+                                            onclick='get_rebuttal(78918, &quot;rebutt_78923&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78923'></div>
+                    </div>
+                    <br> The bible is a history book, a collections of anecdotes of he occurences of
+                    its time, many of its people and events are based on reality. However just as in
+                    any history or accounts of the past, there is hyperbole and embelishments as it
+                    is written by the victorious. The bible is not complete, there are many "books"
+                    missingas there are many edited and altered over the centuries by various
+                    ecumenical councils that were held
+                    <br>
+                    <br>There was a flood in the area.of Mt Arawat, but it wasn't a world wide
+                    flood, there is geological evidence to suggest the parting of the Red Sea which
+                    in reality was the Reed Sea, a volcano eruption, followed by a tsunami from
+                    Italy that flowed across the Mediterranean causing the "parting" I take the OT
+                    as being more accurate than the NT<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78924'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/2005/jonjax71.html'
+                                target='_top'><img src='http://convinceme.net/userimg/2005.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/2005/jonjax71.html'
+                                target='_top'>jonjax71</a><br/><font size='1'>Nov 02, 2011</font>
+                        </div>
+                    </div>
+                    <div id='sway_78924' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78924,2005, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 78924, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/13975.jpeg' style='width:25px;'/>
+                        individualeleven <a href='#'
+                                            onclick='get_rebuttal(78906, &quot;rebutt_78924&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78924'></div>
+                    </div>
+                    <br> Why xtian values? why not just good old common sense moral values without a
+                    thelogical twist? Neither my wife nor I were virgins when we met, and we boith
+                    know and have even met some of our previous lovers. The important thing is that
+                    in opver 35 years of marraige, we have been faithful to each other<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78956'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'><img src='http://convinceme.net/userimg/14108.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'>raiders2012</a><br/><font size='1'>Nov 03, 2011</font>
+                        </div>
+                    </div>
+                    <div id='sway_78956' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78956,14108, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 78956, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/13975.jpeg' style='width:25px;'/>
+                        individualeleven <a href='#'
+                                            onclick='get_rebuttal(78917, &quot;rebutt_78956&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78956'></div>
+                    </div>
+                    <br> Seeing as you think that it is solely parenting that is the issue here and
+                    not religion, shall we then discuss the suicide bombers we have in the world
+                    today, that are so completely brainwashed that they will walk into a building
+                    full of people, bombs strapped to bodies and blow themselves and innocent people
+                    into dust. Shall we take September 11 as an example, of religious muslims flying
+                    planes into buildings and killing innocent people of the premise that if they do
+                    gods work that they will receive 21 virgins in heaven? You have to be completely
+                    brain washed from a child to have the delusion that good would come from this.
+                    It would only take one of these people who truely feel they are carrying out
+                    gods wishes to get his hands on a nuclear bomb and we could have a potential
+                    disaster on our hands. There is no end to how far a religious fanatic will go
+                    and as I keep trying to explain here, it is because of childhood indoctrination
+                    on children we have these worldwide problems to begin with. Religion has caused
+                    huge bloodshed, and it starts in the home, with the parents instilling these
+                    un-qualified stories in childrens heads. What we teach our kids in school is
+                    Science and evolution is part of that. Science is based on truth, logic, and
+                    reason.
+                    <br>Science tries to prove disprove any theory and if it stands up to this then
+                    it is deemed as fact. Religion is the opposite. You are expected to believe
+                    everything you are told without a scrap of evidence, and I ask you to show me
+                    the evidence you say exists for the claims in the bible. Give me just one
+                    example of evidence of something out of the bible, (bearing in mind the bible
+                    was written hundreds of years AFTER the christ died).
+                    <br>The gospels themselves are written by characters who didnt even know Jesus.
+                    They also cannot agree on what each of them is saying, and they have zero
+                    accounts of any of Jesus' life when he was a teen.
+                    <br>I dont think you should say IF god is real if your a true believer for my
+                    benefit. It just suggests fence sitting to try to garner an edge for your
+                    apologetic arguement. Finally, how on earth could you POSSIBLY know whether
+                    Jesus called have called in angels to save him. Good Greif - this is exactly the
+                    reason why children should not be taught religion. Its these types of outrageous
+                    claims that back up my point. If you were the only one walking around saying
+                    that, you would be deemed as mentally ill. Its purely due to the fact you share
+                    the same delusion as all the other religious of the world that you can get away
+                    with it. Its not mentally healthy to have a personal relationship with an
+                    imaginary friend who you think has a plan for just you. There is no possible way
+                    you could know what happens after you die anymore than the rest of us. By the
+                    way, if you were born in the days of the vikings you would be believing int
+                    Thor. Three thousand other Gods before Jesus were born of virgins, and share the
+                    same characteristics of the Jesus story. Jesus is just the most recent god. Its
+                    all a story im afraid, a man made story. Only man could come up with such a
+                    story full of holes and no evidence to back up the claims.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_79002'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'><img src='http://convinceme.net/userimg/14108.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'>raiders2012</a><br/><font size='1'>Nov 06, 2011</font>
+                        </div>
+                    </div>
+                    <div id='sway_79002' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,79002,14108, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 79002, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/13975.jpeg' style='width:25px;'/>
+                        individualeleven <a href='#'
+                                            onclick='get_rebuttal(78974, &quot;rebutt_79002&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_79002'></div>
+                    </div>
+                    <br> "I have never seen miracles happen from any other religion, but I have seen
+                    personally an eyeball grow into an empty socket after we prayed for the woman to
+                    receive healing".
+                    <br>
+                    <br>Can you show me where I can find evidence of this wonderful miracle? I am
+                    fascinated! Surely, there will be recorded evidence of this online, such an
+                    amazing miracle could not have been forgetten or not recorded.
+                    <br>
+                    <br>As for quoting scripture to say that Angels were at the ready to come rescue
+                    Jesus, well that can go in the category of childrens bedtime stories with Noahs
+                    Ark, Jack and the Beanstalk and friends. Do you really think that the bible is
+                    evidence to stand behind such bold statements? You weren't there at the time I
+                    gather. So your only going on a book that was written by men. Thats right, by
+                    men. Just like me. And look at the stories I could tell you and you may possibly
+                    believe them if I wrote a book and told you that God had told me to write it.
+                    <br>
+                    <br>Children will no doubt be adversely affected by things in the world, you
+                    cant escape that. Also your right, any parent can instill their will on a child
+                    of whatever they want. But when the bible is taught to children as fact, in
+                    schools, when its not, thats bad. Thats not going to help us discover our own
+                    existance or medicines cures for disease, we owe these benefits to science.
+                    Leave the bible out of schools, and dont scare your children with devils,
+                    demons, judgement days, fire and brimstone. Awful.
+                    <br>
+                    <br>
+                    <br><br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_79069'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'><img src='http://convinceme.net/userimg/14108.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14108/raiders2012.html'
+                                target='_top'>raiders2012</a><br/><font size='1'>Nov 08, 2011</font>
+                        </div>
+                    </div>
+                    <div id='sway_79069' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,79069,14108, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 79069, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/13975.jpeg' style='width:25px;'/>
+                        individualeleven <a href='#'
+                                            onclick='get_rebuttal(79004, &quot;rebutt_79069&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_79069'></div>
+                    </div>
+                    <br> "The bible stands today just as it always has"
+                    <br>
+                    <br>Do you think that the bible stands up as irrefutable evidence though? Do you
+                    think the fact that it has been written hundreds of years after Jesus died by
+                    four different authors who never knew him, or agreed on things such as the
+                    virgin birth (a major part of the story) something you want to believe 100%? I
+                    wouldnt, and we shouldnt teach such hearsay to children either.
+                    <br>
+                    <br>"My experience with that miracle was when I was a part of the In Ministry
+                    Training program with Victory Bible Institute of Oklahoma, while on a mission
+                    trip in rural parts of Mexico's jungle. Though we did not video record that
+                    event, miracles are being performed everyday."
+                    <br>
+                    <br>Well, there you have it ladies and gentlemen. Another amazing claim of a
+                    miracle and not a shred of evidence to back it up. Isnt just always the way,
+                    ghosts, Ufo's, Nessie and miracles. Never any evidence, funny that.
+                    <br>
+                    <br>"If God parted the skies and dropped a book it would be no different if He
+                    held a hammer over our heads and said choose me or else. God wants us to come to
+                    Him in love not fear"
+                    <br>
+                    <br>God indeed does hold a hammer over our heads and demands us to love him or
+                    else. Whats in store for me if I dont love him? Hell fire and eternal torture -
+                    Awesome, I cant wait. You do not have a choice, you must love this god or else,
+                    there can be no other way. Christians love to be able to 'save' people, because
+                    they think that God will wreck his vengeance on those who do not accept him.
+                    This is taught to children, jealousy and terror tactics.
+                    <br>
+                    <br>If religion is so bad that you think it's child abuse, then I would've
+                    thought that you'd be a better person for not being taught it. But all I see is
+                    hate and attacks, this kind of dishing out your own propaganda isn't something
+                    I'd want to teach my children. We should be focusing on solving the hate in this
+                    world, the hunger, the suffering. Find our own worth and meaning, as limited as
+                    it is.
+                    <br>
+                    <br>Ill start this by repeating what I said at the start. If you become an adult
+                    and search out Jesus for your own consolation thats fine. I dont think that
+                    impressionable children should be brought up to be 'A christian child' - they
+                    should be a child of christian parents. The child should be able to make up its
+                    own mind on religion, not have it indoctrined into them on the basis of no
+                    evidence. Moral and religious education, and especially the education a child
+                    receives at home, where parents are allowed to determine for their children what
+                    counts as truth and falsehood, right and wrong, should not be allowed to cripple
+                    a young childs mind by exposure to other peoples bad ideas - no matter who these
+                    people are. Parents have no god given licence, to enculturate their children in
+                    whatever ways they personally choose; no right to limit the horizons of their
+                    childs knowledge, to bring them up in an atmosphere of superstition, or insist
+                    they follow the paths of their own faith.
+                    <br>Children have a right to not have thier minds filled with nonsense, or
+                    taught about a literal truth of the bible.
+                    <br>I thank my own parents for taking the view that children should be taught
+                    not so much WHAT to think, but HOW to think. If, after having been offered all
+                    the scientific evidence, a child grows up and decides that the bible is
+                    literally true or that the movements of the planets rule thier lives, then that
+                    is thier priviledge. The important point here is that is THIER priviledge, to
+                    decide what they shall think, and not thier parents priviledge to impose it by
+                    force. And this, is especially important when we reflect that children become
+                    the parents of the next generation, in a position to pass on whatever
+                    indoctrination they have been subjected too.
+                    <br>Its not my own propoganda, nor is it a hate attack, it is simply a
+                    passionate response to what is a cycle that must be broken.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_79170'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14200/vioax.html'
+                                target='_top'><img src='./img/friends.png' style='width:25px;'/></a>
+                        </div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14200/vioax.html'
+                                target='_top'>vioax</a><br/><font size='1'>Nov 11, 2011</font></div>
+                    </div>
+                    <div id='sway_79170' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,79170,14200, 1); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 2, 18244, 79170, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    Once I was talking to my stepfather while we were both in the car driving home,
+                    and asks me about my friends. I told them that one of them is not having a Bat
+                    Mitzvah because she's having a giant argument with her mother about her
+                    religion. She wants to become Agnostic, but her mother says no. My stepfather
+                    agrees with her mother. He says that when you're a child, you have to do what
+                    your parents tell you.
+                    <br>
+                    <br>No, it's like I didn't know that. Of course I know that you must be obedient
+                    to your parents at all times. But not this way, you're forcing your child to
+                    believe in something they don't want to? Now to me, that's much similar to what
+                    they do in Saudi Arabia, in that: It's absolute ludicrous. Why must you strip a
+                    child of their religion, and make them think a certain way. Well, ladies and
+                    gentlemen, religious control has been going on for over thousands of years now.
+                    <br>
+                    <br>Dating back to the Roman Empire, and especially in China and most religious
+                    schools, there was religious control. It was/It's like a form of brainwashing.
+                    The person or group who invented where you taught people about the world as
+                    certain way, and only that way, and not letting them even poke into the outside
+                    world, is the most ingenious thing I think I've ever heard of. So, technically,
+                    the Pope is one of the most powerful people in the world. Catholicism is the
+                    most prominent form of Christianity. So for the Pope, it's like he's controlling
+                    his own Empire, however scattered in different parts of the world, multiplying
+                    each day. And to me, like I had mentioned earlier, that's the most brilliant
+                    thing I've ever heard of.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+        </div>
+
+    </div>
+
+    <div class='right_side'>
+        <a href="#" onclick="start_arg(7595, 2, 18244, 0, 50, 0); return false;"
+           style='font-size:18px;'>+ Add Argument</a><br/><br/>
+
+        <div class='debate_side_top'>
+            <div class='debate_side_top_votes' id='side_18244'>
+                6
+            </div>
+            <div class='debate_side_top_name'>
+                No<br/><br/>
+            </div>
+            <div class='debate_side_top_button'>
+                <a href='#' onclick='addvote(7595, 18244); return false'><img src='./img/vote.png'/></a>
+            </div>
+        </div>
+        <div class='clear'></div>
+        <br/>
+
+        <div class='arguments'>
+            <div style='float:left;' id='aid_78865'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14109/stephpaulred.html'
+                                target='_top'><img
+                                src='http://graph.facebook.com/100000542608496/picture'
+                                style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/14109/stephpaulred.html'
+                                target='_top'>stephpaulred</a><br/><font size='1'>Oct 31,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78865' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78865,14109, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78865, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/14108.jpg' style='width:25px;'/>
+                        raiders2012 <a href='#'
+                                       onclick='get_rebuttal(78864,&quot;rebutt_78865&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78865'></div>
+                    </div>
+                    <br> Hi I am also a new member.., okay...so? didn't your parents teach you about
+                    religion , didn't they taught you that your life comes from God., didn't they
+                    told you that , every time , you have to do good . See , religion connects us to
+                    God , connects us to our father , I have a cousin, both parents are pastors , I
+                    am non catholic, but based on my prior knowledge about your topic , as children
+                    grow through the teachings of Christ , they learn , they get ideas on what is
+                    wrong and what is right , see , the stories of Noah's Ark, Jonah , etc. shows
+                    not only the belief in God but also the different characteristics and behaviors
+                    one could get from this story . My point is , religion is ''NOT'' child abuse ,
+                    instead , it is the real key , a parent want for their child's future, bright
+                    future. One of your point there is that ,when a child grows to maturity into an
+                    adult , they may struggle or have a hard time , on what have been taught to them
+                    . You know ? , if the child won't struggle , won't learn , won't apply their
+                    ideas , their life would be very miserable , because there is no guidance, there
+                    is no ''discipline'', you may say, that discipline is one of a person's main
+                    enemy, but if there is no discipline , that person may be the enemy , he may do
+                    negative acts, because of lost of control , or abuse of freedom. Without our
+                    parent's teachings about religion, we now don't know on where we are heading to,
+                    are we heading to God and to our bright future or to the other path , on where
+                    our end is.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78872'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/6693/denverdannydee.html'
+                                target='_top'><img src='http://convinceme.net/userimg/6693.jpg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/6693/denverdannydee.html'
+                                target='_top'>denverdannydee</a><br/><font size='1'>Oct 31,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78872' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78872,6693, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78872, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/2005.jpg' style='width:25px;'/>
+                        jonjax71 <a href='#'
+                                    onclick='get_rebuttal(78869,&quot;rebutt_78872&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78872'></div>
+                    </div>
+                    <br> Oh my God! ooops, I think for you I should say, Oh my non-existant supreem
+                    beeing!<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78899'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 01,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78899' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78899,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78899, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/14108.jpg' style='width:25px;'/>
+                        raiders2012 <a href='#'
+                                       onclick='get_rebuttal(78898,&quot;rebutt_78899&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78899'></div>
+                    </div>
+                    <br> "When religious parents raise children to suppress open-mindedness thinking
+                    and teach that god is real and you must go to church and you must pray every
+                    night, so and so on, that child as it matures into an adult may struggle to deal
+                    with what they have been taught, as opposed to what they logically think based
+                    on the real world in which they live."
+                    <br>
+                    <br>I was born and raised in a Christian home, praying and going to Church, and
+                    I still do. Yet I do not struggle nor have problems with thinking logically on
+                    this "real world" in which I live.
+                    <br>Just because you have met some "Christians or other religious" people that
+                    have grown up with problems, doesn't mean that every kid does. Plus there are
+                    plenty of people grown up in homes without religion that end up screwed up in
+                    the head too.
+                    <br>
+                    <br>What do you suggest we teach our kids? What goes on in the world in the here
+                    and now only? What about after death? Do you just teach them there is nothing?
+                    How is that in of itself not a belief? Is that not another form of faith? Since
+                    we don't know what happens to us outside of what the bible teaches?
+                    <br>So tell me then, how did my parents not do me any favors by teaching me what
+                    they did?
+                    <br>I understand the world around me just fine. I understand science and even
+                    other religions. I see no evidence to prove or disprove God, no evidence to
+                    prove or disprove evolution, so how is taking one out of schools more beneficial
+                    then taking out both? What will you do if you were to find out that evolution
+                    was wrong?
+                    <br>
+                    <br>"deluded christian"? Is labeling people with condensing remarks a better
+                    alternative to "Christian morals"? Was that what you were taught?
+                    <br>I do not believe you need God to teach you morals, but I don't see it
+                    harming people either.
+                    <br>I don't want to come across as cold, but your lack of understanding of the
+                    bible, the old testament, and why God did what he did, negates you from being
+                    able to judge God by saying "God is immoral."
+                    <br>Look up the debate "God is unjust" and see what I've written there if you
+                    would like to learn what non-denominational Christians believe.
+                    <br>And no we don't believe the world was created only six thousand years ago. I
+                    realize this is a common misconception that even some faiths have come to
+                    believe, but this is not true, and not biblical either.
+                    <br>IF God is true, then according to the bible he created everything and
+                    established a Law for all to live by. Mankind broke this law and God being Holy
+                    and Righteous had to punish Mankind. For the wages of sin is death. But because
+                    He so loved the world that He sent Jesus to become a sacrifice for our sins so
+                    that we might be saved. This was done willingly by Jesus to fulfill the law.
+                    That is not immoral, it is the greatest act of Love.
+                    <br>It in a way is no different for the Government to send troops to war and die
+                    for the protection of you and your loved ones. And if you think that war is
+                    immoral and we are wrong to participate in it, then when we are invaded and all
+                    our freedoms are taken away, then I'm sure you'd change your mind.
+                    <br>
+                    <br>If you are indeed so open-minded, then you should be willing to learn about
+                    the various religions and try to understand them before shooting them down and
+                    labeling those that are in it, deluded.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78900'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 01,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78900' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78900,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78900, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/2005.jpg' style='width:25px;'/>
+                        jonjax71 <a href='#'
+                                    onclick='get_rebuttal(78869,&quot;rebutt_78900&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78900'></div>
+                    </div>
+                    <br> "i've seen more children from religious homes-in particular xtians homes
+                    and P T-preacher's kids have more issues than among any of our acquaintences who
+                    are atheists, deists or any other non religious forms"
+                    <br>
+                    <br>Yeah? I can say the same thing about non-christians in my school. And it
+                    would be true. For what is one thing in one place is not going to be the same in
+                    another.
+                    <br>I do agree that it is the upbringing that will help or harm a child in how
+                    they are successful in life, but this in no way is related to whether you teach
+                    Christian teachings or not.
+                    <br>I was a military child and moved around every three years, in both the
+                    united states and in foreign countries. I've lived in military housing and
+                    civilian housing. I've had new friends almost every year and I've known many
+                    Christians and non Christians that have both grown up with good values and
+                    morals and have been successful, (thanks to FB in letting me reconnect with most
+                    of them) and I've know both sides that have grown up broken and had their life
+                    in shambles.
+                    <br>I myself went through a rough time, getting divorced once and I experienced
+                    misery for a time. But Jesus gave me the strength to get back on my feet, and
+                    through my trust in Him I found my success. I'm happily married again, to the
+                    most amazing Christian woman, and have a gorgeous little girl now.
+                    <br>My Christian upbringing didn't fail me when I went through a hard time, it
+                    helped me hold on and gave me understanding to allow me to forgive and move on.
+                    <br>I was never hindered in my thinking of the world and understand everything
+                    around me, I was encouraged to learn all about it, because then nothing will
+                    shake my faith.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78906'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 01,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78906' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78906,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78906, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/2005.jpg' style='width:25px;'/>
+                        jonjax71 <a href='#'
+                                    onclick='get_rebuttal(78905,&quot;rebutt_78906&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78906'></div>
+                    </div>
+                    <br> And that is better behavior to teach your children to do over teaching
+                    Christian values of waiting till marriage?
+                    <br>I waited and it was worth it to me for my first experience.
+                    <br>Plus I showed respect for women, where many had none for themselves.
+                    <br>That is why the phrase "chivalry is dead" is becoming more popular.
+                    <br>The way I see it, if a girl is willing to give it up before a strong
+                    commitment, what's to stop her from giving it away to someone else while she's
+                    with you?
+                    <br>Also you stated that you were married and had kids.
+                    <br>What if she told you "oh yeah I had sex with that guy and that guy... before
+                    you." how would you still feel about that?
+                    <br>I don't like it, but of course I will forgive and move on, but still, I
+                    wouldn't like it. And that is what you did to those girls and their future
+                    husbands.
+                    <br>So you know more examples of religious people not raising there families
+                    right, so what? I know plenty of pastor's daughters that waited for marriage
+                    too. I have attended many Churches and have witnessed both behaviors in Pastor's
+                    kids.
+                    <br>It still comes down to instilling proper values in your child, like my
+                    parents did with me.
+                    <br>Your argument doesn't build your case very well.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78917'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 02,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78917' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78917,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78917, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/14108.jpg' style='width:25px;'/>
+                        raiders2012 <a href='#'
+                                       onclick='get_rebuttal(78916,&quot;rebutt_78917&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78917'></div>
+                    </div>
+                    <br> "Fact. If I look at your particular arguement you seem to be suggesting
+                    that just because you have been raised by Christian parents and have no issues,
+                    that should then cancel out all the unfortunate children who are now adults
+                    seeking 'exit counselling' as they come to terms with the fact that they cannot
+                    believe what has been fed to them by their parents all their life and maybe it
+                    is - just. not. real. "
+                    <br>
+                    <br>I am not saying that, You should perhaps re-read what I wrote again. I am
+                    saying that it has nothing to do with religion, only the way parenting is
+                    conducted. Even Christian parenting for some can be done wrong.
+                    <br>
+                    <br>However you are saying that just because some Christians are now needing
+                    "exit counseling" that all parents should not teach Christianity.
+                    <br>
+                    <br>And then you speak of evolution as a fact because there are supposedly "90%"
+                    of scientists believe it to be true and that there is no shred of evidence to
+                    suggest God is real.
+                    <br>But you obviously don't know the facts because then you would know that
+                    evolution was and still is a theory. Meaning that it too has not been proven.
+                    <br>So by your own logic, IF God can't be proven, then we should not teach it to
+                    children, then we should also not teach evolution, theoretical science, and a
+                    number of other topics.
+                    <br>
+                    <br>I know what I believe to be real based on personal experience with my
+                    relationship with God. Meaning that I experience something more tangible than
+                    anything in this world, that you could never understand until you've experienced
+                    it yourself. And if you ask any true believer, they will tell you the same
+                    thing.
+                    <br>
+                    <br>Plus I have the ability to look at everything in this world, every
+                    scientific theory, mathematics, and physics, just like everyone else and I can
+                    make my own determinations. I went to public schools, public colleges, just like
+                    any other.
+                    <br>
+                    <br>As far as your argument about Jesus and sacrifice, like I said, until you
+                    decided that you want to open your mind and learn something real about it, then
+                    all your spouting is in ignorance.
+                    <br>
+                    <br>I said IF God is real for your benefit, I believe He is real. That should've
+                    been obvious.
+                    <br>
+                    <br>There is no evidence and there never will be. BECAUSE if there was, then
+                    there would be no free will to choose God. You would choose Him out of fear and
+                    not love, it would be the undoing of His plan.
+                    <br>
+                    <br>Your only argument I have seen to support your claims is that "some"
+                    Christian kids grew up and are now are screwed in the head. But how can you
+                    claim that when there are plenty of screwed up 'NON CHRISTIAN" kids too? Seems
+                    the common denominator is not religion but parenting. Is this not true? Or am I
+                    the only one that can see proper logic?
+                    <br>
+                    <br>And one more note. Jesus could've done two things, He could've called the
+                    angels to save Him, or He could've fled before it happened. For He knew it ahead
+                    of time that His death will be soon. The fact that He didn't is the reason why
+                    it became a sacrifice.
+                    <br>
+                    <br>So perhaps you'd like to learn a little about what your talking about before
+                    you try and tell someone who does believe in it, how it is.
+                    <br>
+                    <br>What is ironic is that people seem to think that Christians are the only
+                    ones pushing our beliefs on to others, like somehow we are the only ones capable
+                    doing this. <br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78918'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 02,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78918' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78918,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78918, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/14108.jpg' style='width:25px;'/>
+                        raiders2012 <a href='#'
+                                       onclick='get_rebuttal(78916,&quot;rebutt_78918&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78918'></div>
+                    </div>
+                    <br> Almost forgot.
+                    <br>There is a great deal of evidence that shows most of the biblical events in
+                    the bible was real, and more is being discovered each year.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78938'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 02,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78938' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78938,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78938, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/2005.jpg' style='width:25px;'/>
+                        jonjax71 <a href='#'
+                                    onclick='get_rebuttal(78924,&quot;rebutt_78938&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78938'></div>
+                    </div>
+                    <br> That is true and I agree with that. My point wasn't on what to do after
+                    your together while both not being virgins, but on the fact that you used women
+                    for sex before and then left them for what ever reasons. And I was asking is
+                    that better parenting for your parents to teach you lack of respect for women
+                    over Christian teachings of sex is sacred and should be done only through
+                    marriage?
+                    <br>
+                    <br>Here is another question. If you think forcing religious beliefs on your
+                    child is abuse, how is it any different than forcing any thing on your child
+                    because you think its right? Some adults have dropped out of school and still
+                    became very successful. Like Shawn Parker, whom created Napster and then joined
+                    Face book. So would it be wrong for you to force your child to go to school?
+                    What about forcing your child to eat their peas and green beans because you deem
+                    them healthy? Though it is proven that you can live without them.
+                    <br>If you can rule that religion is child abuse, will you rule that homosexuals
+                    having children is as well?
+                    <br>Due to forcing their way of life on "young impressionable minds", though
+                    nature intended otherwise?
+                    <br>What about other objects that leave impressions on children, like TV or
+                    games? It can then be just as easily arguable that games inhibit the child to
+                    learning the "real world" and many end up shrugging of marriages and their
+                    children because of their addiction to it. In fact this is the reason why I had
+                    to quit WOW and grow up and take care of my family, because I had started
+                    becoming consumed with it.
+                    <br>Where will you stop and draw the line?
+                    <br>If a wican wants to teach satanism to their child, I being Christian may not
+                    like it, but I won't oppose their parenting rights. But I also don't see why
+                    anyone would need "exiting counseling" like the other person stated.
+                    <br>It is not that hard for a child to decide that they don't want to follow in
+                    their parents footsteps, this is evident all around us.
+                    <br>People loose faith in what ever the believe all the time, that doesn't mean
+                    they are damaged or unable to cope.
+                    <br>
+                    <br>It all comes down to proper parenting regardless of what you believe or
+                    don't and how you prepare you child for the future. Proper communication is the
+                    major key to any successful relationship. Open mindedness is the key to
+                    understanding the world around us. Proper Christian teaching will teach to not
+                    hate and to learn and understand others. If Christian parenting doesn't
+                    communicate and teach open mindedness, then I see that child failing in life,
+                    unless outside sources can teach them to understand new things and allow them to
+                    make up there own mind. Same goes for non-religious teaching families.
+                    <br>
+                    <br>This is a debate about whether religion is child abuse, so I say no for
+                    reasons above.
+                    <br>"Why xtian values? why not just good old common sense moral values without a
+                    thelogical twist?"
+                    <br>This is not a debate about why religious people think that they are right
+                    about their faith.
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>I am not asking schools to allow the preaching of Jesus and salvation as a
+                    course study, I just want an alternative view to evolution and "there is no God"
+                    teachings.
+                    <br>It can be as simple as, Creationism is the idea of a god or intelligent
+                    designer created everything and the bible is their book. They can teach all
+                    other religious views too.
+                    <br>
+                    <br><br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78939'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 02,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78939' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78939,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78939, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/2005.jpg' style='width:25px;'/>
+                        jonjax71 <a href='#'
+                                    onclick='get_rebuttal(78923,&quot;rebutt_78939&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78939'></div>
+                    </div>
+                    <br> victorious?
+                    <br>If you mean people like, tax collectors, fisherman, bastard runaway pharaohs
+                    son, once dedicated christian killer, and many others, then ok.
+                    <br>I know that there is more books that didn't make it into the bible. But
+                    edited and altered? no. the method of passing down information was very strict
+                    for coping the bible. As was proof with the dead sea scrolls.
+                    <br>Also the Reed sea and volcano/tsunami business is just some geologist trying
+                    to justify events so that they aren't as miraculous as the bible makes them to
+                    be. But that wouldn't explain how they walked on dry ground, or how the seas
+                    parted in the short time it took Moses to raise his staff.
+                    <br>These are stories about a God that can do great things. It is a faith that
+                    you can choose to believe or not. Simple as that.
+                    <br>None of what you wrote shows any point on the topic at hand. Because knowing
+                    these stories doesn't harm or damage someone, physically or mentally. <br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78973'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 04,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78973' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78973,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78973, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/14108.jpg' style='width:25px;'/>
+                        raiders2012 <a href='#'
+                                       onclick='get_rebuttal(78956,&quot;rebutt_78973&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78973'></div>
+                    </div>
+                    <br> Yes you have to be brainwashed, was it the religion or the person teaching
+                    hatred that is to blame?
+                    <br>Ask any normal Muslim if the extremist are doing the work of their god, they
+                    will say no. The jihadist are twisting the religion and using it as a means for
+                    their own ends. Parents, teachers, mentors, whom ever is giving the influence to
+                    the child is to blame, not the method in which they use. For instance, what
+                    about the various murderers and serial killers that has no connections to any
+                    religious affiliations? It still comes down to people.
+                    <br>
+                    <br>In want evidence for the bible, go look up the debate "God is unjust" and
+                    see what I've written there.
+                    <br>
+                    <br>All your assumptions and facts on the bible and their authors are also
+                    wrong. Look things up first.
+                    <br>
+                    <br>You give no explanation to why people of no faith, also grow up screwed in
+                    the head, that have committed great acts of violence and hate, your completely
+                    one sided and this one sided thinking is usually a cause of hatred. You need to
+                    re-examine all people around you and in this world.
+                    <br>Just because you don't like or can't possibly believe the stories you've
+                    heard about Christianity (though you should do your own research and not just
+                    hear say) you have become the person that "child abused" (mentally damaged or
+                    whatever) that you are claiming others to be.
+                    <br>
+                    <br><br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_78974'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 04,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_78974' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,78974,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 78974, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/14108.jpg' style='width:25px;'/>
+                        raiders2012 <a href='#'
+                                       onclick='get_rebuttal(78956,&quot;rebutt_78974&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_78974'></div>
+                    </div>
+                    <br> "Finally, how on earth could you POSSIBLY know whether Jesus called have
+                    called in angels to save him. Good Greif - this is exactly the reason why
+                    children should not be taught religion."
+                    <br>
+                    <br>Really? Try reading the bible first.
+                    <br>If Jesus during the temptation that Satan put him through; "Then the devil
+                    took Him into the holy city; and he had Him stand on the pinnacle of the temple,
+                    and said to Him, "If You are the Son of God throw Yourself down; for it is
+                    written, 'He will give His angels charge concerning You'; and 'On their hands
+                    they will bear You up, Lest You strike Your foot against a stone." Matt 4:1-11
+                    <br>
+                    <br>If Jesus could do it then why wouldn't He be able to do it later?
+                    <br>
+                    <br>"Good Grief"?
+                    <br>Let me ask you this then. Since you seem to believe that God doesn't exist,
+                    since you state God as imaginary, you must believe that nothing happens after
+                    death. You simply just do not exist anymore. What is the point then to
+                    everything? No matter how good or bad you live your life, there is in fact
+                    ultimately no meaning to anything. Would you agree with that?
+                    <br>All things will eventually pass away, even this world, when our sun dies.
+                    <br>So whats the point?
+                    <br>Would it not be child abuse then to teach that there is a point?
+                    <br>If our lives has no meaning, then we should simply live out our short life
+                    span, indulging in every possible pleasure. And to teach to do anything else
+                    other than to what our selfish desires are is then abuse too right?
+                    <br>To try and argue that it is better to have morals and live right so that we
+                    don't harm others, is still pointless.
+                    <br>In fact, atheist, science, medicine, love, caring, it is all pointless, if
+                    we should believe your views.
+                    <br>Just as you want to claim religion as child abuse, because we should not
+                    force children into our beliefs, we can say forcing our children to do anything
+                    against their will is abuse.
+                    <br>You want to play games, but any expert in psychology will say that faith in
+                    God is different then having imaginary friends. Just because you don't see a
+                    billion dollars or a dinosaur, doesn't mean that they never existed. If you are
+                    willing to believe that anything you haven't seen in today's world does exist
+                    based on eye witness testimonies of others, then their is no reason why
+                    Christians can't believe the eye witness testimonies given to us in the bible.
+                    <br>And since faith offers hope and purpose and imaginary friends do not, it
+                    would be insane for anyone to actually compare them together.
+                    <br>
+                    <br>And as far as no evidence and full of holes. Again you are speaking out of
+                    ignorance.
+                    <br>I have never seen miracles happen from any other religion, but I have seen
+                    personally an eyeball grow into an empty socket after we prayed for the woman to
+                    receive healing.
+                    <br>The bible is full of these eye witness testimonies too. And there is plenty
+                    of outside of the bible sources that talk about Jesus and his miracles too.
+                    <br>
+                    <br>The reason I don’t get into debate about topics like “Is the war in Iraq
+                    wrong?” is because I don’t have the information that the generals and advisors
+                    have that has been classified as top secret. If I did have that information then
+                    I would have an opinion on rather it was wrong or not. Thus to state an opinion
+                    on something that I wouldn’t have the full facts on would become an argument of
+                    ignorance, unless I state that I’m willing to be wrong and learn otherwise.
+                    <br>Same goes for people that don’t read the full bible in its proper context
+                    and take the proper time to see what the scholars say about it. They too end up
+                    miss-using quotes out of context and making blanketed statements as if they are
+                    fact on subjects they are not fully aware of.
+                    <br><br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_79004'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 06,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_79004' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,79004,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 79004, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/14108.jpg' style='width:25px;'/>
+                        raiders2012 <a href='#'
+                                       onclick='get_rebuttal(79002,&quot;rebutt_79004&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_79004'></div>
+                    </div>
+                    <br> "Do you really think that the bible is evidence to stand behind such bold
+                    statements?"
+                    <br>
+                    <br>Look, do you think your the first person to make these claims, or tried to
+                    disprove the stories or rationalize them away? The bible stands today just as it
+                    always has. If there was easily definable proof, or logic, or any form of
+                    rationalizations that could baffle the religious professors, pastors, scholars,
+                    then it would've already come out. As it stands no question has to yet to be
+                    unanswerable by the Christian community.
+                    <br>
+                    <br>What sounds like a fairy tale to me is atheists that believe in science and
+                    medicine, but have no belief in the afterlife of any kind. When the brain dies,
+                    they cease to exist. How is that not meaningless?
+                    <br>
+                    <br>I believe science will show more and more of an intelligent designer and
+                    will give just enough to look for Him, to come to Him by faith. The two will be
+                    mutual not separate.
+                    <br>
+                    <br>My experience with that miracle was when I was a part of the In Ministry
+                    Training program with Victory Bible Institute of Oklahoma, while on a mission
+                    trip in rural parts of Mexico's jungle. Though we did not video record that
+                    event, miracles are being performed everyday. In various Churches, on the
+                    streets, in remote tribes, in the prisons, ect... Where ever there are missions
+                    being conducted, God is performing miracles. You can see them on Christian TV
+                    and find them online. This is not a secrete the Church has been hiding. If you
+                    want to find them you can. Whether you choose to believe them or try and justify
+                    or rationalize them away is up to you.
+                    <br>
+                    <br>Its funny that you think that just because something was written by men that
+                    it can't possibly be true in the realm of religion. If God parted the skies and
+                    dropped a book it would be no different if He held a hammer over our heads and
+                    said choose me or else. God wants us to come to Him in love not fear. The bible
+                    had to be written by men. That doesn't mean it wasn't God inspired.
+                    <br>
+                    <br>I never said I wanted bible taught in schools. If you can have evolution, as
+                    misguided as it is, taught in schools, then we can have intelligent designer
+                    taught as well. We don't need our faith taught or salvation, we just want the
+                    alternative to evolution. We don't even care if all religions got a part taught
+                    in school. Or better yet, we should just cut it all out, including evolution. Or
+                    make it an elective that people can choose to take or not.
+                    <br>
+                    <br>If no god and the brain just dies and we no longer exist, meaning our life
+                    is meaningless in the end. that is just as awful.
+                    <br>
+                    <br>If religion is so bad that you think it's child abuse, then I would've
+                    thought that you'd be a better person for not being taught it. But all I see is
+                    hate and attacks, this kind of dishing out your own propaganda isn't something
+                    I'd want to teach my children. We should be focusing on solving the hate in this
+                    world, the hunger, the suffering. Find our own worth and meaning, as limited as
+                    it is.<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+            <div style='float:left;' id='aid_79070'>
+                <div class='argument_header'>
+                    <div style='float:left; width:250px;'>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'><img src='http://convinceme.net/userimg/13975.jpeg'
+                                                   style='width:25px;'/></a></div>
+                        <div style='float:left;padding:5px;'><a
+                                href='http://www.convinceme.net/profile/13975/individualeleven.html'
+                                target='_top'>individualeleven</a><br/><font size='1'>Nov 08,
+                            2011</font></div>
+                    </div>
+                    <div id='sway_79070' stlye='float:left; width:50px;'>0 convinced
+                        <a href='#' onclick='sway(7595,79070,13975, 2); return false;'> <img
+                                src='./img/up.png'/> </a>
+                        <br> <a href="#"
+                                onclick="start_arg(7595, 1, 18243, 79070, 0, 0); return false;">Rebuttal</a>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='argument_body'>
+                    <div class='rebuttal_to'> Rebuttal to: <img
+                            src='http://convinceme.net/userimg/14108.jpg' style='width:25px;'/>
+                        raiders2012 <a href='#'
+                                       onclick='get_rebuttal(79069,&quot;rebutt_79070&quot;); return false;'>Show</a>
+
+                        <div id='rebutt_79070'></div>
+                    </div>
+                    <br> "Well, there you have it ladies and gentlemen. Another amazing claim of a
+                    miracle and not a shred of evidence to back it up. Isnt just always the way,
+                    ghosts, Ufo's, Nessie and miracles. Never any evidence, funny that"
+                    <br>
+                    <br>Nice cynicism...
+                    <br>
+                    <br>What's funny is that you fail to mention the part in your re-quoting of me,
+                    of where I told you that you can find documented evidence on any number of
+                    Christian websites or see it in any Church, or Christian TV.
+                    <br>What's also funny is that you fail to respond to my questions and statements
+                    on kids who grew up in non christian homes that turned out to be psychos,
+                    murderers, and other degrees of whack jobs.
+                    <br>
+                    <br>What's funny is that somehow you still believe a religion is responsible for
+                    child abuse, as if a gun can fire itself and not a person pulling the trigger.
+                    <br>
+                    <br>You keep mentioning that christian kids that learn about the real world end
+                    up needing "exiting counseling" but you have not brought any evidence of this
+                    either. I certainly have never heard of this before, anyone who looses faith in
+                    what they were taught just move on, they quit going to church, they just
+                    continue on with there life.
+                    <br>
+                    <br>I was taught many things as a child besides religion and I still have the
+                    "PRIVILEGE" to think for myself and decide what I want to believe, because....
+                    wait for it... I'm a thinking human....
+                    <br>
+                    <br>Propaganda is a form of communication that is aimed at influencing the
+                    attitude of a community toward some cause or position so as to benefit oneself
+                    or one's group.
+                    <br>So yes it is your propaganda and it will never be broken because it is
+                    ridicules, because you can't give actual evidence to your claim or even personal
+                    testimony. Because you fail to reply appropriately and you continue to try and
+                    twist, misquote, and misunderstand what others have written to you.
+                    <br>For instance:
+                    <br>
+                    <br>"God indeed does hold a hammer over our heads and demands us to love him or
+                    else. Whats in store for me if I dont love him? Hell fire and eternal torture -
+                    Awesome, I cant wait. You do not have a choice, you must love this god or else,
+                    there can be no other way. Christians love to be able to 'save' people, because
+                    they think that God will wreck his vengeance on those who do not accept him.
+                    This is taught to children, jealousy and terror tactics. "
+                    <br>
+                    <br>I do not and will not tell people they have to do this or else. If others do
+                    then they have been taught wrong. Jesus did not do this, neither will I. I made
+                    that clear before and the message of the bible isn't about that at all. Yet you
+                    continue to spout it anyways.
+                    <br>Plus the fact that you don't know and can't prove God is real is evidence
+                    enough that there is a choice. You can only come to God by faith.
+                    <br>If you don't believe in any of this then why does it matter so much to you?
+                    Did some christian "hurt" you?
+                    <br>If you don't like religious people pushing their faith on people then ignore
+                    it. I don't cussing and people using Jesus name in vein, but it happens all the
+                    time anyways. I just ignore it.
+                    <br>
+                    <br>And I also thank my parents for teaching me about God and the bible, and
+                    manners, and free thought, and respect for others, and disciplining me when I
+                    did wrong.
+                    <br>
+                    <br>It is the parents job to impose many things by force. Just because you feel
+                    you don't need to go to school or eat your peas or get a job, it's still
+                    important for parents who care to force you to do things sometimes.
+                    <br>And when the child grows up and moves out then they decide to do whatever
+                    they want. It's ridiculous to think that parents that teach religion aren't
+                    teaching their kids "how" to think. Perhaps you haven't learned this lesson
+                    quite so well?<br><br>
+                </div>
+            </div>
+            <div class='clear'>&nbsp;</div>
+        </div>
+    </div>
+
+    <div class='clear'></div>
+    <br/><br/>
+
+    <div class='undernext'>
+        <h2>Use these tags to find similiar debates</h2>
+        <a href='http://www.convinceme.net/topics//tags.html' class='s4' target='_top'></a> <a
+            href='http://www.convinceme.net/topics/ atheism/tags.html' class='s1' target='_top'>
+        atheism</a> <a href='http://www.convinceme.net/topics/ christianity/tags.html' class='s1'
+                       target='_top'> christianity</a> <a
+            href='http://www.convinceme.net/topics/ islam/tags.html' class='s1' target='_top'>
+        islam</a> <a href='http://www.convinceme.net/topics/ religion/tags.html' class='s1'
+                     target='_top'> religion</a> <a
+            href='http://www.convinceme.net/topics/abortion/tags.html' class='s1' target='_top'>Abortion</a>
+        <a href='http://www.convinceme.net/topics/atheism/tags.html' class='s3' target='_top'>atheism</a>
+        <a href='http://www.convinceme.net/topics/atheist/tags.html' class='s3' target='_top'>atheist</a>
+        <a href='http://www.convinceme.net/topics/athiesm/tags.html' class='s1' target='_top'>athiesm</a>
+        <a href='http://www.convinceme.net/topics/athiest/tags.html' class='s3' target='_top'>athiest</a>
+        <a href='http://www.convinceme.net/topics/bbc/tags.html' class='s1' target='_top'>BBC</a> <a
+            href='http://www.convinceme.net/topics/belief/tags.html' class='s1'
+            target='_top'>belief</a> <a href='http://www.convinceme.net/topics/beliefs/tags.html'
+                                        class='s1' target='_top'>Beliefs</a> <a
+            href='http://www.convinceme.net/topics/bible/tags.html' class='s3'
+            target='_top'>bible</a> <a href='http://www.convinceme.net/topics/buddhism/tags.html'
+                                       class='s3' target='_top'>buddhism</a> <a
+            href='http://www.convinceme.net/topics/catholic/tags.html' class='s3' target='_top'>catholic</a>
+        <a href='http://www.convinceme.net/topics/catholicism/tags.html' class='s3' target='_top'>catholicism</a>
+        <a href='http://www.convinceme.net/topics/christ/tags.html' class='s3'
+           target='_top'>Christ</a> <a href='http://www.convinceme.net/topics/christian/tags.html'
+                                       class='s3' target='_top'>christian</a> <a
+            href='http://www.convinceme.net/topics/christianity/tags.html' class='s4' target='_top'>christianity</a>
+        <a href='http://www.convinceme.net/topics/christians/tags.html' class='s3' target='_top'>christians</a>
+        <a href='http://www.convinceme.net/topics/christmas/tags.html' class='s1' target='_top'>Christmas</a>
+        <a href='http://www.convinceme.net/topics/church/tags.html' class='s3'
+           target='_top'>church</a> <a href='http://www.convinceme.net/topics/creation/tags.html'
+                                       class='s3' target='_top'>Creation</a> <a
+            href='http://www.convinceme.net/topics/creationism/tags.html' class='s1' target='_top'>creationism</a>
+        <a href='http://www.convinceme.net/topics/death/tags.html' class='s1'
+           target='_top'>death</a> <a href='http://www.convinceme.net/topics/debate/tags.html'
+                                      class='s1' target='_top'>debate</a> <a
+            href='http://www.convinceme.net/topics/enlightenment/tags.html' class='s1'
+            target='_top'>enlightenment</a> <a
+            href='http://www.convinceme.net/topics/ethics/tags.html' class='s3'
+            target='_top'>ethics</a> <a href='http://www.convinceme.net/topics/evil/tags.html'
+                                        class='s3' target='_top'>evil</a> <a
+            href='http://www.convinceme.net/topics/evolution/tags.html' class='s3' target='_top'>Evolution</a>
+        <a href='http://www.convinceme.net/topics/faith/tags.html' class='s3'
+           target='_top'>faith</a> <a href='http://www.convinceme.net/topics/god/tags.html'
+                                      class='s5' target='_top'>god</a> <a
+            href='http://www.convinceme.net/topics/heaven/tags.html' class='s3'
+            target='_top'>heaven</a> <a href='http://www.convinceme.net/topics/hell/tags.html'
+                                        class='s3' target='_top'>Hell</a> <a
+            href='http://www.convinceme.net/topics/hinduism/tags.html' class='s3' target='_top'>hinduism</a>
+        <a href='http://www.convinceme.net/topics/islam/tags.html' class='s3'
+           target='_top'>Islam</a> <a href='http://www.convinceme.net/topics/islamic/tags.html'
+                                      class='s1' target='_top'>islamic</a> <a
+            href='http://www.convinceme.net/topics/jesus/tags.html' class='s3'
+            target='_top'>jesus</a> <a href='http://www.convinceme.net/topics/jewish/tags.html'
+                                       class='s1' target='_top'>jewish</a> <a
+            href='http://www.convinceme.net/topics/judaism/tags.html' class='s3' target='_top'>judaism</a>
+        <a href='http://www.convinceme.net/topics/logic/tags.html' class='s1'
+           target='_top'>logic</a> <a href='http://www.convinceme.net/topics/morality/tags.html'
+                                      class='s3' target='_top'>morality</a> <a
+            href='http://www.convinceme.net/topics/mosque/tags.html' class='s1'
+            target='_top'>mosque</a> <a href='http://www.convinceme.net/topics/muslim/tags.html'
+                                        class='s3' target='_top'>muslim</a> <a
+            href='http://www.convinceme.net/topics/opression/tags.html' class='s1' target='_top'>opression</a>
+        <a href='http://www.convinceme.net/topics/peace/tags.html' class='s1'
+           target='_top'>peace</a> <a href='http://www.convinceme.net/topics/philosophy/tags.html'
+                                      class='s3' target='_top'>philosophy</a> <a
+            href='http://www.convinceme.net/topics/politics/tags.html' class='s3' target='_top'>politics</a>
+        <a href='http://www.convinceme.net/topics/pope/tags.html' class='s3' target='_top'>Pope</a>
+        <a href='http://www.convinceme.net/topics/religion/tags.html' class='s7' target='_top'>religion</a>
+        <a href='http://www.convinceme.net/topics/religon/tags.html' class='s3' target='_top'>Religon</a>
+        <a href='http://www.convinceme.net/topics/salvation/tags.html' class='s1' target='_top'>Salvation</a>
+        <a href='http://www.convinceme.net/topics/satan/tags.html' class='s1'
+           target='_top'>satan</a> <a href='http://www.convinceme.net/topics/science/tags.html'
+                                      class='s3' target='_top'>Science</a> <a
+            href='http://www.convinceme.net/topics/scientology/tags.html' class='s1' target='_top'>scientology</a>
+        <a href='http://www.convinceme.net/topics/sex/tags.html' class='s1' target='_top'>sex</a> <a
+            href='http://www.convinceme.net/topics/sin/tags.html' class='s1' target='_top'>sin</a>
+        <a href='http://www.convinceme.net/topics/society/tags.html' class='s3' target='_top'>society</a>
+        <a href='http://www.convinceme.net/topics/supernatural/tags.html' class='s1' target='_top'>supernatural</a>
+        <a href='http://www.convinceme.net/topics/terrorism/tags.html' class='s3' target='_top'>terrorism</a>
+        <a href='http://www.convinceme.net/topics/theology/tags.html' class='s1' target='_top'>Theology</a>
+        <a href='http://www.convinceme.net/topics/truth/tags.html' class='s3'
+           target='_top'>Truth</a> <a href='http://www.convinceme.net/topics/vancam/tags.html'
+                                      class='s3' target='_top'>VanCam</a> <a
+            href='http://www.convinceme.net/topics/violence/tags.html' class='s1' target='_top'>violence</a>
+        <a href='http://www.convinceme.net/topics/war/tags.html' class='s3' target='_top'>war</a> <a
+            href='http://www.convinceme.net/topics/world/tags.html' class='s1'
+            target='_top'>world</a> <br><br>
+    </div>
+
+</div>
+<div class='clear'></div>
+<div class='clear'></div>
+<br/><br/><br/><br/><br/><br/>
+
+<div class='footer'><a href='http://www.convinceme.net/about' target='_top'>About</a> &nbsp;|&nbsp;
+    <a href='http://www.convinceme.net/terms' target='_top'>Terms</a> &nbsp;|&nbsp; <a
+            href='http://www.convinceme.net/forum' target='_top'><b>FORUM</b></a>
+    &nbsp;|&nbsp; &copy; ConvinceMe 2007-2012
+</div>
+<div class='clear'></div>
+
+<script type="text/javascript" src="./js/facebox.js"></script>
+<script type="text/javascript">var cookiestr = '';</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('a[rel*=facebox]').facebox({
+            loading_image: './img/loading.gif',
+            close_image: './img/close.png'
+        });
+    });
+
+    function check_login() {
+        if (cookiestr == "") {
+            window.parent.location = 'http://www.convinceme.net/signup';
+        }
+    }
+</script>
+<script src="./js/publish.js" type="text/javascript"></script>
+<script src="./js/general_functions.js" type="text/javascript"></script>
+<script src="./js/debate_functions.js" type="text/javascript"></script>
+<script src="./js/battle_functions.js" type="text/javascript"></script>
+<script src="./js/king_functions.js" type="text/javascript"></script>
+<script src="./js/share.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function load_page(url) {
+        window.parent.location = 'http://www.convinceme.net/' + url;
+    }
+
+    function start_arg(dib, side_num, side_id, rebutt, ypos, edit_flag) {
+        check_login();
+        $.ajax({
+            type: "GET",
+            url: "./ajax/ajax_open.php",
+            data: "start_arg=" + dib + "&side_num=" + side_num + "&side_id=" + side_id + "&rebutt=" + rebutt + "&edit=" + edit_flag + cookiestr,
+            success: function (ret) {
+                if (ypos > 0) {
+                    $.facebox(ret, '', ypos);
+                } else {
+                    var ypos = $(window).scrollTop();
+                    $.facebox(ret, '', ypos);
+                }
+            }
+        });
+    }
+
+    function start_king_arg(dib, ypos, edit_flag) {
+        check_login();
+        $.ajax({
+            type: "GET",
+            url: "./ajax/ajax_king.php",
+            data: "start_arg=" + dib + "&edit=" + edit_flag + cookiestr,
+            success: function (ret) {
+                if (ypos > 0) {
+                    $.facebox(ret, '', ypos);
+                } else {
+                    var ypos = $(window).scrollTop();
+                    $.facebox(ret, '', ypos);
+                }
+            }
+        });
+    }
+
+
+    var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+    if (is_chrome) {
+        if (!chrome.app.isInstalled) {
+            $('#install_chrome_app').show();
+            $('#install_chrome_app').html("<button onclick='chrome.webstore.install()' id='install-button'>Add to Chrome</button>");
+        }
+    }
+
+
+</script>
+
+<script>document.getElementsByTagName('html')[0].style.display = 'block';</script>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">
+    _uacct = "UA-500898-2";
+    urchinTracker();
+</script>
+
+</body>
+</html>

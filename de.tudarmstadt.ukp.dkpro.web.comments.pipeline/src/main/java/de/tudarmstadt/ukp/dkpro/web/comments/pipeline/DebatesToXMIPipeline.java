@@ -18,8 +18,6 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.pipeline;
 
-import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
-import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiWriter;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordLemmatizer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
 import de.tudarmstadt.ukp.dkpro.core.tokit.ParagraphSplitter;
@@ -36,10 +34,11 @@ public class DebatesToXMIPipeline
     {
         String inFolder = args[0];
         String outFolder = args[1];
+        Integer minimumPointsRequired = Integer.valueOf(args[2]);
         try {
             SimplePipeline.runPipeline(CollectionReaderFactory.createReaderDescription(
-                            CreateDebateArgumentReader.class,
-                            CreateDebateArgumentReader.PARAM_SOURCE_LOCATION,
+                            DebateArgumentReader.class,
+                            DebateArgumentReader.PARAM_SOURCE_LOCATION,
                             inFolder),
 
                     // paragraphs
@@ -54,7 +53,7 @@ public class DebatesToXMIPipeline
                     // sanity check
                     AnalysisEngineFactory.createEngineDescription(SentenceOverlapSanityCheck.class),
                     AnalysisEngineFactory.createEngineDescription(FilteredArgumentXMIWriter.class,
-                            FilteredArgumentXMIWriter.PARAM_MINIMUM_ARG_POINTS_REQUIRED, 2,
+                            FilteredArgumentXMIWriter.PARAM_MINIMUM_ARG_POINTS_REQUIRED, minimumPointsRequired,
                             FilteredArgumentXMIWriter.PARAM_TARGET_LOCATION, outFolder
                     )
             );

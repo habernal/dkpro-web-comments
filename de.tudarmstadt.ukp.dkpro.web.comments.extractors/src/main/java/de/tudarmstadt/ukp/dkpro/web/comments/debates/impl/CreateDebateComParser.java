@@ -16,9 +16,12 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
+package de.tudarmstadt.ukp.dkpro.web.comments.debates.impl;
 
 import de.tudarmstadt.ukp.dkpro.web.comments.Utils;
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Argument;
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
+import de.tudarmstadt.ukp.dkpro.web.comments.debates.DebateParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,18 +39,12 @@ import java.util.List;
  * @author Anil Narassiguin
  */
 
-public class CreateDebateHTMLParser
+public class CreateDebateComParser
+        implements DebateParser
 {
 
-    /**
-     * Parses a debate HTML site from {@code createdebate.com} and extracts all arguments and
-     * debate description.
-     *
-     * @param inputStream input stream
-     * @return debate and arguments or null, if the debate is not parseable
-     * @throws IOException
-     */
-    public static Debate parseDebate(InputStream inputStream)
+    @Override
+    public Debate parseDebate(InputStream inputStream)
             throws IOException
     {
         Debate result = new Debate();
@@ -171,8 +168,8 @@ public class CreateDebateHTMLParser
         StringBuilder sb = new StringBuilder();
         Element argument = argBox.select("div[class=argBody]").first();
 
-        String correctedHtml = Utils.normalizeWhitespaceAndRemoveUnicodeControlChars(
-                argument.html());
+        String correctedHtml = Utils
+                .normalizeWhitespaceAndRemoveUnicodeControlChars(argument.html());
         result.setOriginalHTML(correctedHtml);
 
         for (Element paragraphElement : argument.select("p")) {

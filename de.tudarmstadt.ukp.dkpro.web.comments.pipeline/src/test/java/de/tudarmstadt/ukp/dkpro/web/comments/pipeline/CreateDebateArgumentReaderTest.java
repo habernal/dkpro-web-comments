@@ -35,8 +35,8 @@ public class CreateDebateArgumentReaderTest
             throws Exception
     {
         SimplePipeline.runPipeline(CollectionReaderFactory.createReaderDescription(
-                        CreateDebateArgumentReader.class,
-                        CreateDebateArgumentReader.PARAM_SOURCE_LOCATION,
+                        DebateArgumentReader.class,
+                        DebateArgumentReader.PARAM_SOURCE_LOCATION,
                         "/home/user-ukp/data2/createdebate-exported-2014"
                 ),
                 AnalysisEngineFactory.createEngineDescription(CharacterFrequencyCounter.class)

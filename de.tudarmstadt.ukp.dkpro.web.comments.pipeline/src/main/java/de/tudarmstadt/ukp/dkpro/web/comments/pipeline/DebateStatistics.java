@@ -18,7 +18,6 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.pipeline;
 
-import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
 import de.tudarmstadt.ukp.dkpro.web.comments.type.DebateArgumentMetaData;
 import org.apache.commons.math.stat.Frequency;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -41,8 +40,8 @@ public class DebateStatistics
     public void process(JCas aJCas)
             throws AnalysisEngineProcessException
     {
-        DebateArgumentMetaData metaData = JCasUtil.selectSingle(aJCas,
-                DebateArgumentMetaData.class);
+        DebateArgumentMetaData metaData = JCasUtil
+                .selectSingle(aJCas, DebateArgumentMetaData.class);
 
         int points = metaData.getArgPoints();
         pointFrequency.addValue(points);
@@ -61,15 +60,11 @@ public class DebateStatistics
     {
         String inFolder = args[0];
         try {
-            SimplePipeline.runPipeline(CollectionReaderFactory.createReaderDescription(
-                            XmiReader.class,
-                            XmiReader.PARAM_SOURCE_LOCATION,
-                            inFolder,
-                            XmiReader.PARAM_PATTERNS, XmiReader.INCLUDE_PREFIX + " *.xmi"
-                    ),
+            SimplePipeline.runPipeline(CollectionReaderFactory
+                            .createReaderDescription(DebateArgumentReader.class,
+                                    DebateArgumentReader.PARAM_SOURCE_LOCATION, inFolder),
                     // statistics
-                    AnalysisEngineFactory.createEngineDescription(DebateStatistics.class)
-            );
+                    AnalysisEngineFactory.createEngineDescription(DebateStatistics.class));
         }
         catch (Exception ex) {
             ex.printStackTrace();

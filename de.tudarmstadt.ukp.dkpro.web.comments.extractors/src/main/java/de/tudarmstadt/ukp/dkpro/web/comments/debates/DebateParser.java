@@ -16,35 +16,28 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.createdebate;
+package de.tudarmstadt.ukp.dkpro.web.comments.debates;
 
-import org.junit.Test;
+import de.tudarmstadt.ukp.dkpro.web.comments.createdebate.Debate;
 
-import java.net.URL;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
+ * General interface for debate parsing
+ * <p/>
  * (c) 2015 Ivan Habernal
  */
-public class CreateDebateHTMLParserTest
+public interface DebateParser
 {
-
-    @Test public void testParseDebate()
-            throws Exception
-    {
-        URL url = new URL(
-                "http://www.createdebate.com/debate/show/Is_it_more_important_to_reduce_abortions_or_a_law_banning_it");
-        Debate debate = CreateDebateHTMLParser.parseDebate(url.openStream());
-
-//        System.out.println(debate);
-
-        System.out.println(DebateSerializer.serializeToXML(debate));
-    }
-
-    @Test
-    public void testAllFiles()
-            throws Exception
-    {
-
-
-    }
+    /**
+     * Parses the debate
+     *
+     * @param inputStream input stream
+     * @return debate with arguments or {@code null} if the input stream contains no debate (e.g.,
+     * another type of html site, etc.) or the debate is not parseable
+     * @throws IOException
+     */
+    Debate parseDebate(InputStream inputStream)
+            throws IOException;
 }
