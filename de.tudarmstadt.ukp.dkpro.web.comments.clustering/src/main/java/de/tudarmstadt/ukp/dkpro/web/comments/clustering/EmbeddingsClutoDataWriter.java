@@ -18,6 +18,7 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering;
 
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.EmbeddingsSentenceAnnotator;
 import de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;

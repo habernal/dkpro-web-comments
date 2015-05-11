@@ -19,6 +19,7 @@
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering;
 
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.EmbeddingsSentenceAnnotator;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;

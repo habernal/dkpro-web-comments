@@ -16,10 +16,11 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.dkpro.web.comments.clustering;
+package de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings;
 
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.EmbeddingsCachePreprocessor;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.dl.Embedding;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.dl.Word2VecReader;
 import de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings;
@@ -33,40 +34,34 @@ import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.DoubleArray;
+import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * For each {@link de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence} in the input JCas,
- * it computes the accumulated embeddings vector (loaded from cache) and creates a new annotation
- * of type {@link Embeddings} spanning the sentence.
- *
- * @author Ivan Habernal
+ * (c) 2015 Ivan Habernal
  */
-public class EmbeddingsSentenceAnnotator
+public class EmbeddingsAnnotator
         extends JCasAnnotator_ImplBase
 {
     public static final String PARAM_WORD_2_VEC_FILE = "word2VecFile";
 
     @ConfigurationParameter(name = PARAM_WORD_2_VEC_FILE, mandatory = true,
             defaultValue = "/home/user-ukp/research/data/GoogleNews-vectors-negative300.bin")
-    private File word2VecFile;
+    protected File word2VecFile;
 
     public static final String PARAM_CACHE_FILE = "cacheFile";
     @ConfigurationParameter(name = PARAM_CACHE_FILE, mandatory = false)
-    private File cacheFile;
+    protected File cacheFile;
 
-    private Word2VecReader reader;
+    protected Word2VecReader reader;
 
-    Map<String, Vector> cache = new HashMap<>();
+    protected Map<String, Vector> cache = new HashMap<>();
 
     // fixme make dynamical
     public static final int VECTOR_SIZE = 300;
@@ -75,7 +70,6 @@ public class EmbeddingsSentenceAnnotator
     public void initialize(UimaContext context)
             throws ResourceInitializationException
     {
-
         super.initialize(context);
 
         try {
@@ -88,7 +82,7 @@ public class EmbeddingsSentenceAnnotator
         }
     }
 
-    private void initReader()
+    protected void initReader()
             throws IOException
     {
         if (reader == null) {
@@ -97,7 +91,7 @@ public class EmbeddingsSentenceAnnotator
     }
 
     @SuppressWarnings("unchecked")
-    private void loadCache()
+    protected void loadCache()
             throws IOException
     {
 
@@ -112,9 +106,9 @@ public class EmbeddingsSentenceAnnotator
         IOUtils.closeQuietly(fis);
     }
 
-    private Embedding getEmbeddings(String token)
+    protected Embedding getEmbeddings(String t)
     {
-
+        String token = preprocessToken(t);
         if (!cache.containsKey(token)) {
             System.err.println("Word " + token + " not cached; maybe you forgot to run "
                     + EmbeddingsCachePreprocessor.class + " to prepare the cache?");
@@ -140,32 +134,62 @@ public class EmbeddingsSentenceAnnotator
         }
     }
 
+    /**
+     * Normalizes the token, e.g. lower casing (no change by default)
+     *
+     * @param token token
+     * @return token
+     */
+    protected String preprocessToken(String token)
+    {
+        return token;
+    }
+
+    protected Collection<? extends Annotation> selectAnnotationsForEmbeddings(JCas aJCas)
+    {
+        return JCasUtil.select(aJCas, Sentence.class);
+    }
+
+    protected DenseVector createFinalVector(List<Vector> vectors) {
+        DenseVector result = new DenseVector(VECTOR_SIZE);
+
+        for (Vector v : vectors) {
+            result.add(v);
+        }
+
+        return result;
+    }
+
     @Override
     public void process(JCas aJCas)
             throws AnalysisEngineProcessException
     {
-        // process each sentence
-        for (Sentence sentence : JCasUtil.select(aJCas, Sentence.class)) {
+        // process each annotation (sentence, etc.)
+        for (Annotation annotation : selectAnnotationsForEmbeddings(aJCas)) {
             // get all embeddings
             List<String> tokens = new ArrayList<>();
-            for (Token t : JCasUtil.selectCovered(Token.class, sentence)) {
+            for (Token t : JCasUtil.selectCovered(Token.class, annotation)) {
                 String coveredText = t.getCoveredText();
                 if (coveredText.length() < 50) {
                     tokens.add(coveredText);
                 }
             }
 
-            DenseVector finalVector = new DenseVector(VECTOR_SIZE);
+            List<Vector> vectors = new ArrayList<>();
+
             for (String token : tokens) {
                 Embedding embedding = getEmbeddings(token);
 
                 if (embedding != null && embedding.getVector() != null) {
-                    finalVector.add(embedding.getVector());
+                    vectors.add(embedding.getVector());
                 }
             }
 
+            DenseVector finalVector = createFinalVector(vectors);
+
             // make new annotation
-            Embeddings embeddings = new Embeddings(aJCas, sentence.getBegin(), sentence.getEnd());
+            Embeddings embeddings = new Embeddings(aJCas, annotation.getBegin(),
+                    annotation.getEnd());
 
             // copy double values
             DoubleArray doubleArray = new DoubleArray(aJCas, VECTOR_SIZE);
