@@ -19,7 +19,7 @@
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering;
 
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
-import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.EmbeddingsSentenceAnnotator;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.EmbeddingsAnnotator;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
@@ -39,6 +39,10 @@ public class ClutoMain
     private String cacheFile;
 
     private String clutoMatrixFile;
+
+    private boolean keepCasing;
+
+    private boolean averaging;
 
     public void prepareEmbeddingCache()
             throws Exception
@@ -62,9 +66,11 @@ public class ClutoMain
                                 sourceDataDir, XmiReader.PARAM_PATTERNS,
                                 XmiReader.INCLUDE_PREFIX + "*.xmi"),
                 AnalysisEngineFactory.createEngineDescription(
-                        EmbeddingsSentenceAnnotator.class,
-                        EmbeddingsSentenceAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
-                        EmbeddingsSentenceAnnotator.PARAM_CACHE_FILE, cacheFile
+                        EmbeddingsAnnotator.class,
+                        EmbeddingsAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
+                        EmbeddingsAnnotator.PARAM_CACHE_FILE, cacheFile,
+                        EmbeddingsAnnotator.PARAM_KEEP_CASING, keepCasing,
+                        EmbeddingsAnnotator.PARAM_VECTOR_AVERAGING, averaging
                 ),
                 AnalysisEngineFactory.createEngineDescription(
                         EmbeddingsClutoDataWriter.class,
@@ -79,6 +85,8 @@ public class ClutoMain
         main.sourceDataDir = args[1];
         main.cacheFile = args[2];
         main.clutoMatrixFile = args[3];
+        main.keepCasing = args.length > 4 && "keepCasing".equals(args[4]);
+        main.averaging = args.length > 5 && "averaging".equals(args[5]);
 
         // prepare embedding cache
         main.prepareEmbeddingCache();

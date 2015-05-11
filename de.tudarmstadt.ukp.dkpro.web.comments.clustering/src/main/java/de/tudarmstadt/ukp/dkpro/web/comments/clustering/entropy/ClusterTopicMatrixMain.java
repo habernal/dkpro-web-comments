@@ -19,7 +19,7 @@
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.entropy;
 
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
-import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.EmbeddingsSentenceAnnotator;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.EmbeddingsAnnotator;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
@@ -45,17 +45,13 @@ public class ClusterTopicMatrixMain
         SimplePipeline.runPipeline(CollectionReaderFactory
                         .createReaderDescription(XmiReader.class, XmiReader.PARAM_SOURCE_LOCATION,
                                 sourceDataDir, XmiReader.PARAM_PATTERNS,
-                                XmiReader.INCLUDE_PREFIX + "*.xmi"),
-                AnalysisEngineFactory.createEngineDescription(
-                        EmbeddingsSentenceAnnotator.class,
-                        EmbeddingsSentenceAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
-                        EmbeddingsSentenceAnnotator.PARAM_CACHE_FILE, cacheFile
-                ),
-                AnalysisEngineFactory.createEngineDescription(
-                        ClusterSentencesCollector.class,
+                                XmiReader.INCLUDE_PREFIX + "*.xmi"), AnalysisEngineFactory
+                        .createEngineDescription(EmbeddingsAnnotator.class,
+                                EmbeddingsAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
+                                EmbeddingsAnnotator.PARAM_CACHE_FILE, cacheFile),
+                AnalysisEngineFactory.createEngineDescription(ClusterSentencesCollector.class,
                         ClusterSentencesCollector.PARAM_CENTROIDS_FILE, centroidsFile,
-                        ClusterSentencesCollector.PARAM_OUTPUT_DIR, "/tmp/out"
-                ),
+                        ClusterSentencesCollector.PARAM_OUTPUT_DIR, "/tmp/out"),
                 AnalysisEngineFactory.createEngineDescription(
                         //                        ClusterTopicMatrixGenerator.class,
                         TopNEntriesMatrixGenerator.class,

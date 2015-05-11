@@ -59,6 +59,14 @@ public class EmbeddingsAnnotator
     @ConfigurationParameter(name = PARAM_CACHE_FILE, mandatory = false)
     protected File cacheFile;
 
+    public static final String PARAM_KEEP_CASING = "toLowerCase";
+    @ConfigurationParameter(name = PARAM_KEEP_CASING, mandatory = true, defaultValue = "false")
+    boolean toLowerCase;
+
+    public static final String PARAM_VECTOR_AVERAGING = "vectorAveraging";
+    @ConfigurationParameter(name = PARAM_VECTOR_AVERAGING, mandatory = true, defaultValue = "false")
+    boolean vectorAveraging;
+
     protected Word2VecReader reader;
 
     protected Map<String, Vector> cache = new HashMap<>();
@@ -142,6 +150,10 @@ public class EmbeddingsAnnotator
      */
     protected String preprocessToken(String token)
     {
+        if (toLowerCase) {
+            return token.toLowerCase();
+        }
+
         return token;
     }
 
@@ -155,6 +167,11 @@ public class EmbeddingsAnnotator
 
         for (Vector v : vectors) {
             result.add(v);
+        }
+
+        // averaging
+        if (vectorAveraging) {
+            result.scale(1.0 / (double) vectors.size());
         }
 
         return result;
