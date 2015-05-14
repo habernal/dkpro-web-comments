@@ -50,6 +50,11 @@
 			<artifactId>de.tudarmstadt.ukp.dkpro.web.comments.pipeline</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+			<artifactId>de.tudarmstadt.ukp.dkpro.core.frequency-asl</artifactId>
+			<version>${dkpro.version}</version>
+		</dependency>
 	</dependencies>
 
 </project>

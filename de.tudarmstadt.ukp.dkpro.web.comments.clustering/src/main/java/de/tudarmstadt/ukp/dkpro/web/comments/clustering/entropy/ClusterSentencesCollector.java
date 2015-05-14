@@ -26,7 +26,6 @@ import de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -36,7 +35,10 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -124,6 +126,6 @@ public class ClusterSentencesCollector
         File file = new File(outputDir, fileName);
 
         FileUtils.write(file, String.format(Locale.ENGLISH, "%.4f\t%s%n", distance, coveredText),
-                true);
+                "utf-8");
     }
 }

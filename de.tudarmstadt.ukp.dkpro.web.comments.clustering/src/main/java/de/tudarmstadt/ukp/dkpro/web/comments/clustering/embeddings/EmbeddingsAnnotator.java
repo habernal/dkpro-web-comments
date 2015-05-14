@@ -18,6 +18,7 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings;
 
+import de.tudarmstadt.ukp.dkpro.core.api.frequency.tfidf.type.Tfidf;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.EmbeddingsCachePreprocessor;
@@ -63,8 +64,12 @@ public class EmbeddingsAnnotator
     @ConfigurationParameter(name = PARAM_KEEP_CASING, mandatory = true, defaultValue = "false")
     boolean toLowerCase;
 
+    /**
+     * If true, the resulting sentence embedding vector will be averaged (default); otherwise
+     * it will be just a sum of word vectors
+     */
     public static final String PARAM_VECTOR_AVERAGING = "vectorAveraging";
-    @ConfigurationParameter(name = PARAM_VECTOR_AVERAGING, mandatory = true, defaultValue = "false")
+    @ConfigurationParameter(name = PARAM_VECTOR_AVERAGING, mandatory = true, defaultValue = "true")
     boolean vectorAveraging;
 
     protected Word2VecReader reader;
@@ -162,7 +167,14 @@ public class EmbeddingsAnnotator
         return JCasUtil.select(aJCas, Sentence.class);
     }
 
-    protected DenseVector createFinalVector(List<Vector> vectors) {
+    /**
+     * Combines the list of vectors into a single on, by summation and averaging (by default)
+     *
+     * @param vectors vectors
+     * @return vector
+     */
+    protected DenseVector createFinalVector(List<Vector> vectors)
+    {
         DenseVector result = new DenseVector(VECTOR_SIZE);
 
         for (Vector v : vectors) {
@@ -183,25 +195,39 @@ public class EmbeddingsAnnotator
     {
         // process each annotation (sentence, etc.)
         for (Annotation annotation : selectAnnotationsForEmbeddings(aJCas)) {
-            // get all embeddings
-            List<String> tokens = new ArrayList<>();
+            // get tfidf values for all tokens
+            LinkedHashMap<String, Double> tokenTfIdf = new LinkedHashMap<>();
+
             for (Token t : JCasUtil.selectCovered(Token.class, annotation)) {
                 String coveredText = t.getCoveredText();
                 if (coveredText.length() < 50) {
-                    tokens.add(coveredText);
+                    // retieve tfidf value
+                    double tfidfValue = JCasUtil.selectCovered(Tfidf.class, t).iterator().next()
+                            .getTfidfValue();
+                    tokenTfIdf.put(coveredText, tfidfValue);
                 }
             }
 
             List<Vector> vectors = new ArrayList<>();
 
-            for (String token : tokens) {
-                Embedding embedding = getEmbeddings(token);
+            // get list of embeddings for each token
+            for (Map.Entry<String, Double> entry : tokenTfIdf.entrySet()) {
+                Embedding embedding = getEmbeddings(entry.getKey());
 
                 if (embedding != null && embedding.getVector() != null) {
-                    vectors.add(embedding.getVector());
+                    // create a deep copy!!!!!!
+                    DenseVector vector = new DenseVector(embedding.getVector());
+
+                    // multiply by tfidf
+                    double tfidf = entry.getValue();
+
+                    Vector weightedVector = vector.scale(tfidf);
+
+                    vectors.add(weightedVector);
                 }
             }
 
+            // create the final vector
             DenseVector finalVector = createFinalVector(vectors);
 
             // make new annotation
