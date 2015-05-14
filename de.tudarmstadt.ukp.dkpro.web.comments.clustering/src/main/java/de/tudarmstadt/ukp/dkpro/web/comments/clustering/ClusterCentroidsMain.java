@@ -25,7 +25,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
 
 import java.io.*;
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * (c) 2015 Ivan Habernal
@@ -33,25 +34,27 @@ import java.util.*;
 public class ClusterCentroidsMain
 {
 
-//    public static final int EMBEDDINGS_VECTOR_SIZE = 300;
+    //    public static final int EMBEDDINGS_VECTOR_SIZE = 300;
 
     public static void main(String[] args)
             throws Exception
     {
-        TreeMap<Integer, Vector> centroids = computeClusterCentroids(args[0], args[1]);
+        String clutoVectors = args[0];
+        String clutoOuputClusters = args[1];
+        String outputClusterCentroids = args[2];
+
+        TreeMap<Integer, Vector> centroids = computeClusterCentroids(clutoVectors,
+                clutoOuputClusters);
 
         // and serialize
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-                new FileOutputStream(args[2]));
+                new FileOutputStream(outputClusterCentroids));
         objectOutputStream.writeObject(centroids);
         IOUtils.closeQuietly(objectOutputStream);
 
         //        System.out.println(centroids);
-//        embeddingsToDistance(args[0], centroids, args[2]);
+        //        embeddingsToDistance(args[0], centroids, args[2]);
     }
-
-
-
 
     public static TreeMap<Integer, Vector> computeClusterCentroids(String inputVectorsPath,
             String clusterOutputPath)
@@ -116,6 +119,5 @@ public class ClusterCentroidsMain
 
         return result;
     }
-
 
 }
