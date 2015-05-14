@@ -38,11 +38,11 @@ import org.apache.uima.jcas.cas.DoubleArray;
 import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
+import java.net.URL;
 import java.util.*;
+
+import static de.tudarmstadt.ukp.dkpro.core.api.resources.ResourceUtils.resolveLocation;
 
 /**
  * (c) 2015 Ivan Habernal
@@ -58,7 +58,7 @@ public class EmbeddingsAnnotator
 
     public static final String PARAM_CACHE_FILE = "cacheFile";
     @ConfigurationParameter(name = PARAM_CACHE_FILE, mandatory = false)
-    protected File cacheFile;
+    protected String cacheFile;
 
     public static final String PARAM_KEEP_CASING = "toLowerCase";
     @ConfigurationParameter(name = PARAM_KEEP_CASING, mandatory = true, defaultValue = "false")
@@ -107,16 +107,23 @@ public class EmbeddingsAnnotator
     protected void loadCache()
             throws IOException
     {
+        URL source = resolveLocation(cacheFile);
+        InputStream stream = source.openStream();
 
-        FileInputStream fis = new FileInputStream(cacheFile);
-        ObjectInputStream os = new ObjectInputStream(fis);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        IOUtils.copy(stream, baos);
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+
+        ObjectInputStream os = new ObjectInputStream(bais);
+
         try {
             this.cache = (Map<String, Vector>) os.readObject();
         }
         catch (ClassNotFoundException e) {
             throw new IOException(e);
         }
-        IOUtils.closeQuietly(fis);
+
+        IOUtils.closeQuietly(os);
     }
 
     protected Embedding getEmbeddings(String t)
@@ -202,8 +209,14 @@ public class EmbeddingsAnnotator
                 String coveredText = t.getCoveredText();
                 if (coveredText.length() < 50) {
                     // retieve tfidf value
-                    double tfidfValue = JCasUtil.selectCovered(Tfidf.class, t).iterator().next()
-                            .getTfidfValue();
+                    List<Tfidf> tfidfs = JCasUtil.selectCovered(Tfidf.class, t);
+
+                    if (tfidfs.isEmpty()) {
+                        throw new AnalysisEngineProcessException(new IllegalStateException(
+                                "Word embeddings annotations require TFIDF annotations"));
+                    }
+
+                    double tfidfValue = tfidfs.iterator().next().getTfidfValue();
                     tokenTfIdf.put(coveredText, tfidfValue);
                 }
             }
