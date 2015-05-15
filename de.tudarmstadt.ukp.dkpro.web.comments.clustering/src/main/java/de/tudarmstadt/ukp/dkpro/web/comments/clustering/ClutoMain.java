@@ -18,7 +18,10 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering;
 
+import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
+import de.tudarmstadt.ukp.dkpro.core.frequency.tfidf.TfidfAnnotator;
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.EmbeddingsAnnotator;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
@@ -38,6 +41,12 @@ public class ClutoMain
     private String cacheFile;
 
     private String clutoMatrixFile;
+
+    private boolean keepCasing;
+
+    private boolean averaging;
+
+    private String tfidfModel;
 
     public void prepareEmbeddingCache()
             throws Exception
@@ -59,14 +68,19 @@ public class ClutoMain
         SimplePipeline.runPipeline(CollectionReaderFactory
                         .createReaderDescription(XmiReader.class, XmiReader.PARAM_SOURCE_LOCATION,
                                 sourceDataDir, XmiReader.PARAM_PATTERNS,
-                                XmiReader.INCLUDE_PREFIX + "*.xmi"),
-                AnalysisEngineFactory.createEngineDescription(
-                        EmbeddingsSentenceAnnotator.class,
-                        EmbeddingsSentenceAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
-                        EmbeddingsSentenceAnnotator.PARAM_CACHE_FILE, cacheFile
-                ),
-                AnalysisEngineFactory.createEngineDescription(
-                        EmbeddingsClutoDataWriter.class,
+                                XmiReader.INCLUDE_PREFIX + "*.xmi"), AnalysisEngineFactory
+                        .createEngineDescription(TfidfAnnotator.class,
+                                TfidfAnnotator.PARAM_FEATURE_PATH, Token.class.getName(),
+                                TfidfAnnotator.PARAM_TFDF_PATH, tfidfModel,
+                                TfidfAnnotator.PARAM_TF_MODE,
+                                TfidfAnnotator.WeightingModeTf.LOG_PLUS_ONE,
+                                TfidfAnnotator.PARAM_IDF_MODE, TfidfAnnotator.WeightingModeIdf.LOG),
+                AnalysisEngineFactory.createEngineDescription(EmbeddingsAnnotator.class,
+                        EmbeddingsAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
+                        EmbeddingsAnnotator.PARAM_CACHE_FILE, cacheFile,
+                        EmbeddingsAnnotator.PARAM_KEEP_CASING, keepCasing,
+                        EmbeddingsAnnotator.PARAM_VECTOR_AVERAGING, averaging),
+                AnalysisEngineFactory.createEngineDescription(EmbeddingsClutoDataWriter.class,
                         EmbeddingsClutoDataWriter.PARAM_OUTPUT_FOLDER, clutoMatrixFile));
     }
 
@@ -77,7 +91,10 @@ public class ClutoMain
         main.word2VecFile = args[0];
         main.sourceDataDir = args[1];
         main.cacheFile = args[2];
-        main.clutoMatrixFile = args[3];
+        main.tfidfModel = args[3];
+        main.clutoMatrixFile = args[4];
+        main.keepCasing = args.length > 5 && "keepCasing".equals(args[5]);
+        main.averaging = args.length > 6 && "averaging".equals(args[6]);
 
         // prepare embedding cache
         main.prepareEmbeddingCache();

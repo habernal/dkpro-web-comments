@@ -18,6 +18,7 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering;
 
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.EmbeddingsAnnotator;
 import de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -82,10 +83,9 @@ public class EmbeddingsClutoDataWriter
         Collection<Embeddings> embeddingsCollection = JCasUtil.select(aJCas, Embeddings.class);
 
         if (embeddingsCollection.isEmpty()) {
-            throw new AnalysisEngineProcessException(
-                    new IllegalStateException(
-                            "No embeddings found in the document. You should annotate it first using "
-                                    + EmbeddingsSentenceAnnotator.class.getName()));
+            throw new AnalysisEngineProcessException(new IllegalStateException(
+                    "No embeddings found in the document. You should annotate it first using "
+                            + EmbeddingsAnnotator.class.getName()));
         }
 
         for (Embeddings embeddings : embeddingsCollection) {
