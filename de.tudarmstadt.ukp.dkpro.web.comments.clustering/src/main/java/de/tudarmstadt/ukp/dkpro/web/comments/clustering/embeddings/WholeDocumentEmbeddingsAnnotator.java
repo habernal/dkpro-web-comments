@@ -18,10 +18,31 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings;
 
+import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Paragraph;
+import org.apache.uima.jcas.JCas;
+import org.apache.uima.jcas.tcas.Annotation;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * (c) 2015 Ivan Habernal
  */
-@Deprecated // keep or delete?
-public class WholeArgumentEmbeddingsAnnotator extends EmbeddingsAnnotator
+public class WholeDocumentEmbeddingsAnnotator
+        extends EmbeddingsAnnotator
 {
+
+    @Override
+    protected Collection<? extends Annotation> selectAnnotationsForEmbeddings(JCas aJCas)
+    {
+        // create dummy annotation
+        Paragraph p = new Paragraph(aJCas, 0, aJCas.getDocumentText().length());
+        p.addToIndexes();
+
+        List<Annotation> result = new ArrayList<>();
+        result.add(p);
+
+        return result;
+    }
 }

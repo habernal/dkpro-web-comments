@@ -60,8 +60,8 @@ public class EmbeddingsAnnotator
     @ConfigurationParameter(name = PARAM_CACHE_FILE, mandatory = false)
     protected String cacheFile;
 
-    public static final String PARAM_KEEP_CASING = "toLowerCase";
-    @ConfigurationParameter(name = PARAM_KEEP_CASING, mandatory = true, defaultValue = "false")
+    public static final String PARAM_TO_LOWERCASE = "toLowerCase";
+    @ConfigurationParameter(name = PARAM_TO_LOWERCASE, mandatory = true, defaultValue = "false")
     boolean toLowerCase;
 
     /**

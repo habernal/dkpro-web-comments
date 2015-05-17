@@ -46,6 +46,7 @@ import java.util.Map;
  * <p/>
  * (c) 2015 Ivan Habernal
  */
+@Deprecated // didn't work
 public class DomainTopicVectorProducer
         extends JCasConsumer_ImplBase
 {

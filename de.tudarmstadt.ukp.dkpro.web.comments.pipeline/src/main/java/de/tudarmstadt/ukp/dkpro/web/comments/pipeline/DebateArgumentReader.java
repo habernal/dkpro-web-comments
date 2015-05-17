@@ -51,7 +51,15 @@ public class DebateArgumentReader
      * Folder containing serialized XML files with {@link Debate} object in each file
      */
     public static final String PARAM_SOURCE_LOCATION = "sourceLocation";
-    @ConfigurationParameter(name = PARAM_SOURCE_LOCATION, mandatory = true) File sourceLocation;
+    @ConfigurationParameter(name = PARAM_SOURCE_LOCATION, mandatory = true)
+    File sourceLocation;
+
+    /**
+     * Argument topic, if known
+     */
+    public static final String PARAM_ARGUMENT_TOPIC = "argumentTopic";
+    @ConfigurationParameter(name = PARAM_ARGUMENT_TOPIC, mandatory = false)
+    String argumentTopic;
 
     Queue<File> files = new ArrayDeque<>();
 
@@ -59,14 +67,16 @@ public class DebateArgumentReader
 
     Debate currentDebate = null;
 
-    @Override public void initialize(UimaContext context)
+    @Override
+    public void initialize(UimaContext context)
             throws ResourceInitializationException
     {
         super.initialize(context);
 
         File[] fileArray = sourceLocation.listFiles(new FilenameFilter()
         {
-            @Override public boolean accept(File dir, String name)
+            @Override
+            public boolean accept(File dir, String name)
             {
                 return name.endsWith(".xml");
             }
@@ -90,7 +100,8 @@ public class DebateArgumentReader
         currentDebate = debate;
     }
 
-    @Override public void getNext(JCas jCas)
+    @Override
+    public void getNext(JCas jCas)
             throws IOException, CollectionException
     {
         if (currentArguments.peek() == null) {
@@ -109,6 +120,11 @@ public class DebateArgumentReader
         argumentMetaData.setParentId(argument.getParentId());
         argumentMetaData.setStance(argument.getStance());
 
+        // if we know the topic
+        if (this.argumentTopic != null) {
+            argumentMetaData.setArgumentTopic(argumentTopic);
+        }
+
         // and info about the parent debate
         argumentMetaData.setDebateDescription(currentDebate.getDescription());
         argumentMetaData.setDebateTitle(currentDebate.getTitle());
@@ -122,13 +138,15 @@ public class DebateArgumentReader
         metaData.setDocumentTitle(argument.getStance());
     }
 
-    @Override public boolean hasNext()
+    @Override
+    public boolean hasNext()
             throws IOException, CollectionException
     {
         return !currentArguments.isEmpty() || !files.isEmpty();
     }
 
-    @Override public Progress[] getProgress()
+    @Override
+    public Progress[] getProgress()
     {
         return new Progress[0];
     }

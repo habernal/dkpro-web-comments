@@ -22,6 +22,7 @@ import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
 import de.tudarmstadt.ukp.dkpro.core.frequency.tfidf.TfidfAnnotator;
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.EmbeddingsAnnotator;
+import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.WholeDocumentEmbeddingsAnnotator;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
@@ -42,9 +43,9 @@ public class ClutoMain
 
     private String clutoMatrixFile;
 
-    private boolean keepCasing;
+    private boolean toLowercase = false;
 
-    private boolean averaging;
+    private boolean averaging = true;
 
     private String tfidfModel;
 
@@ -75,11 +76,13 @@ public class ClutoMain
                                 TfidfAnnotator.PARAM_TF_MODE,
                                 TfidfAnnotator.WeightingModeTf.LOG_PLUS_ONE,
                                 TfidfAnnotator.PARAM_IDF_MODE, TfidfAnnotator.WeightingModeIdf.LOG),
-                AnalysisEngineFactory.createEngineDescription(EmbeddingsAnnotator.class,
-                        EmbeddingsAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
-                        EmbeddingsAnnotator.PARAM_CACHE_FILE, cacheFile,
-                        EmbeddingsAnnotator.PARAM_KEEP_CASING, keepCasing,
-                        EmbeddingsAnnotator.PARAM_VECTOR_AVERAGING, averaging),
+                //                AnalysisEngineFactory.createEngineDescription(EmbeddingsAnnotator.class,
+                AnalysisEngineFactory
+                        .createEngineDescription(WholeDocumentEmbeddingsAnnotator.class,
+                                EmbeddingsAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
+                                EmbeddingsAnnotator.PARAM_CACHE_FILE, cacheFile,
+                                EmbeddingsAnnotator.PARAM_TO_LOWERCASE, toLowercase,
+                                EmbeddingsAnnotator.PARAM_VECTOR_AVERAGING, averaging),
                 AnalysisEngineFactory.createEngineDescription(EmbeddingsClutoDataWriter.class,
                         EmbeddingsClutoDataWriter.PARAM_OUTPUT_FOLDER, clutoMatrixFile));
     }
@@ -93,7 +96,7 @@ public class ClutoMain
         main.cacheFile = args[2];
         main.tfidfModel = args[3];
         main.clutoMatrixFile = args[4];
-        main.keepCasing = args.length > 5 && "keepCasing".equals(args[5]);
+        main.toLowercase = args.length > 5 && "toLowercase".equals(args[5]);
         main.averaging = args.length > 6 && "averaging".equals(args[6]);
 
         // prepare embedding cache
