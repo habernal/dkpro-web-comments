@@ -25,7 +25,7 @@ import de.tudarmstadt.ukp.dkpro.web.comments.clustering.VectorUtils;
 import de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -35,10 +35,7 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -101,12 +98,12 @@ public class ClusterSentencesCollector
             DenseVector embeddingsVector = new DenseVector(embeddings.getVector().toArray());
 
             Vector distanceToClusterCentroidsVector = ClusteringUtils
-                    .transformEmbeddingVectorToDistanceToClusterCentroidsVector(
-                            embeddingsVector, centroids);
+                    .transformEmbeddingVectorToDistanceToClusterCentroidsVector(embeddingsVector,
+                            centroids);
 
             Map.Entry<Double, Integer> entry = VectorUtils
-                    .largestValues(distanceToClusterCentroidsVector, 1)
-                    .entrySet().iterator().next();
+                    .largestValues(distanceToClusterCentroidsVector, 1).entrySet().iterator()
+                    .next();
             int cluster = entry.getValue();
             double distance = entry.getKey();
 
@@ -125,7 +122,10 @@ public class ClusterSentencesCollector
         String fileName = String.format(Locale.ENGLISH, "%3d.txt", cluster);
         File file = new File(outputDir, fileName);
 
-        FileUtils.write(file, String.format(Locale.ENGLISH, "%.4f\t%s%n", distance, coveredText),
-                "utf-8");
+        PrintWriter pw = new PrintWriter(new FileWriter(file, true));
+
+        pw.printf(Locale.ENGLISH, "%.4f\t%s%n", distance, coveredText.replaceAll("\\n+", " "));
+
+        IOUtils.closeQuietly(pw);
     }
 }

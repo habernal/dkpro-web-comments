@@ -23,10 +23,9 @@ import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import org.apache.commons.io.IOUtils;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Ivan Habernal
@@ -45,6 +44,8 @@ public class MatrixExperiments
 
         double[][] matrix = new double[rows][cols];
 
+        Map<Integer, Double> clusterEntropy = new HashMap<>();
+
         for (int i = 0; i < rows; i++) {
             String line = lines.get(i);
 
@@ -58,10 +59,16 @@ public class MatrixExperiments
 
             // entropy of the cluster
             Vector v = new DenseVector(matrix[i]);
-//            System.out.print(VectorUtils.entropy(v));
-            System.out.print(VectorUtils.entropy(VectorUtils.normalize(v)));
+            //            System.out.print(VectorUtils.entropy(v));
+            double entropy = VectorUtils.entropy(VectorUtils.normalize(v));
+            System.out.print(entropy);
             System.out.print(" ");
+
+            clusterEntropy.put(i, entropy);
         }
+
+        Map<Integer, Double> sorted = sortByValue(clusterEntropy);
+        System.out.println(sorted);
 
         HeatChart map = new HeatChart(matrix);
 
@@ -75,4 +82,22 @@ public class MatrixExperiments
 
     }
 
+    public static <K, V extends Comparable<? super V>> LinkedHashMap<K, V> sortByValue(Map<K, V> map)
+    {
+        List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<K, V>>()
+        {
+            @Override
+            public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2)
+            {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+
+        LinkedHashMap<K, V> result = new LinkedHashMap<>();
+        for (Map.Entry<K, V> entry : list) {
+            result.put(entry.getKey(), entry.getValue());
+        }
+        return result;
+    }
 }

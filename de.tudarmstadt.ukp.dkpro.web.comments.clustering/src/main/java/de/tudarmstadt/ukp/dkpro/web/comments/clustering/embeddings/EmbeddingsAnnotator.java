@@ -72,6 +72,10 @@ public class EmbeddingsAnnotator
     @ConfigurationParameter(name = PARAM_VECTOR_AVERAGING, mandatory = true, defaultValue = "true")
     boolean vectorAveraging;
 
+    public  static final String PARAM_TFIDF_WEIGHTING = "tfIdfWeighting";
+    @ConfigurationParameter(name = PARAM_TFIDF_WEIGHTING, mandatory = true, defaultValue = "true")
+    boolean tfIdfWeighting;
+
     protected Word2VecReader reader;
 
     protected Map<String, Vector> cache = new HashMap<>();
@@ -234,9 +238,11 @@ public class EmbeddingsAnnotator
                     // multiply by tfidf
                     double tfidf = entry.getValue();
 
-                    Vector weightedVector = vector.scale(tfidf);
+                    if (this.tfIdfWeighting) {
+                        vector.scale(tfidf);
+                    }
 
-                    vectors.add(weightedVector);
+                    vectors.add(vector);
                 }
             }
 

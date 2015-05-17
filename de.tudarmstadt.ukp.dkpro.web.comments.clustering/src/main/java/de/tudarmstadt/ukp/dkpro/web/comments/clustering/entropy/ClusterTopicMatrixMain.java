@@ -18,6 +18,8 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.entropy;
 
+import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
+import de.tudarmstadt.ukp.dkpro.core.frequency.tfidf.TfidfAnnotator;
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.embeddings.EmbeddingsAnnotator;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
@@ -39,13 +41,23 @@ public class ClusterTopicMatrixMain
 
     private String debateTopicFile;
 
+    private String tfIdfModel;
+
     public void generateClusterTopicMatrix(String outFile)
             throws Exception
     {
         SimplePipeline.runPipeline(CollectionReaderFactory
                         .createReaderDescription(XmiReader.class, XmiReader.PARAM_SOURCE_LOCATION,
                                 sourceDataDir, XmiReader.PARAM_PATTERNS,
-                                XmiReader.INCLUDE_PREFIX + "*.xmi"), AnalysisEngineFactory
+                                XmiReader.INCLUDE_PREFIX + "*.xmi"),
+                AnalysisEngineFactory.createEngineDescription(TfidfAnnotator.class,
+                        TfidfAnnotator.PARAM_FEATURE_PATH, Token.class.getName(),
+                        TfidfAnnotator.PARAM_TF_MODE,
+                        TfidfAnnotator.WeightingModeTf.LOG_PLUS_ONE,
+                        TfidfAnnotator.PARAM_IDF_MODE, TfidfAnnotator.WeightingModeIdf.LOG,
+                        TfidfAnnotator.PARAM_TFDF_PATH, tfIdfModel
+                ),
+                AnalysisEngineFactory
                         .createEngineDescription(EmbeddingsAnnotator.class,
                                 EmbeddingsAnnotator.PARAM_WORD_2_VEC_FILE, word2VecFile,
                                 EmbeddingsAnnotator.PARAM_CACHE_FILE, cacheFile),
@@ -69,10 +81,11 @@ public class ClusterTopicMatrixMain
         main.cacheFile = args[2];
         main.centroidsFile = args[3];
         main.debateTopicFile = args[4];
+        main.tfIdfModel = args[5];
 
         // prepare embedding cache
         // write cluto
-        main.generateClusterTopicMatrix(args[5]);
+        main.generateClusterTopicMatrix(args[6]);
         //        main.generateClusterTopicMatrix(args[3]);
     }
 }
