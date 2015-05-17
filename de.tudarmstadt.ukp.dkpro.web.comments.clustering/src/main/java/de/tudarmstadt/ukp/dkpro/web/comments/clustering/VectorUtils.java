@@ -192,4 +192,21 @@ public class VectorUtils
 
         return result;
     }
+
+    /**
+     * Deep copy to array of doubles
+     *
+     * @param vector vector
+     * @return array of doubles
+     */
+    public static double[] toDoubleArray(Vector vector)
+    {
+        double[] result = new double[vector.size()];
+
+        for (int i = 0; i < vector.size(); i++) {
+            result[i] = vector.get(i);
+        }
+
+        return result;
+    }
 }

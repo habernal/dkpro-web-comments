@@ -20,12 +20,14 @@ package de.tudarmstadt.ukp.dkpro.web.comments.clustering.debatefiltering;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordLemmatizer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
 import de.tudarmstadt.ukp.dkpro.core.tokit.ParagraphSplitter;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.topic.DocumentTopicAnnotator;
 import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.ArktweetTokenizerFixed;
+import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.FullDebateContentReader;
 import de.tudarmstadt.ukp.dkpro.web.comments.pipeline.SentenceOverlapSanityCheck;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
@@ -34,27 +36,29 @@ import org.apache.uima.fit.pipeline.SimplePipeline;
 /**
  * (c) 2015 Ivan Habernal
  */
+@Deprecated // doesn't work
 public class DebateFilterByTopicSimilarity
 {
 
     @Parameter(names = { "--ud", "--unlabeledDocumentsDir" },
-            description = "Unlabeled documents (from CL)")
+            description = "Unlabeled documents (from CL)", required = true)
     String unlabeledDocumentsDir;
 
     @Parameter(names = { "--tm",
-            "--topicModel" }, description = "Topic model on unlabeled documents (from CL)")
+            "--topicModel" }, description = "Topic model on unlabeled documents (from CL)",
+            required = true)
     String topicModel;
 
     @Parameter(names = { "--odtv", "--outputDomainTopicVector" },
-            description = "Output domain/topic vector (.bin)")
+            description = "Output domain/topic vector (.bin)", required = true)
     String outputDomainTopicVector;
 
     @Parameter(names = { "--dsd", "--debatesSourceDir" },
-            description = "Debates source dir (with debates .xmi)")
+            description = "Debates source dir (with debates .xmi)", required = true)
     String debatesSourceDir;
 
     @Parameter(names = { "--mdod", "--mainDebatesOutputDir" },
-            description = "Where the filtered and ranked debates will be stored")
+            description = "Where the filtered and ranked debates will be stored", required = true)
     String mainDebatesOutputDir;
 
     public void createDomainTopicVectors()
@@ -84,21 +88,57 @@ public class DebateFilterByTopicSimilarity
     }
 
     public void rankDebates()
+            throws Exception
     {
+        SimplePipeline.runPipeline(
+                // read debates
+                CollectionReaderFactory.createReaderDescription(FullDebateContentReader.class,
+                        FullDebateContentReader.PARAM_SOURCE_LOCATION, this.debatesSourceDir),
 
+                // tokenize web-texts
+                AnalysisEngineFactory.createEngineDescription(ArktweetTokenizerFixed.class),
+                // find sentences
+                AnalysisEngineFactory.createEngineDescription(StanfordSegmenter.class,
+                        StanfordSegmenter.PARAM_WRITE_TOKEN, false),
+                // lemma
+                AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
+                // sanity check
+                AnalysisEngineFactory.createEngineDescription(SentenceOverlapSanityCheck.class),
+
+                // annotate debates with topics
+                AnalysisEngineFactory.createEngineDescription(DocumentTopicAnnotator.class,
+                        DocumentTopicAnnotator.PARAM_MODEL_LOCATION, this.topicModel),
+
+                // and do the ranking and filtering
+                AnalysisEngineFactory.createEngineDescription(DebateRanker.class,
+                        DebateRanker.PARAM_DOMAIN_TOPIC_VECTOR_MODEL, this.outputDomainTopicVector,
+                        DebateRanker.PARAM_MAIN_OUTPUT_DIR, this.mainDebatesOutputDir,
+                        DebateRanker.PARAM_SOURCE_LOCATION, this.debatesSourceDir));
     }
 
     public static void main(String[] args)
             throws Exception
     {
         DebateFilterByTopicSimilarity filter = new DebateFilterByTopicSimilarity();
-        new JCommander(filter, args);
+
+        JCommander jCommander = new JCommander(filter);
+        try {
+            jCommander.parse(args);
+        }
+        catch (ParameterException ex) {
+            StringBuilder sb = new StringBuilder();
+            jCommander.usage(sb);
+            System.err.println(sb);
+            throw ex;
+        }
 
         /*
         Two documents are empty: 4636, 4657 (grep "sofaString=\"\"" *) - delete them manually
         in advance
          */
         // create domain/topic vectors
-        filter.createDomainTopicVectors();
+        //        filter.createDomainTopicVectors();
+
+        filter.rankDebates();
     }
 }
