@@ -18,6 +18,8 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.debatefiltering;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiReader;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordLemmatizer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
@@ -35,9 +37,25 @@ import org.apache.uima.fit.pipeline.SimplePipeline;
 public class DebateFilterByTopicSimilarity
 {
 
-    private String unlabeledDocumentsDir;
-    private String topicModel;
-    private String outputDomainTopicVector;
+    @Parameter(names = { "--ud", "--unlabeledDocumentsDir" },
+            description = "Unlabeled documents (from CL)")
+    String unlabeledDocumentsDir;
+
+    @Parameter(names = { "--tm",
+            "--topicModel" }, description = "Topic model on unlabeled documents (from CL)")
+    String topicModel;
+
+    @Parameter(names = { "--odtv", "--outputDomainTopicVector" },
+            description = "Output domain/topic vector (.bin)")
+    String outputDomainTopicVector;
+
+    @Parameter(names = { "--dsd", "--debatesSourceDir" },
+            description = "Debates source dir (with debates .xmi)")
+    String debatesSourceDir;
+
+    @Parameter(names = { "--mdod", "--mainDebatesOutputDir" },
+            description = "Where the filtered and ranked debates will be stored")
+    String mainDebatesOutputDir;
 
     public void createDomainTopicVectors()
             throws Exception
@@ -65,23 +83,21 @@ public class DebateFilterByTopicSimilarity
                         DomainTopicVectorProducer.PARAM_OUTPUT_FILE, this.outputDomainTopicVector));
     }
 
+    public void rankDebates()
+    {
+
+    }
+
     public static void main(String[] args)
             throws Exception
     {
         DebateFilterByTopicSimilarity filter = new DebateFilterByTopicSimilarity();
-
-        // unlabeled documents
-        filter.unlabeledDocumentsDir = args[0];
-        // existing topic model
-        filter.topicModel = args[1];
-        // output map domain/avg.topic vector
-        filter.outputDomainTopicVector = args[2];
+        new JCommander(filter, args);
 
         /*
         Two documents are empty: 4636, 4657 (grep "sofaString=\"\"" *) - delete them manually
         in advance
          */
-
         // create domain/topic vectors
         filter.createDomainTopicVectors();
     }
