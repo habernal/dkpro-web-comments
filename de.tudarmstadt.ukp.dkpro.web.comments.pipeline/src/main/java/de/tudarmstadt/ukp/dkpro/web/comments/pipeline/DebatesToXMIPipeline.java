@@ -25,6 +25,8 @@ import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
 
+import java.io.File;
+
 /**
  * @author Ivan Habernal
  */
@@ -35,31 +37,38 @@ public class DebatesToXMIPipeline
         String inFolder = args[0];
         String outFolder = args[1];
         Integer minimumPointsRequired = Integer.valueOf(args[2]);
-        try {
-            SimplePipeline.runPipeline(CollectionReaderFactory.createReaderDescription(
-                            DebateArgumentReader.class,
-                            DebateArgumentReader.PARAM_SOURCE_LOCATION,
-                            inFolder),
 
-                    // paragraphs
-                    AnalysisEngineFactory.createEngineDescription(ParagraphSplitter.class),
-                    // tokenize web-texts
-                    AnalysisEngineFactory.createEngineDescription(ArktweetTokenizerFixed.class),
-                    // find sentences
-                    AnalysisEngineFactory.createEngineDescription(StanfordSegmenter.class,
-                            StanfordSegmenter.PARAM_WRITE_TOKEN, false),
-                    // lemma
-                    AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
-                    // sanity check
-                    AnalysisEngineFactory.createEngineDescription(SentenceOverlapSanityCheck.class),
-                    AnalysisEngineFactory.createEngineDescription(FilteredArgumentXMIWriter.class,
-                            FilteredArgumentXMIWriter.PARAM_MINIMUM_ARG_POINTS_REQUIRED, minimumPointsRequired,
-                            FilteredArgumentXMIWriter.PARAM_TARGET_LOCATION, outFolder
-                    )
-            );
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
+        for (File topicDir: new File(inFolder).listFiles()) {
+            // extract the topic from the folder name
+            String argumentTopic = topicDir.getName();
+
+            try {
+                SimplePipeline.runPipeline(CollectionReaderFactory
+                                .createReaderDescription(DebateArgumentReader.class,
+                                        DebateArgumentReader.PARAM_SOURCE_LOCATION, topicDir,
+                                        DebateArgumentReader.PARAM_ARGUMENT_TOPIC, argumentTopic),
+
+                        // paragraphs
+                        AnalysisEngineFactory.createEngineDescription(ParagraphSplitter.class),
+                        // tokenize web-texts
+                        AnalysisEngineFactory.createEngineDescription(ArktweetTokenizerFixed.class),
+                        // find sentences
+                        AnalysisEngineFactory.createEngineDescription(StanfordSegmenter.class,
+                                StanfordSegmenter.PARAM_WRITE_TOKEN, false),
+                        // lemma
+                        AnalysisEngineFactory.createEngineDescription(StanfordLemmatizer.class),
+                        // sanity check
+                        AnalysisEngineFactory
+                                .createEngineDescription(SentenceOverlapSanityCheck.class),
+                        AnalysisEngineFactory
+                                .createEngineDescription(FilteredArgumentXMIWriter.class,
+                                        FilteredArgumentXMIWriter.PARAM_MINIMUM_ARG_POINTS_REQUIRED,
+                                        minimumPointsRequired,
+                                        FilteredArgumentXMIWriter.PARAM_TARGET_LOCATION, outFolder));
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

@@ -60,8 +60,8 @@ public class EmbeddingsAnnotator
     @ConfigurationParameter(name = PARAM_CACHE_FILE, mandatory = false)
     protected String cacheFile;
 
-    public static final String PARAM_KEEP_CASING = "toLowerCase";
-    @ConfigurationParameter(name = PARAM_KEEP_CASING, mandatory = true, defaultValue = "false")
+    public static final String PARAM_TO_LOWERCASE = "toLowerCase";
+    @ConfigurationParameter(name = PARAM_TO_LOWERCASE, mandatory = true, defaultValue = "false")
     boolean toLowerCase;
 
     /**
@@ -71,6 +71,10 @@ public class EmbeddingsAnnotator
     public static final String PARAM_VECTOR_AVERAGING = "vectorAveraging";
     @ConfigurationParameter(name = PARAM_VECTOR_AVERAGING, mandatory = true, defaultValue = "true")
     boolean vectorAveraging;
+
+    public  static final String PARAM_TFIDF_WEIGHTING = "tfIdfWeighting";
+    @ConfigurationParameter(name = PARAM_TFIDF_WEIGHTING, mandatory = true, defaultValue = "true")
+    boolean tfIdfWeighting;
 
     protected Word2VecReader reader;
 
@@ -234,9 +238,11 @@ public class EmbeddingsAnnotator
                     // multiply by tfidf
                     double tfidf = entry.getValue();
 
-                    Vector weightedVector = vector.scale(tfidf);
+                    if (this.tfIdfWeighting) {
+                        vector.scale(tfidf);
+                    }
 
-                    vectors.add(weightedVector);
+                    vectors.add(vector);
                 }
             }
 

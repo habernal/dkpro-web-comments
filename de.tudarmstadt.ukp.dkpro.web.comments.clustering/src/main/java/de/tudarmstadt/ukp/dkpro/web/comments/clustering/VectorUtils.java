@@ -165,4 +165,48 @@ public class VectorUtils
 
         return new DenseVector(array);
     }
+
+    /**
+     * Computes average vector of all vectors (average of each dimension)
+     *
+     * @param list list of vectors
+     * @return average vector
+     */
+    public static Vector averageVector(List<Vector> list)
+    {
+        if (list.isEmpty()) {
+            throw new IllegalArgumentException("List of vectors is empty");
+        }
+
+        // size
+        final int size = list.iterator().next().size();
+
+        // add
+        Vector result = new DenseVector(size);
+        for (Vector v : list) {
+            result.add(v);
+        }
+
+        // average
+        result.scale(1.0 / list.size());
+
+        return result;
+    }
+
+    /**
+     * Deep copy to array of doubles
+     *
+     * @param vector vector
+     * @return array of doubles
+     */
+    public static double[] toDoubleArray(Vector vector)
+    {
+        double[] result = new double[vector.size()];
+
+        for (int i = 0; i < vector.size(); i++) {
+            result[i] = vector.get(i);
+        }
+
+        return result;
+    }
 }

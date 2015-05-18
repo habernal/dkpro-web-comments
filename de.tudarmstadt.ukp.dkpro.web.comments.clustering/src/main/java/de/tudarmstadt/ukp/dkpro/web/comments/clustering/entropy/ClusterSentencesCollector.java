@@ -18,15 +18,13 @@
 
 package de.tudarmstadt.ukp.dkpro.web.comments.clustering.entropy;
 
-import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.ClusterCentroidsMain;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.ClusteringUtils;
 import de.tudarmstadt.ukp.dkpro.web.comments.clustering.VectorUtils;
 import de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasConsumer_ImplBase;
@@ -35,11 +33,7 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.List;
+import java.io.*;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
@@ -84,34 +78,22 @@ public class ClusterSentencesCollector
     public void process(JCas aJCas)
             throws AnalysisEngineProcessException
     {
-        // iterate over sentences
-        for (Sentence sentence : JCasUtil.select(aJCas, Sentence.class)) {
-            // and load the appropriate distance to centroids
-            List<Embeddings> embeddingsList = JCasUtil.selectCovered(Embeddings.class, sentence);
-
-            if (embeddingsList.size() != 1) {
-                throw new AnalysisEngineProcessException(new IllegalStateException(
-                        "Expected 1 embedding annotations for sentence, but " +
-                                embeddingsList.size() + " found." +
-                                "Sentence: " + sentence.getBegin() + sentence.getEnd() + ", "
-                                + StringUtils.join(embeddingsList.iterator(), "\n")));
-            }
-
-            Embeddings embeddings = embeddingsList.iterator().next();
+        // iterate over embeddings
+        for (Embeddings embeddings : JCasUtil.select(aJCas, Embeddings.class)) {
             DenseVector embeddingsVector = new DenseVector(embeddings.getVector().toArray());
 
             Vector distanceToClusterCentroidsVector = ClusteringUtils
-                    .transformEmbeddingVectorToDistanceToClusterCentroidsVector(
-                            embeddingsVector, centroids);
+                    .transformEmbeddingVectorToDistanceToClusterCentroidsVector(embeddingsVector,
+                            centroids);
 
             Map.Entry<Double, Integer> entry = VectorUtils
-                    .largestValues(distanceToClusterCentroidsVector, 1)
-                    .entrySet().iterator().next();
+                    .largestValues(distanceToClusterCentroidsVector, 1).entrySet().iterator()
+                    .next();
             int cluster = entry.getValue();
             double distance = entry.getKey();
 
             try {
-                appendSentence(cluster, distance, sentence.getCoveredText());
+                appendSentence(cluster, distance, embeddings.getCoveredText());
             }
             catch (IOException e) {
                 throw new AnalysisEngineProcessException(e);
@@ -125,7 +107,10 @@ public class ClusterSentencesCollector
         String fileName = String.format(Locale.ENGLISH, "%3d.txt", cluster);
         File file = new File(outputDir, fileName);
 
-        FileUtils.write(file, String.format(Locale.ENGLISH, "%.4f\t%s%n", distance, coveredText),
-                "utf-8");
+        PrintWriter pw = new PrintWriter(new FileWriter(file, true));
+
+        pw.printf(Locale.ENGLISH, "%.4f\t%s%n", distance, coveredText.replaceAll("\\n+", " "));
+
+        IOUtils.closeQuietly(pw);
     }
 }

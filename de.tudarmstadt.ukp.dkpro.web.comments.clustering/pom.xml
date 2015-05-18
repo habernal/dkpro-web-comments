@@ -55,6 +55,28 @@
 			<artifactId>de.tudarmstadt.ukp.dkpro.core.frequency-asl</artifactId>
 			<version>${dkpro.version}</version>
 		</dependency>
+
+		<!--command line parsing-->
+		<dependency>
+			<groupId>com.beust</groupId>
+			<artifactId>jcommander</artifactId>
+		</dependency>
+
+		<!-- dependency to access WebArgumentMetadata... TODO get rid of it -->
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.dkpro.argumentation.types</groupId>
+			<artifactId>de.tudarmstadt.ukp.dkpro.argumentation.types</artifactId>
+		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>de.tudarmstadt.ukp.dkpro.argumentation.types</groupId>
+				<artifactId>de.tudarmstadt.ukp.dkpro.argumentation.types</artifactId>
+				<version>0.0.3-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 </project>

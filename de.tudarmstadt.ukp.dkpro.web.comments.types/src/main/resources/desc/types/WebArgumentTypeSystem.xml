@@ -84,6 +84,12 @@
 					<description>URL of the parent debate</description>
 					<rangeTypeName>uima.cas.String</rangeTypeName>
 				</featureDescription>
+
+				<featureDescription>
+					<name>argumentTopic</name>
+					<description>Topic of the argument (if known)</description>
+					<rangeTypeName>uima.cas.String</rangeTypeName>
+				</featureDescription>
 			</features>
 		</typeDescription>
 	</types>

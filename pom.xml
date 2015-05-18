@@ -132,6 +132,12 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!-- command line parsing-->
+            <dependency>
+                <groupId>com.beust</groupId>
+                <artifactId>jcommander</artifactId>
+                <version>1.48</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
