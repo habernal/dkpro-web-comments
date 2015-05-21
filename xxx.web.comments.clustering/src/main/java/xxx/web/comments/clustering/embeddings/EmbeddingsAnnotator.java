@@ -50,8 +50,7 @@ public class EmbeddingsAnnotator
 {
     public static final String PARAM_WORD_2_VEC_FILE = "word2VecFile";
 
-    @ConfigurationParameter(name = PARAM_WORD_2_VEC_FILE, mandatory = true,
-            defaultValue = "/home/user-ukp/research/data/GoogleNews-vectors-negative300.bin")
+    @ConfigurationParameter(name = PARAM_WORD_2_VEC_FILE, mandatory = true)
     protected File word2VecFile;
 
     public static final String PARAM_CACHE_FILE = "cacheFile";

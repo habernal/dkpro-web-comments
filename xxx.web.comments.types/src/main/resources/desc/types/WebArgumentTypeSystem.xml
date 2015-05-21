@@ -19,7 +19,7 @@
 	<name>WebArgumentMetadata</name>
 	<description>Type system for debate arguments</description>
 	<version>1.0</version>
-	<vendor>(c) 2015 UKP</vendor>
+	<vendor>(c) 2015 XXX</vendor>
 	<types>
 		<typeDescription>
 			<name>xxx.web.comments.type.DebateArgumentMetaData</name>
