@@ -22,12 +22,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
-		<artifactId>de.tudarmstadt.ukp.dkpro.web.comments</artifactId>
+		<groupId>xxx.web.comments</groupId>
+		<artifactId>xxx.web.comments</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>de.tudarmstadt.ukp.dkpro.web.comments.types</artifactId>
+	<artifactId>xxx.web.comments.types</artifactId>
 
 	<dependencies>
 		<dependency>

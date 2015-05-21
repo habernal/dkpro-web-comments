@@ -21,8 +21,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
-    <artifactId>de.tudarmstadt.ukp.dkpro.web.comments</artifactId>
+    <groupId>xxx.web.comments</groupId>
+    <artifactId>xxx.web.comments</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -36,10 +36,10 @@
     </properties>
 
     <modules>
-        <module>de.tudarmstadt.ukp.dkpro.web.comments.types</module>
-        <module>de.tudarmstadt.ukp.dkpro.web.comments.extractors</module>
-        <module>de.tudarmstadt.ukp.dkpro.web.comments.pipeline</module>
-        <module>de.tudarmstadt.ukp.dkpro.web.comments.clustering</module>
+        <module>xxx.web.comments.types</module>
+        <module>xxx.web.comments.extractors</module>
+        <module>xxx.web.comments.pipeline</module>
+        <module>xxx.web.comments.clustering</module>
     </modules>
 
     <dependencies>
