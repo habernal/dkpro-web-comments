@@ -23,7 +23,7 @@
 	<vendor>(c) 2015 UKP</vendor>
 	<types>
 		<typeDescription>
-			<name>de.tudarmstadt.ukp.dkpro.web.comments.type.Embeddings</name>
+			<name>xxx.web.comments.type.Embeddings</name>
 			<description/>
 			<supertypeName>uima.tcas.Annotation</supertypeName>
 			<features>

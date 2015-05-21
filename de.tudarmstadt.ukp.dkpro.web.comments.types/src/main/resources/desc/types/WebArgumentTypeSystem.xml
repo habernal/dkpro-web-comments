@@ -24,7 +24,7 @@
 	<vendor>(c) 2015 UKP</vendor>
 	<types>
 		<typeDescription>
-			<name>de.tudarmstadt.ukp.dkpro.web.comments.type.DebateArgumentMetaData</name>
+			<name>xxx.web.comments.type.DebateArgumentMetaData</name>
 			<description>Meta data for argument from debate (i.e. createdebate)</description>
 			<supertypeName>uima.tcas.Annotation</supertypeName>
 			<features>
