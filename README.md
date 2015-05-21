@@ -1,2 +1,2 @@
-# dkpro-web-comments
+# xxx-web-comments
 Framework for extracting comments, discussions, and articles across various web sources
