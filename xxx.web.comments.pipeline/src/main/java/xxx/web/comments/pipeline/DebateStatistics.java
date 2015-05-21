@@ -1,7 +1,5 @@
 /*
- * Copyright 2015
- * Ubiquitous Knowledge Processing (UKP) Lab
- * Technische Universität Darmstadt
+ * Copyright 2015 XXX
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +27,7 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 
 /**
- * @author Ivan Habernal
+ * @author XXX
  */
 public class DebateStatistics
         extends JCasAnnotator_ImplBase

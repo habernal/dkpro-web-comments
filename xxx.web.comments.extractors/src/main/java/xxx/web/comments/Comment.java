@@ -1,7 +1,5 @@
 /*
- * Copyright 2015
- * Ubiquitous Knowledge Processing (UKP) Lab
- * Technische Universität Darmstadt
+ * Copyright 2015 XXX
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +19,7 @@ package xxx.web.comments;
 import java.util.Date;
 
 /**
- * (c) 2015 Ivan Habernal
+ * (c) 2015 XXX
  */
 public class Comment
 {

@@ -1,7 +1,5 @@
 /*
- * Copyright 2015
- * Ubiquitous Knowledge Processing (UKP) Lab
- * Technische Universität Darmstadt
+ * Copyright 2015 XXX
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +30,7 @@ import java.io.InputStream;
  * Main class for extracting raw HTML debates from debates and storing them using the
  * internal format
  *
- * @author Ivan Habernal
+ * @author XXX
  * @see Debate
  * @see DebateSerializer
  */

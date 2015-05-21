@@ -1,7 +1,5 @@
 /*
- * Copyright 2015
- * Ubiquitous Knowledge Processing (UKP) Lab
- * Technische Universität Darmstadt
+ * Copyright 2015 XXX
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +42,7 @@ import java.util.Map;
  * a serialized Map(String, Vector) file). Requires documents annotated by
  * {@link xxx.web.comments.clustering.topic.DocumentTopicAnnotator}
  * <p/>
- * (c) 2015 Ivan Habernal
+ * (c) 2015 XXX
  */
 @Deprecated // didn't work
 public class DomainTopicVectorProducer

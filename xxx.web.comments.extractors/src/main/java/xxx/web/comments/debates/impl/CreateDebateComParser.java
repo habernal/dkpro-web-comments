@@ -1,7 +1,5 @@
 /*
- * Copyright 2015
- * Ubiquitous Knowledge Processing (UKP) Lab
- * Technische Universität Darmstadt
+ * Copyright 2015 XXX
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +33,8 @@ import java.util.List;
 /**
  * Parsing  debates from {@code createdebate.com} site.
  *
- * @author Ivan Habernal
- * @author Anil Narassiguin
+ * @author XXX
+ * @author XXX
  */
 
 public class CreateDebateComParser

@@ -1,7 +1,5 @@
 /*
- * Copyright 2015
- * Ubiquitous Knowledge Processing (UKP) Lab
- * Technische Universität Darmstadt
+ * Copyright 2015 XXX
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +44,7 @@ import java.util.*;
  * Estimates topic distribution for each debate and serializes the mapping debateUrl/topics to
  * a file
  *
- * @author Ivan Habernal
+ * @author XXX
  */
 public class DebateTopicExtractorMain
         extends JCasConsumer_ImplBase

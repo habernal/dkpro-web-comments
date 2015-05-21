@@ -1,7 +1,5 @@
 /*
- * Copyright 2015
- * Ubiquitous Knowledge Processing (UKP) Lab
- * Technische Universität Darmstadt
+ * Copyright 2015 XXX
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +25,7 @@ import java.util.Locale;
 import java.util.TreeMap;
 
 /**
- * @author Ivan Habernal
+ * @author XXX
  */
 public class ClusteringUtils
 {
