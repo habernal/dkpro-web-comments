@@ -22,18 +22,18 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
-	        <artifactId>de.tudarmstadt.ukp.dkpro.web.comments</artifactId>
-        	<version>0.1-SNAPSHOT</version>
+		<groupId>xxx.web.comments</groupId>
+		<artifactId>xxx.web.comments</artifactId>
+		<version>0.1-SNAPSHOT</version>
 	</parent>
 
 
-	<artifactId>de.tudarmstadt.ukp.dkpro.web.comments.extractors</artifactId>
+	<artifactId>xxx.web.comments.extractors</artifactId>
 
 	<dependencies>
 		<dependency>
-			<groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
-			<artifactId>de.tudarmstadt.ukp.dkpro.web.comments.types</artifactId>
+			<groupId>xxx.web.comments</groupId>
+			<artifactId>xxx.web.comments.types</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 

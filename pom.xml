@@ -121,14 +121,14 @@
             </dependency>
 
             <dependency>
-                <groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
-                <artifactId>de.tudarmstadt.ukp.dkpro.web.comments.pipeline</artifactId>
+                <groupId>xxx.web.comments</groupId>
+                <artifactId>xxx.web.comments.pipeline</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
-                <artifactId>de.tudarmstadt.ukp.dkpro.web.comments.types</artifactId>
+                <groupId>xxx.web.comments</groupId>
+                <artifactId>xxx.web.comments.types</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

@@ -27,7 +27,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>xxx.comments.clustering</artifactId>
+	<artifactId>xxx.web.comments.clustering</artifactId>
 
 	<dependencies>
 		<dependency>
@@ -46,8 +46,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
-			<artifactId>de.tudarmstadt.ukp.dkpro.web.comments.pipeline</artifactId>
+			<groupId>xxx.web.comments</groupId>
+			<artifactId>xxx.web.comments.pipeline</artifactId>
 		</dependency>
 
 		<dependency>

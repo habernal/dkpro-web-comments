@@ -22,20 +22,19 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
-	        <artifactId>de.tudarmstadt.ukp.dkpro.web.comments</artifactId>
-        	<version>0.1-SNAPSHOT</version>
+		<groupId>xxx.web.comments</groupId>
+		<artifactId>xxx.web.comments</artifactId>
+		<version>0.1-SNAPSHOT</version>
 	</parent>
 
 
-	<artifactId>de.tudarmstadt.ukp.dkpro.web.comments.pipeline</artifactId>
+	<artifactId>xxx.web.comments.pipeline</artifactId>
 
 	<dependencies>
 
 		<dependency>
-			<groupId>de.tudarmstadt.ukp.dkpro.web.comments</groupId>
-			<artifactId>de.tudarmstadt.ukp.dkpro.web.comments.types</artifactId>
-			<version>${project.version}</version>
+			<groupId>xxx.web.comments</groupId>
+			<artifactId>xxx.web.comments.types</artifactId>
 		</dependency>
 
 		<dependency>
@@ -60,7 +59,6 @@
 			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
 			<artifactId>de.tudarmstadt.ukp.dkpro.core.mallet-asl</artifactId>
 		</dependency>
-
 
 
 		<dependency>
