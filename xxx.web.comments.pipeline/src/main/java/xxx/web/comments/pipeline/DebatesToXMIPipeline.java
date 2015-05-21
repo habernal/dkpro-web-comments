@@ -34,11 +34,19 @@ public class DebatesToXMIPipeline
     {
         String inFolder = args[0];
         String outFolder = args[1];
-        Integer minimumPointsRequired = Integer.valueOf(args[2]);
+        Integer minimumPointsRequired = Integer.valueOf(args[2]); // default = 1;
 
-        for (File topicDir: new File(inFolder).listFiles()) {
+        File[] files = new File(inFolder).listFiles();
+
+        if (files == null) {
+            throw new RuntimeException();
+        }
+
+        for (File topicDir : files) {
             // extract the topic from the folder name
             String argumentTopic = topicDir.getName();
+
+            File outputFolder = new File(new File(outFolder), topicDir.getName());
 
             try {
                 SimplePipeline.runPipeline(CollectionReaderFactory
@@ -62,7 +70,8 @@ public class DebatesToXMIPipeline
                                 .createEngineDescription(FilteredArgumentXMIWriter.class,
                                         FilteredArgumentXMIWriter.PARAM_MINIMUM_ARG_POINTS_REQUIRED,
                                         minimumPointsRequired,
-                                        FilteredArgumentXMIWriter.PARAM_TARGET_LOCATION, outFolder));
+                                        FilteredArgumentXMIWriter.PARAM_TARGET_LOCATION,
+                                        outputFolder));
             }
             catch (Exception ex) {
                 ex.printStackTrace();
