@@ -23,6 +23,7 @@ import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiWriter;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
+import xxx.web.comments.clustering.EmbeddingsCachePreprocessor;
 
 /**
  * @author Ivan Habernal
@@ -42,6 +43,17 @@ public class ArgumentsEmbeddingsAnnotatorMain
                         .createReaderDescription(XmiReader.class, XmiReader.PARAM_SOURCE_LOCATION,
                                 in, XmiReader.PARAM_PATTERNS,
                                 XmiReader.INCLUDE_PREFIX + "*.xmi"), AnalysisEngineFactory
+                        .createEngineDescription(
+                                EmbeddingsCachePreprocessor.class,
+                                EmbeddingsCachePreprocessor.PARAM_CACHE_FILE, cache,
+                                EmbeddingsCachePreprocessor.PARAM_WORD_2_VEC_FILE, w2vec
+                        )
+        );
+
+        SimplePipeline.runPipeline(CollectionReaderFactory
+                        .createReaderDescription(XmiReader.class, XmiReader.PARAM_SOURCE_LOCATION,
+                                in, XmiReader.PARAM_PATTERNS,
+                                XmiReader.INCLUDE_PREFIX + "*.xmi"), AnalysisEngineFactory
                         .createEngineDescription(TfidfAnnotator.class,
                                 TfidfAnnotator.PARAM_FEATURE_PATH, Token.class.getName(),
                                 TfidfAnnotator.PARAM_TFDF_PATH, tfidfModel,
@@ -50,8 +62,6 @@ public class ArgumentsEmbeddingsAnnotatorMain
                                 TfidfAnnotator.PARAM_IDF_MODE, TfidfAnnotator.WeightingModeIdf.LOG),
                 AnalysisEngineFactory.createEngineDescription(
                         EmbeddingsAnnotator.class,
-                        //                AnalysisEngineFactory
-                        //                        .createEngineDescription(WholeDocumentEmbeddingsAnnotator.class,
                         EmbeddingsAnnotator.PARAM_WORD_2_VEC_FILE, w2vec,
                         EmbeddingsAnnotator.PARAM_CACHE_FILE, cache
                 ),
