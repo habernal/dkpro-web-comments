@@ -62,8 +62,8 @@ public class Utils
      */
     public static String normalizeWhitespaceAndRemoveUnicodeControlChars(String text)
     {
-        // first replace all control characters
-        String result = text.replaceAll("\\p{Cntrl}", "");
+        // first replace all control characters except newlines
+        String result = text.replaceAll("[\\p{Cntrl}&&[^\\r\\n]]", "");
         // all weird whitespaces
         return result.replaceAll(WHITESPACE_CHAR_CLASS + "+", " ");
     }

@@ -16,7 +16,6 @@
 
 package xxx.web.comments.roomfordebate;
 
-import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -42,7 +41,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Hello world!
+ * Scraping comments to Room for Debate articles
  */
 public class NYTimesCommentsScraper
 {
@@ -89,8 +88,15 @@ public class NYTimesCommentsScraper
         return result;
     }
 
+    /**
+     * Extracts comments from the input html stream
+     *
+     * @param inputStream stream
+     * @return list of comments (never null)
+     * @throws IOException exception
+     */
     public List<Comment> extractComments(InputStream inputStream)
-            throws IOException, ParseException
+            throws IOException
     {
         List<Comment> result = new ArrayList<Comment>();
 
@@ -143,19 +149,21 @@ public class NYTimesCommentsScraper
 
                                 // translate to Java date
                                 Calendar cal = Calendar.getInstance();
-                                cal.add(Calendar.DAY_OF_YEAR, (- xDaysAgo));
+                                cal.add(Calendar.DAY_OF_YEAR, (-xDaysAgo));
                                 Date date = cal.getTime();
 
                                 comment.setTimestamp(date);
                             }
                         }
                     }
+                    // recommendations
                     else if ("footer".equals(childElement.nodeName())) {
                         Elements select = childElement.select("span.recommend-count");
                         if (!select.text().isEmpty()) {
                             comment.setRecommendCount(Integer.valueOf(select.text()));
                         }
                     }
+                    // the text
                     else if ("p".equals(childElement.nodeName())) {
                         String text = paragraphElementToString(childElement);
 
@@ -213,10 +221,10 @@ public class NYTimesCommentsScraper
     {
         try {
             NYTimesCommentsScraper nyTimesCommentsScraper = new NYTimesCommentsScraper();
-//            String html = nyTimesCommentsScraper.readHTML(
-//                    "http://www.nytimes.com/roomfordebate/2015/06/30/should-greece-abandon-the-euro/the-euro-is-a-straitjacket-for-greece");
+            //            String html = nyTimesCommentsScraper.readHTML(
+            //                    "http://www.nytimes.com/roomfordebate/2015/06/30/should-greece-abandon-the-euro/the-euro-is-a-straitjacket-for-greece");
             File tmpFile = new File("src/test/resources/nytimes-step2.html");
-//            FileUtils.writeStringToFile(tmpFile, html);
+            //            FileUtils.writeStringToFile(tmpFile, html);
 
             List<Comment> comments = nyTimesCommentsScraper
                     .extractComments(new FileInputStream(tmpFile));
