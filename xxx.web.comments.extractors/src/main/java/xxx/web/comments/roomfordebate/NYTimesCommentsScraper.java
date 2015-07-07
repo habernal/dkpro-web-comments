@@ -16,8 +16,7 @@
 
 package xxx.web.comments.roomfordebate;
 
-import xxx.web.comments.Comment;
-import xxx.web.comments.Utils;
+import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,6 +27,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import xxx.web.comments.Comment;
+import xxx.web.comments.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,10 +37,9 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Hello world!
@@ -128,8 +128,27 @@ public class NYTimesCommentsScraper
                                 childElement.select("i.trusted-icon").size() == 1);
                         // time
                         DateFormat df = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
-                        Date date = df.parse(childElement.select("a.comment-time").text());
-                        comment.setTimestamp(date);
+                        String dateText = childElement.select("a.comment-time").text();
+                        try {
+                            Date date = df.parse(dateText);
+                            comment.setTimestamp(date);
+                        }
+                        catch (ParseException e) {
+                            // maybe it's "x days ago"
+                            Pattern p = Pattern.compile("(\\d+) days ago");
+                            Matcher m = p.matcher(dateText);
+                            while (m.find()) {
+                                // get the value
+                                int xDaysAgo = Integer.valueOf(m.group(1));
+
+                                // translate to Java date
+                                Calendar cal = Calendar.getInstance();
+                                cal.add(Calendar.DAY_OF_YEAR, (- xDaysAgo));
+                                Date date = cal.getTime();
+
+                                comment.setTimestamp(date);
+                            }
+                        }
                     }
                     else if ("footer".equals(childElement.nodeName())) {
                         Elements select = childElement.select("span.recommend-count");
@@ -194,9 +213,10 @@ public class NYTimesCommentsScraper
     {
         try {
             NYTimesCommentsScraper nyTimesCommentsScraper = new NYTimesCommentsScraper();
-            //			String html = nyTimesCommentsScraper.readHTML("http://www.nytimes.com/roomfordebate/2015/02/04/regulate-internet-providers/the-internet-is-back-to-solid-regulatory-ground");
+//            String html = nyTimesCommentsScraper.readHTML(
+//                    "http://www.nytimes.com/roomfordebate/2015/06/30/should-greece-abandon-the-euro/the-euro-is-a-straitjacket-for-greece");
             File tmpFile = new File("src/test/resources/nytimes-step2.html");
-            //			FileUtils.writeStringToFile(tmpFile, html);
+//            FileUtils.writeStringToFile(tmpFile, html);
 
             List<Comment> comments = nyTimesCommentsScraper
                     .extractComments(new FileInputStream(tmpFile));
