@@ -86,6 +86,13 @@
                 <groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
                 <artifactId>de.tudarmstadt.ukp.dkpro.core.arktools-gpl</artifactId>
                 <version>${dkpro.version}</version>
+                <exclusions>
+                    <!-- conflicts of v10 with newer versions 16 and 18 -->
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
