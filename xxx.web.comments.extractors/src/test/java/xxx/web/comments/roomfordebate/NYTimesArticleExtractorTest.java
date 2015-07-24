@@ -16,11 +16,11 @@
 
 package xxx.web.comments.roomfordebate;
 
-import xxx.web.comments.Article;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;
+import xxx.web.comments.Article;
 
 import java.io.File;
 import java.io.StringWriter;

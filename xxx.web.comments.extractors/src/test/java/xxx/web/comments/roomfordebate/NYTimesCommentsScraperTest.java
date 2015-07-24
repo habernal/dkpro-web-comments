@@ -16,9 +16,11 @@
 
 package xxx.web.comments.roomfordebate;
 
-import xxx.web.comments.Comment;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+import xxx.web.comments.Comment;
 
+import java.io.StringWriter;
 import java.util.List;
 
 /**
@@ -31,8 +33,12 @@ public class NYTimesCommentsScraperTest
             throws Exception
     {
         NYTimesCommentsScraper nyTimesCommentsScraper = new NYTimesCommentsScraper();
-        List<Comment> comments = nyTimesCommentsScraper.extractComments(
-                this.getClass().getClassLoader().getResourceAsStream("nytimes-step2.html"));
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(this.getClass().getClassLoader().getResourceAsStream("nytimes-step2.html"),
+                writer, "utf-8");
+        String html = writer.toString();
+
+        List<Comment> comments = nyTimesCommentsScraper.extractComments(html);
 
         for (Comment comment : comments) {
             System.out.println(comment);

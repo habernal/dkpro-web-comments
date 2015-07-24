@@ -78,10 +78,6 @@ public class Utils
     {
         String result = text.replaceAll("\\n+", "\n");
 
-        // keep only latin-friendly characters
-        result = result.replaceAll(
-                "[[^\\p{InBasic_Latin}\\p{InLatin_1_Supplement}]+[\\u00A0-\\u00BF]+]", " ");
-
         result = normalizeWhitespaceAndRemoveUnicodeControlChars(result);
 
         // trim the lines
@@ -103,6 +99,10 @@ public class Utils
         // quotation marks
         result = result.replaceAll("[“”«»„‟]", "\"");
         result = result.replaceAll("[‘’‚‛‹›`]", "'");
+
+        // keep only latin-friendly characters
+        result = result.replaceAll(
+                "[[^\\p{InBasic_Latin}\\p{InLatin_1_Supplement}]+[\\u00A0-\\u00BF]+]", " ");
 
         return result.trim();
     }

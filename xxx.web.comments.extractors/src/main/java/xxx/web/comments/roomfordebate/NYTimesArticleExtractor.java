@@ -25,6 +25,7 @@ import xxx.web.comments.Article;
 import xxx.web.comments.Utils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
 import java.text.DateFormat;
@@ -49,7 +50,7 @@ public class NYTimesArticleExtractor
     }
 
     public Article extractArticle(String html)
-            throws ParseException
+            throws ParseException, IOException
     {
         Article result = new Article();
 
@@ -92,9 +93,13 @@ public class NYTimesArticleExtractor
         result.setDebateUrl(doc.select("div.nytint-discussion-overview > h2 > a").iterator().next()
                 .attr("href"));
 
+        // document url
+        result.setUrl(doc.select("meta[name=communityAssetURL]").attr("content"));
+
         // debate description
         result.setDebateDescription(Utils.normalize(
-                ((TextNode) doc.select("div.nytint-discussion-overview > p").iterator().next()
+                ((TextNode) doc.select("div.nytint-discussion-overview > p").iterator()
+                        .next()
                         .childNodes().iterator().next()).text()));
 
         // aurhor
