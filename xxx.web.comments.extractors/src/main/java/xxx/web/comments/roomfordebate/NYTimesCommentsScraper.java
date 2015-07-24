@@ -16,6 +16,9 @@
 
 package xxx.web.comments.roomfordebate;
 
+import com.thoughtworks.xstream.XStream;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -26,13 +29,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import xxx.web.comments.Article;
 import xxx.web.comments.Comment;
 import xxx.web.comments.Utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -220,19 +221,60 @@ public class NYTimesCommentsScraper
     public static void main(String[] args)
     {
         try {
-            NYTimesCommentsScraper nyTimesCommentsScraper = new NYTimesCommentsScraper();
-            //            String html = nyTimesCommentsScraper.readHTML(
-            //                    "http://www.nytimes.com/roomfordebate/2015/06/30/should-greece-abandon-the-euro/the-euro-is-a-straitjacket-for-greece");
-            File tmpFile = new File("src/test/resources/nytimes-step2.html");
-            //            FileUtils.writeStringToFile(tmpFile, html);
+            String links =
+                    "http://www.nytimes.com/roomfordebate/2015/05/20/same-sex-marriage-and-the-future-of-irish-catholicism/irish-catholicism-can-adapt-to-a-new-role\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/05/20/same-sex-marriage-and-the-future-of-irish-catholicism/the-catholic-church-has-already-evolved-in-ireland-thanks-to-women\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/05/20/same-sex-marriage-and-the-future-of-irish-catholicism/irelands-catholic-church-lost-its-moral-authority-a-while-ago-1\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/05/20/same-sex-marriage-and-the-future-of-irish-catholicism/theres-a-new-generation-of-irish-catholics-in-ireland\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/24/besides-the-confederate-flag-what-other-symbols-should-go/lets-focus-instead-policies-that-enforce-structural-racism\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/24/besides-the-confederate-flag-what-other-symbols-should-go/can-we-please-finally-get-rid-of-aunt-jemima\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/24/besides-the-confederate-flag-what-other-symbols-should-go/bases-named-after-confederates-are-an-insult-to-us-soldiers\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/24/besides-the-confederate-flag-what-other-symbols-should-go/rename-public-schools-that-honor-racists-but-stop-there\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/26/should-happy-hour-be-banned/happy-hour-alternatives-camaraderie-that-doesnt-lead-to-hangovers\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/26/should-happy-hour-be-banned/i-need-to-relax-with-friends-at-the-bar-at-happy-hour\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/26/should-happy-hour-be-banned/responsible-service-makes-sense-happy-hour-bans-dont\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/26/should-happy-hour-be-banned/theres-nothing-happy-about-drunk-driving-deaths\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/30/should-greece-abandon-the-euro/greece-must-leave-the-euro-to-avoid-greater-misery-from-austerity\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/30/should-greece-abandon-the-euro/greece-needs-the-euro-to-stay-competitive\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/30/should-greece-abandon-the-euro/greece-cant-afford-to-leave-the-euro-though-it-should\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/06/30/should-greece-abandon-the-euro/the-euro-is-a-straitjacket-for-greece\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/07/13/birth-control-on-demand/we-need-more-honesty-about-contraceptives-risks-and-effects\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/07/13/birth-control-on-demand/publicly-funded-birth-control-is-crucial\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/07/13/birth-control-on-demand/publicly-funded-birth-control-is-crucial\n"
+                            + "http://www.nytimes.com/roomfordebate/2015/07/13/birth-control-on-demand/women-need-dignity-more-than-sex-without-consequence";
 
-            List<Comment> comments = nyTimesCommentsScraper
-                    .extractComments(new FileInputStream(tmpFile));
+            for (String link : StringUtils.split(links, "\n")) {
+                NYTimesCommentsScraper nyTimesCommentsScraper = new NYTimesCommentsScraper();
+                System.out.println(link);
 
-            for (Comment comment : comments) {
-                System.out.println(comment);
+                String html = nyTimesCommentsScraper.readHTML(link);
+                //                    "http://www.nytimes.com/roomfordebate/2015/06/30/should-greece-abandon-the-euro/the-euro-is-a-straitjacket-for-greece");
+//                File tmpFile = new File("src/test/resources/nytimes-step2.html");
+                //            FileUtils.writeStringToFile(tmpFile, html);
+
+                List list = new ArrayList();
+
+                Article article = new NYTimesArticleExtractor().extractArticle(html);
+
+                list.add(article);
+
+
+                List comments = nyTimesCommentsScraper
+                        .extractComments(IOUtils.toInputStream(html, "utf-8"));
+
+                list.addAll(comments);
+
+//                for (Comment comment : comments) {
+//                    System.out.println(comment);
+//                }
+
+                FileOutputStream fos = new FileOutputStream(File.createTempFile("nyt", ".xml"));
+                XStream xStream = new XStream();
+
+                xStream.toXML(list, fos);
+
+                fos.close();
             }
-
         }
         catch (Exception e) {
             e.printStackTrace();

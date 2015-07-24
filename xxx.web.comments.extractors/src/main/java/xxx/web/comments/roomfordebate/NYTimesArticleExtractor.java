@@ -16,13 +16,13 @@
 
 package xxx.web.comments.roomfordebate;
 
-import xxx.web.comments.Article;
-import xxx.web.comments.Utils;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
+import xxx.web.comments.Article;
+import xxx.web.comments.Utils;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -61,9 +61,17 @@ public class NYTimesArticleExtractor
 
         String dateText = element.select("p.pubdate").text().replaceAll("Updated[\\s]+", "");
         // time
-        DateFormat df = new SimpleDateFormat("MMM dd, yyyy, hh:mm aaa", Locale.ENGLISH);
-        Date date = df.parse(dateText);
-        result.setTimestamp(date);
+        try {
+            DateFormat df = new SimpleDateFormat("MMM dd, yyyy, hh:mm aaa", Locale.ENGLISH);
+            Date date = df.parse(dateText);
+            result.setTimestamp(date);
+        }
+        catch (ParseException e) {
+            // June 24, 2015
+            DateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
+            Date date = df.parse(dateText);
+            result.setTimestamp(date);
+        }
 
         // title
         result.setTitle(Utils.normalize(element.select("h1").text()));
