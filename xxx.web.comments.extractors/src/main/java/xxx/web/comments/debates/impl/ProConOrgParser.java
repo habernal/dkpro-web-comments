@@ -19,6 +19,8 @@ package xxx.web.comments.debates.impl;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import xxx.web.comments.Utils;
 import xxx.web.comments.createdebate.Argument;
@@ -31,7 +33,8 @@ import java.io.InputStream;
 /**
  * @author Ivan Habernal
  */
-public class ProConOrgParser implements DebateParser
+public class ProConOrgParser
+        implements DebateParser
 {
     @Override
     public Debate parseDebate(InputStream inputStream)
@@ -42,7 +45,6 @@ public class ProConOrgParser implements DebateParser
         Document doc = Jsoup.parse(inputStream, "UTF-8", "http://www.procon.org/");
 
         // Set the Url of the doc
-
 
         // title
         Element body = doc.body();
@@ -56,7 +58,8 @@ public class ProConOrgParser implements DebateParser
         String title = Utils.normalize(debateTitleElements.first().text());
         result.setTitle(title);
 
-        Element trAnswers = body.select("tr > td > b:contains(PRO \\(yes\\))").parents().first().parents().first().nextElementSibling();
+        Element trAnswers = body.select("tr > td > b:contains(PRO \\(yes\\))").parents().first()
+                .parents().first().nextElementSibling();
 
         // the PRO side
         Element proTd = trAnswers.select("td").get(0);
@@ -66,75 +69,61 @@ public class ProConOrgParser implements DebateParser
         System.out.println(conTd.select("blockquote").size());
 
         Elements texts = proTd.select("blockquote > div[class=editortext]");
-        for (Element text: texts) {
+        for (Element text : texts) {
             Argument argument = new Argument();
             argument.setStance("pro");
-            argument.setText(removeQuotes(text.text()));
-
-            // TODO make sure we parse paragraphs as well
+            argument.setText(extractPlainTextFromTextElement(text));
 
             result.getArgumentList().add(argument);
         }
 
         texts = conTd.select("blockquote > div[class=editortext]");
-        for (Element text: texts) {
+        for (Element text : texts) {
             Argument argument = new Argument();
             argument.setStance("con");
-            argument.setText(removeQuotes(text.text()));
+            argument.setText(extractPlainTextFromTextElement(text));
 
             result.getArgumentList().add(argument);
         }
 
-        /*
-        Element twoSidesAndScores = body
-                .select("table[style=margin:0 auto;padding:0;border:0;text-align:center;width:98%;]")
-                .first();
-
-        if (twoSidesAndScores == null) {
-            // this is not a two-side debate
-            return null;
-        }
-
-        Elements twoSides = twoSidesAndScores.select("div[class=sideTitle]");
-        if (twoSides.size() != 2) {
-            // this is not a two-side debate
-            return null;
-        }
-
-        // description
-        StringBuilder debateDescriptionBuilder = new StringBuilder();
-        Element description = body.select("#description").first();
-
-        if (description != null) {
-            Element descriptionText = description.select("div[class=centered debatelongDesc]")
-                    .first();
-            if (descriptionText.select("p").isEmpty()) {
-                // just extract the text
-                debateDescriptionBuilder.append(descriptionText.text());
-            }
-            else if ("".equals(descriptionText.select("p").first().text())) {
-                // extract paragraphs
-                for (Element p : descriptionText.select("p").select("span")) {
-                    debateDescriptionBuilder.append(p.ownText());
-                    debateDescriptionBuilder.append("\n");
-                }
-            }
-            else {
-                // extract paragraphs
-                for (Element p : descriptionText.select("p")) {
-                    debateDescriptionBuilder.append(p.text());
-                    debateDescriptionBuilder.append("\n");
-                }
-            }
-        }
-        result.setDescription(Utils.normalize(debateDescriptionBuilder.toString()));
-        */
-
         return result;
     }
 
-    private static String removeQuotes(String s)
+    /**
+     * Extracts the document of the quote
+     *
+     * @param textElement text quote element
+     * @return plain string with paragraphs kept
+     */
+    protected static String extractPlainTextFromTextElement(Element textElement)
     {
-        return s.replaceAll("[(^\")(\"$)]", "");
+        StringBuilder sb = new StringBuilder();
+
+        for (Node childNode : textElement.childNodes()) {
+            if (childNode instanceof Element) {
+                Element childElement = (Element) childNode;
+
+                String tagName = childElement.tagName();
+
+                if ("p".equals(tagName) || "span".equals(tagName)) {
+                    sb.append(childElement.text());
+                    sb.append("\n");
+                }
+                else if ("br".equals(tagName)) {
+                    // prevent double newlines
+                    sb = new StringBuilder(sb.toString().trim());
+                    sb.append("\n");
+                }
+
+            }
+            else if (childNode instanceof TextNode) {
+                TextNode textNode = (TextNode) childNode;
+
+                sb.append(textNode.text());
+            }
+        }
+
+        // remove leading + ending quotes
+        return Utils.normalize(sb.toString()).replaceAll("[(^\")(\"$)]", "");
     }
 }
