@@ -41,6 +41,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Ivan Habernal
@@ -92,11 +94,10 @@ public class ProConOrgParser
         Element proTd = trAnswers.select("td").get(0);
         Element conTd = trAnswers.select("td").get(1);
 
-//        System.out.println(proTd.select("blockquote").size());
-//        System.out.println(conTd.select("blockquote").size());
+        //        System.out.println(proTd.select("blockquote").size());
+        //        System.out.println(conTd.select("blockquote").size());
 
-        Elements texts = proTd.select("blockquote > div[class=editortext]");
-        for (Element text : texts) {
+        for (Element text : proTd.select("blockquote > div[class=editortext]")) {
             Argument argument = new Argument();
             argument.setStance("pro");
             argument.setText(extractPlainTextFromTextElement(text));
@@ -114,15 +115,14 @@ public class ProConOrgParser
             }
         }
 
-        texts = conTd.select("blockquote > div[class=editortext]");
-        for (Element text : texts) {
+        for (Element text : conTd.select("blockquote > div[class=editortext]")) {
             Argument argument = new Argument();
             argument.setStance("con");
             argument.setText(extractPlainTextFromTextElement(text));
             argument.setOriginalHTML(text.html());
 
             idCounter++;
-            argument.setId("prq_" + idCounter);
+            argument.setId("pcq_" + idCounter);
 
             if (!argument.getText().isEmpty()) {
                 result.getArgumentList().add(argument);
@@ -131,6 +131,15 @@ public class ProConOrgParser
                 System.err.println("Failed to extract text from " + text.html());
             }
         }
+
+        // show some stats:
+        Map<String, Integer> map = new HashMap<>();
+        map.put("pro", 0);
+        map.put("con", 0);
+        for (Argument argument : result.getArgumentList()) {
+            map.put(argument.getStance(), map.get(argument.getStance()) + 1);
+        }
+        System.out.println(map);
 
         return result;
     }
@@ -199,6 +208,7 @@ public class ProConOrgParser
             catch (Exception ex) {
                 throw new Exception(f.getAbsolutePath(), ex);
             }
+            IOUtils.closeQuietly(inputStream);
 
             if (debate != null) {
 
@@ -206,7 +216,7 @@ public class ProConOrgParser
                 for (Argument argument : debate.getArgumentList()) {
                     String title = debate.getTitle().replaceAll("[^A-Za-z0-9]", "_");
 
-                    String docId = argument.getId() + "_" + title;
+                    String docId = argument.getId() + "_" + argument.getStance() + "_" + title;
 
                     // lets do some UIMA preprocessing
                     try {
@@ -214,11 +224,14 @@ public class ProConOrgParser
                         JCas jCas = JCasFactory.createJCas();
                         jCas.setDocumentLanguage("en");
                         jCas.setDocumentText(argument.getText());
+
                         // metadata
                         DocumentMetaData metaData = DocumentMetaData.create(jCas);
                         metaData.setDocumentId(docId);
                         // we set the the id as title
                         metaData.setDocumentTitle(docId);
+
+                        System.out.println(docId);
 
                         // pipeline
                         SimplePipeline.runPipeline(jCas,
@@ -236,7 +249,6 @@ public class ProConOrgParser
                     }
                 }
 
-                IOUtils.closeQuietly(inputStream);
             }
         }
 
