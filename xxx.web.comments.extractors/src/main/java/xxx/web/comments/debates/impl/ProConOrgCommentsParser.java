@@ -1,5 +1,7 @@
 /*
- * Copyright 2015 XXX
+ * Copyright 2015
+ * Ubiquitous Knowledge Processing (UKP) Lab
+ * Technische Universität Darmstadt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,13 +43,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Ivan Habernal
  */
-public class ProConOrgParser
+public class ProConOrgCommentsParser
         implements DebateParser
 {
     // for counting ids
@@ -65,17 +65,36 @@ public class ProConOrgParser
 
         // title
         Element body = doc.body();
-        Elements debateTitleElements = body.select("h2");
-        //        Elements debateTitleElements = body.select("p[class=title]").select("p[style]");
 
-        if (debateTitleElements.first() == null) {
-            // not a debate
-            return null;
+        Elements pro = body.select("div[class=column pro]");
+//        System.out.println(pro);
+
+        Elements comments = pro.select("ul[class=comments] > li[class^=comment]");
+        System.out.println(comments.size());
+
+        for (Element element : comments) {
+            Element blockquote = element.select("blockquote").iterator().next();
+            System.out.println("----------");
+
+            System.out.println(ProConOrgParser.extractPlainTextFromTextElement(blockquote));
         }
 
-        String title = Utils.normalize(debateTitleElements.first().text());
-        result.setTitle(title);
+        //TODO: finish
 
+        //        Elements debateTitleElements = body.select("h2");
+        //        Elements debateTitleElements = body.select("p[class=title]").select("p[style]");
+
+//        if (debateTitleElements.first() == null) {
+            // not a debate
+//            return null;
+//        }
+
+//        String title = Utils.normalize(debateTitleElements.first().text());
+//        result.setTitle(title);
+
+
+
+        /*
         Elements proConTr = body.select("tr > td > b:contains(PRO \\(yes\\))");
 
         if (proConTr == null || proConTr.parents() == null ||
@@ -141,6 +160,7 @@ public class ProConOrgParser
         }
         System.out.println(map);
 
+*/
         return result;
     }
 
@@ -150,7 +170,7 @@ public class ProConOrgParser
      * @param textElement text quote element
      * @return plain string with paragraphs kept
      */
-    public static String extractPlainTextFromTextElement(Element textElement)
+    protected static String extractPlainTextFromTextElement(Element textElement)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -193,7 +213,7 @@ public class ProConOrgParser
             throw new IOException("No such dir: " + inFolder);
         }
 
-        DebateParser debateParser = new ProConOrgParser();
+        DebateParser debateParser = new ProConOrgCommentsParser();
 
         for (File f : files) {
             InputStream inputStream = new FileInputStream(f);
