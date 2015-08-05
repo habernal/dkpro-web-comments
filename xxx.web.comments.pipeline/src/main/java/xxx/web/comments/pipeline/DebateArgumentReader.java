@@ -112,7 +112,7 @@ public class DebateArgumentReader
         DebateArgumentMetaData argumentMetaData = new DebateArgumentMetaData(jCas);
         argumentMetaData.addToIndexes();
 
-        argumentMetaData.setArgPoints(argument.getArgPoints());
+        argumentMetaData.setArgPoints(argument.getVoteUpCount());
         argumentMetaData.setAuthor(argument.getAuthor());
         argumentMetaData.setId(argument.getId());
         argumentMetaData.setParentId(argument.getParentId());

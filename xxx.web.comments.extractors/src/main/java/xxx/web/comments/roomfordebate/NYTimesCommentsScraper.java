@@ -16,10 +16,6 @@
 
 package xxx.web.comments.roomfordebate;
 
-import com.thoughtworks.xstream.XStream;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,12 +26,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import xxx.web.comments.Article;
 import xxx.web.comments.Comment;
 import xxx.web.comments.Utils;
 
 import java.io.*;
-import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -163,7 +157,7 @@ public class NYTimesCommentsScraper
                     else if ("footer".equals(childElement.nodeName())) {
                         Elements select = childElement.select("span.recommend-count");
                         if (!select.text().isEmpty()) {
-                            comment.setRecommendCount(Integer.valueOf(select.text()));
+                            comment.setVoteUpCount(Integer.valueOf(select.text()));
                         }
                     }
                     // the text

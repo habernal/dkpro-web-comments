@@ -16,6 +16,8 @@
 
 package xxx.web.comments.createdebate;
 
+import java.util.Date;
+
 /**
  * (c) 2015 XXX
  */
@@ -27,9 +29,14 @@ public class Argument
     private String author;
 
     /**
-     * Number of points this argument got from the debate portal user
+     * Number of points this argument got "vote-up" the debate portal user
      */
-    private Integer argPoints;
+    private Integer voteUpCount;
+
+    /**
+     * Number of points this argument got "vote-down" the debate portal user
+     */
+    private int voteDownCount;
 
     /**
      * Stance taken by the author (always only two options per debate)
@@ -56,14 +63,16 @@ public class Argument
      */
     private String originalHTML;
 
+    private Date timestamp;
+
     public void setAuthor(String author)
     {
         this.author = author;
     }
 
-    public void setArgPoints(Integer argPoints)
+    public void setVoteUpCount(Integer argPoints)
     {
-        this.argPoints = argPoints;
+        this.voteUpCount = argPoints;
     }
 
     public void setStance(String stance)
@@ -91,9 +100,9 @@ public class Argument
         return this.author;
     }
 
-    public Integer getArgPoints()
+    public Integer getVoteUpCount()
     {
-        return this.argPoints;
+        return this.voteUpCount;
     }
 
     public String getStance()
@@ -118,18 +127,6 @@ public class Argument
         return this.id;
     }
 
-    @Override public String toString()
-    {
-        return "Argument{" +
-                "author='" + author + '\'' +
-                ", argPoints=" + argPoints +
-                ", stance='" + stance + '\'' +
-                ", text='" + text + '\'' +
-                ", parentId='" + parentId + '\'' +
-                ", id='" + id + '\'' +
-                '}';
-    }
-
     public String getOriginalHTML()
     {
         return originalHTML;
@@ -138,5 +135,40 @@ public class Argument
     public void setOriginalHTML(String originalHTML)
     {
         this.originalHTML = originalHTML;
+    }
+
+    public void setVoteDownCount(int voteDownCount)
+    {
+        this.voteDownCount = voteDownCount;
+    }
+
+    public int getVoteDownCount()
+    {
+        return voteDownCount;
+    }
+
+    public Date getTimestamp()
+    {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp)
+    {
+        this.timestamp = timestamp;
+    }
+
+    @Override public String toString()
+    {
+        return "Argument{" +
+                "author='" + author + '\'' +
+                ", voteUpCount=" + voteUpCount +
+                ", voteDownCount=" + voteDownCount +
+                ", stance='" + stance + '\'' +
+                ", text='" + text + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", id='" + id + '\'' +
+                ", originalHTML='" + originalHTML + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }

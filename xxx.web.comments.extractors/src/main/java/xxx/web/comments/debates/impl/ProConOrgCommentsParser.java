@@ -19,14 +19,16 @@
 package xxx.web.comments.debates.impl;
 
 import de.tudarmstadt.ukp.dkpro.core.api.metadata.type.DocumentMetaData;
+import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiWriter;
-import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
+import de.tudarmstadt.ukp.dkpro.core.languagetool.LanguageToolSegmenter;
 import de.tudarmstadt.ukp.dkpro.core.tokit.ParagraphSplitter;
 import org.apache.commons.io.IOUtils;
 import org.apache.uima.UIMAException;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.JCasFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
+import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -43,6 +45,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author Ivan Habernal
@@ -66,102 +75,107 @@ public class ProConOrgCommentsParser
         // title
         Element body = doc.body();
 
-        Elements pro = body.select("div[class=column pro]");
-//        System.out.println(pro);
+        Map<String, Elements> proConElements = new HashMap<>();
+        proConElements.put("pro", body.select("div[class=column pro]"));
+        proConElements.put("con", body.select("div[class=column con]"));
 
-        Elements comments = pro.select("ul[class=comments] > li[class^=comment]");
-        System.out.println(comments.size());
+        //        Elements pro = body.select("div[class=column pro]");
+        //        System.out.println(pro);
 
-        for (Element element : comments) {
-            Element blockquote = element.select("blockquote").iterator().next();
-            System.out.println("----------");
+        // title
+        result.setTitle(Utils.normalize(body.select("h2").text()));
 
-            System.out.println(ProConOrgParser.extractPlainTextFromTextElement(blockquote));
-        }
+        for (Map.Entry<String, Elements> entry : proConElements.entrySet()) {
+            // stance
+            String stance = entry.getKey();
 
-        //TODO: finish
+            Elements comments = entry.getValue().select("ul.comments > li[class^=comment]");
 
-        //        Elements debateTitleElements = body.select("h2");
-        //        Elements debateTitleElements = body.select("p[class=title]").select("p[style]");
+            for (Element element : comments) {
 
-//        if (debateTitleElements.first() == null) {
-            // not a debate
-//            return null;
-//        }
+                Element divContent = element.select("div.contents").iterator().next();
 
-//        String title = Utils.normalize(debateTitleElements.first().text());
-//        result.setTitle(title);
+                // extract argument content
+                Argument argument = extractArgumentFromDivContent(divContent);
+                // extract ID
+                String parentId = element.attr("id").replace(":", "_");
 
+                if (parentId == null) {
+                    throw new IllegalStateException("Parent id must be known");
+                }
 
+                argument.setId(parentId);
+                // set stance - we know it
+                argument.setStance(stance);
 
-        /*
-        Elements proConTr = body.select("tr > td > b:contains(PRO \\(yes\\))");
-
-        if (proConTr == null || proConTr.parents() == null ||
-                proConTr.parents().first() == null ||
-                proConTr.parents().first().parents() == null ||
-                proConTr.parents().first().parents().first() == null ||
-                proConTr.parents().first().parents().first().nextElementSibling() == null) {
-            // not a pro-con debate
-            return null;
-        }
-
-        Element trAnswers = proConTr.parents().first()
-                .parents().first().nextElementSibling();
-
-        // the PRO side
-        Element proTd = trAnswers.select("td").get(0);
-        Element conTd = trAnswers.select("td").get(1);
-
-        //        System.out.println(proTd.select("blockquote").size());
-        //        System.out.println(conTd.select("blockquote").size());
-
-        for (Element text : proTd.select("blockquote > div[class=editortext]")) {
-            Argument argument = new Argument();
-            argument.setStance("pro");
-            argument.setText(extractPlainTextFromTextElement(text));
-            argument.setOriginalHTML(text.html());
-
-            // set ID
-            idCounter++;
-            argument.setId("pcq_" + idCounter);
-
-            if (!argument.getText().isEmpty()) {
                 result.getArgumentList().add(argument);
-            }
-            else {
-                System.err.println("Failed to extract text from " + text.html());
+
+                Elements divReplies = element.select("li[class^=reply]");
+
+                //                System.out.println(divReplies.size());
+
+                for (Element divReply : divReplies) {
+
+                    Element replyDivContent = divReply.select("div.contents").iterator().next();
+
+                    // extract reply argument
+                    Argument replyArgument = extractArgumentFromDivContent(replyDivContent);
+
+                    // set id and parentId
+                    String id = element.attr("id").replace(":", "_");
+                    replyArgument.setId(id);
+
+                    if (id == null) {
+                        throw new IllegalStateException("Id must be known");
+                    }
+
+                    replyArgument.setParentId(parentId);
+
+                    // add to debate
+                    result.getArgumentList().add(replyArgument);
+                }
+
             }
         }
 
-        for (Element text : conTd.select("blockquote > div[class=editortext]")) {
-            Argument argument = new Argument();
-            argument.setStance("con");
-            argument.setText(extractPlainTextFromTextElement(text));
-            argument.setOriginalHTML(text.html());
-
-            idCounter++;
-            argument.setId("pcq_" + idCounter);
-
-            if (!argument.getText().isEmpty()) {
-                result.getArgumentList().add(argument);
-            }
-            else {
-                System.err.println("Failed to extract text from " + text.html());
-            }
-        }
-
-        // show some stats:
-        Map<String, Integer> map = new HashMap<>();
-        map.put("pro", 0);
-        map.put("con", 0);
-        for (Argument argument : result.getArgumentList()) {
-            map.put(argument.getStance(), map.get(argument.getStance()) + 1);
-        }
-        System.out.println(map);
-
-*/
         return result;
+    }
+
+    protected static Argument extractArgumentFromDivContent(Element divContent)
+    {
+        Argument argument = new Argument();
+
+        Element blockquote = divContent.select("blockquote").iterator().next();
+        //        System.out.println("----------");
+
+        String text = ProConOrgParser.extractPlainTextFromTextElement(blockquote);
+        argument.setText(text);
+
+        String votesUpText = divContent.select("span.votes-up").text();
+        String votesDownText = divContent.select("span.votes-down").text();
+
+        int votesUp = Integer.valueOf(votesUpText);
+        int votesDown = Integer.valueOf(votesDownText);
+
+        argument.setVoteUpCount(votesUp);
+        argument.setVoteDownCount(Math.abs(votesDown));
+
+        argument.setAuthor(divContent.select("span.name").text());
+
+        // time
+        DateFormat df = new SimpleDateFormat("MMM. dd, yyyy", Locale.ENGLISH);
+        String dateText = divContent.select("span.date").text();
+        try {
+            Date date = df.parse(dateText);
+            argument.setTimestamp(date);
+        }
+        catch (ParseException e) {
+            // e.printStackTrace();
+        }
+
+        //        System.out.println(argument);
+
+        return argument;
     }
 
     /**
@@ -251,17 +265,20 @@ public class ProConOrgCommentsParser
                         // we set the the id as title
                         metaData.setDocumentTitle(docId);
 
-                        System.out.println(docId);
-
                         // pipeline
                         SimplePipeline.runPipeline(jCas,
                                 AnalysisEngineFactory
                                         .createEngineDescription(ParagraphSplitter.class),
+                                // only this segmenter can deal with multiple dots etc. - use this one!
                                 AnalysisEngineFactory
-                                        .createEngineDescription(StanfordSegmenter.class),
+                                        .createEngineDescription(LanguageToolSegmenter.class),
                                 AnalysisEngineFactory.createEngineDescription(XmiWriter.class,
                                         XmiWriter.PARAM_TARGET_LOCATION, outFolder)
                         );
+
+                        for (Sentence s : JCasUtil.select(jCas, Sentence.class)) {
+                            System.out.println(s.getCoveredText());
+                        }
                     }
                     catch (UIMAException e) {
                         throw new IOException(

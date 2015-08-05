@@ -156,7 +156,7 @@ public class CreateDebateComParser
         result.setAuthor(name.ownText());
 
         Element argPoints = argBox.select("span[id~=tot.*]").first();
-        result.setArgPoints(Integer.parseInt(argPoints.ownText()));
+        result.setVoteUpCount(Integer.parseInt(argPoints.ownText()));
 
         // stance
         String stance = argBox.select("div.subtext").iterator().next().text()

@@ -185,7 +185,7 @@ public class ConvinceMeNetParser
         result.setId(id);
         result.setParentId(parentId);
         result.setAuthor(author);
-        result.setArgPoints(points);
+        result.setVoteUpCount(points);
         result.setText(text);
 
         return result;

@@ -40,7 +40,9 @@ public class Comment
 
     private Date timestamp;
 
-    private int recommendCount;
+    private int voteUpCount;
+
+    private int voteDownCount;
 
     public String getText()
     {
@@ -122,14 +124,24 @@ public class Comment
         this.timestamp = timestamp;
     }
 
-    public int getRecommendCount()
+    public int getVoteUpCount()
     {
-        return recommendCount;
+        return voteUpCount;
     }
 
-    public void setRecommendCount(int recommendCount)
+    public void setVoteUpCount(int voteUpCount)
     {
-        this.recommendCount = recommendCount;
+        this.voteUpCount = voteUpCount;
+    }
+
+    public int getVoteDownCount()
+    {
+        return voteDownCount;
+    }
+
+    public void setVoteDownCount(int voteDownCount)
+    {
+        this.voteDownCount = voteDownCount;
     }
 
     @Override public String toString()
@@ -143,7 +155,8 @@ public class Comment
                 ", commenterTrusted=" + commenterTrusted +
                 ", commenterLocation='" + commenterLocation + '\'' +
                 ", timestamp=" + timestamp +
-                ", recommendCount=" + recommendCount +
+                ", recommendCount=" + voteUpCount +
+                ", downVoteCount=" + voteDownCount +
                 '}';
     }
 }
